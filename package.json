@@ -1,0 +1,44 @@
+{
+  "name": "neiki-page-editor",
+  "version": "0.1.0",
+  "description": "Lightweight, framework-agnostic visual page/CMS editor with iframe canvas rendering",
+  "type": "module",
+  "main": "dist/neiki-page-editor.js",
+  "module": "dist/neiki-page-editor.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/neiki-page-editor.esm.js",
+      "require": "./dist/neiki-page-editor.js"
+    },
+    "./css": "./dist/neiki-page-editor.css"
+  },
+  "files": [
+    "dist/",
+    "php/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node build.cjs",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.cjs test/unit/ --testPathPattern=\"\\.test\\.js$\"",
+    "test:property": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.cjs test/property/ --testPathPattern=\"\\.property\\.js$\"",
+    "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.cjs test/integration/ --testPathPattern=\"\\.test\\.js$\"",
+    "test:all": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.cjs"
+  },
+  "keywords": [
+    "editor",
+    "page-editor",
+    "cms",
+    "rich-text",
+    "wysiwyg",
+    "iframe",
+    "vanilla-js"
+  ],
+  "author": "neikiri",
+  "license": "SEE LICENSE IN LICENSE",
+  "devDependencies": {
+    "esbuild": "0.25.5",
+    "fast-check": "^3.22.0",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0"
+  }
+}

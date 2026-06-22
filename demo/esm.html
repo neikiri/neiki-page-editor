@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neiki's Page Editor — ESM Demo</title>
+  <!-- Standalone CSS for ESM usage -->
+  <link rel="stylesheet" href="../dist/neiki-page-editor.css">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #f9f9f9;
+      color: #222;
+    }
+    h1 { font-size: 20px; margin-bottom: 16px; }
+    #editor-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .controls {
+      margin-top: 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 6px 14px;
+      background: #0057cc;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    button:hover { background: #004ab3; }
+    pre {
+      margin-top: 16px;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="editor-container">
+    <h1>Neiki's Page Editor — ESM Demo</h1>
+
+    <div id="editor"></div>
+
+    <div class="controls">
+      <button id="btn-get">Get Content</button>
+      <button id="btn-set">Set Content</button>
+      <button id="btn-dark">Dark Theme</button>
+      <button id="btn-light">Light Theme</button>
+      <button id="btn-destroy">Destroy</button>
+    </div>
+
+    <pre id="output">Loading editor via ESM…</pre>
+  </div>
+
+  <script type="module">
+    import NeikiPageEditor from '../dist/neiki-page-editor.esm.js';
+
+    let editor = new NeikiPageEditor('#editor', {
+      initialContent: '<p>ESM import demo. <em>Edit me!</em></p>',
+      minHeight: 300,
+      theme: 'light',
+      language: 'en',
+      onReady(ed) {
+        document.getElementById('output').textContent = 'Editor ready (ESM build).';
+      },
+    });
+
+    document.getElementById('btn-get').onclick = () => {
+      document.getElementById('output').textContent = editor ? editor.getContent() : '(destroyed)';
+    };
+    document.getElementById('btn-set').onclick = () => {
+      if (editor) editor.setContent('<p>Content set via <code>setContent()</code>.</p>');
+    };
+    document.getElementById('btn-dark').onclick = () => { if (editor) editor.setTheme('dark'); };
+    document.getElementById('btn-light').onclick = () => { if (editor) editor.setTheme('light'); };
+    document.getElementById('btn-destroy').onclick = () => {
+      if (editor) { editor.destroy(); editor = null; }
+      document.getElementById('output').textContent = 'Editor destroyed.';
+    };
+  </script>
+</body>
+</html>

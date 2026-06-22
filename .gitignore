@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE / editors
+.vscode/
+.idea/
+.kiro/
+*.code-workspace
+
+# Test / coverage
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Cache / temp
+.cache/
+.esbuild/
+.vite/
+tmp/
+temp/
+*.tmp
+
+# PHP / Composer
+vendor/
+composer.phar
+
+# Local databases / uploads
+*.sqlite
+*.sqlite3
+*.db
+uploads/
+storage/
+
+# Secrets / certificates / keys
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Design source files
+*.psd
+*.psb
+*.ai
+*.xd
+*.sketch
+*.fig
+*.afdesign
+*.afphoto
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.swp
+*.swo
+
+# Reference folder
+ref/

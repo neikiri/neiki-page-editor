@@ -1,0 +1,1580 @@
+/**
+ * Neiki's Page Editor — editor chrome CSS
+ * All classes use the npe- prefix to avoid conflicts with page content.
+ * Theme CSS (dark, blue, etc.) comes at the end of this file.
+ */
+
+/* ─── CSS Custom Properties (light theme defaults) ─────────────────────────── */
+:root,
+.npe-editor {
+  --npe-font: system-ui, -apple-system, sans-serif;
+  --npe-font-size: 13px;
+
+  /* Chrome colors */
+  --npe-chrome-bg: #f5f5f5;
+  --npe-chrome-border: #d0d0d0;
+  --npe-chrome-text: #222;
+  --npe-chrome-text-muted: #666;
+
+  /* Toolbar */
+  --npe-toolbar-bg: #ffffff;
+  --npe-toolbar-border: #d0d0d0;
+  --npe-toolbar-btn-hover-bg: #e8e8e8;
+  --npe-toolbar-btn-active-bg: #d0e4ff;
+  --npe-toolbar-btn-active-text: #0057cc;
+  --npe-toolbar-separator: #d0d0d0;
+
+  /* Canvas */
+  --npe-canvas-bg: #fff;
+  --npe-canvas-border: #d0d0d0;
+
+  /* Status bar */
+  --npe-statusbar-bg: #f0f0f0;
+  --npe-statusbar-border: #d0d0d0;
+  --npe-statusbar-text: #555;
+
+  /* Focus ring */
+  --npe-focus-ring: 0 0 0 2px #0057cc66;
+
+  /* Z-index layers */
+  --npe-z-overlay: 10;
+  --npe-z-toolbar: 20;
+  --npe-z-modal: 1000;
+  --npe-z-toast: 1100;
+}
+
+/* ─── Editor Shell ──────────────────────────────────────────────────────────── */
+.npe-editor {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  color: var(--npe-chrome-text);
+  background: var(--npe-chrome-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.npe-editor *,
+.npe-editor *::before,
+.npe-editor *::after {
+  box-sizing: border-box;
+}
+
+/* ─── Toolbar ───────────────────────────────────────────────────────────────── */
+.npe-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 6px;
+  background: var(--npe-toolbar-bg);
+  border-bottom: 1px solid var(--npe-toolbar-border);
+  position: relative;
+  z-index: var(--npe-z-toolbar);
+  min-height: 40px;
+}
+
+.npe-toolbar-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1px;
+  padding: 0 2px;
+}
+
+/* Toolbar separator */
+.npe-toolbar-sep {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: var(--npe-toolbar-separator);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* Toolbar buttons */
+.npe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--npe-chrome-text);
+  cursor: pointer;
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  line-height: 1;
+  transition: background 0.1s, border-color 0.1s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.npe-btn:hover {
+  background: var(--npe-toolbar-btn-hover-bg);
+  border-color: var(--npe-chrome-border);
+}
+
+.npe-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+.npe-btn[aria-pressed="true"],
+.npe-btn.npe-active {
+  background: var(--npe-toolbar-btn-active-bg);
+  color: var(--npe-toolbar-btn-active-text);
+  border-color: var(--npe-toolbar-btn-active-bg);
+}
+
+.npe-btn[aria-disabled="true"],
+.npe-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* SVG icons inside toolbar buttons */
+.npe-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+  pointer-events: none;
+}
+
+/* Visible text label inside a button (used by Insert dropdown) */
+.npe-btn-label {
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+  margin-left: 2px;
+}
+
+/* ─── Canvas Wrapper ────────────────────────────────────────────────────────── */
+.npe-canvas-wrapper {
+  position: relative;
+  background: var(--npe-canvas-bg);
+  flex: 1 1 auto;
+  overflow: hidden;
+  /* Ensure the wrapper has an intrinsic height so the iframe fills it */
+  display: flex;
+  flex-direction: column;
+}
+
+.npe-canvas-wrapper iframe {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  /* iframe height falls back to min-height when no explicit height is set */
+  min-height: inherit;
+  border: 0;
+}
+
+/* ─── Overlay Layer ─────────────────────────────────────────────────────────── */
+.npe-overlay-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--npe-z-overlay);
+}
+
+/* ─── Status Bar ────────────────────────────────────────────────────────────── */
+.npe-statusbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 3px 10px;
+  background: var(--npe-statusbar-bg);
+  border-top: 1px solid var(--npe-statusbar-border);
+  color: var(--npe-statusbar-text);
+  font-size: 11px;
+  min-height: 24px;
+  flex-shrink: 0;
+}
+
+.npe-statusbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* ─── Dropdowns ─────────────────────────────────────────────────────────────── */
+.npe-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background: var(--npe-toolbar-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: var(--npe-z-modal);
+  padding: 4px 0;
+  list-style: none;
+  margin: 2px 0 0;
+}
+
+.npe-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: var(--npe-chrome-text);
+  font-size: var(--npe-font-size);
+  white-space: nowrap;
+}
+
+.npe-dropdown-item:hover {
+  background: var(--npe-toolbar-btn-hover-bg);
+}
+
+.npe-dropdown-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--npe-chrome-text);
+}
+
+.npe-dropdown-item-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+}
+
+/* ─── Modals ────────────────────────────────────────────────────────────────── */
+.npe-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: calc(var(--npe-z-modal) - 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.npe-modal {
+  background: var(--npe-toolbar-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  min-width: 320px;
+  max-width: min(600px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  padding: 20px 24px;
+  position: relative;
+  z-index: var(--npe-z-modal);
+}
+
+.npe-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.npe-modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--npe-chrome-text);
+}
+
+.npe-modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--npe-chrome-text-muted);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.npe-modal-close:hover {
+  background: var(--npe-toolbar-btn-hover-bg);
+  color: var(--npe-chrome-text);
+}
+
+.npe-modal-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--npe-chrome-border);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.npe-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 6px 12px;
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  color: var(--npe-chrome-text-muted);
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+
+.npe-tab:hover {
+  color: var(--npe-chrome-text);
+}
+
+.npe-tab.npe-tab-active {
+  color: var(--npe-chrome-text);
+  border-bottom-color: var(--npe-toolbar-btn-active-text, #0057cc);
+  font-weight: 600;
+}
+
+.npe-modal-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.npe-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--npe-chrome-border);
+  flex-shrink: 0;
+}
+
+.npe-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* ─── Source View Modal ──────────────────────────────────────────────────────── */
+.npe-source-modal {
+  width: min(1100px, calc(100vw - 32px));
+  max-width: min(1100px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px 24px 0;
+}
+
+/* Ensure [hidden] attribute hides panels even when display:flex is set */
+.npe-source-panel[hidden] {
+  display: none !important;
+}
+
+.npe-source-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.npe-source-textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  max-height: calc(100vh - 280px);
+  padding: 10px 12px;
+  font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  background: var(--npe-canvas-bg);
+  color: var(--npe-chrome-text);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.npe-source-textarea:focus {
+  box-shadow: var(--npe-focus-ring);
+}
+
+.npe-source-modal .npe-modal-footer {
+  padding-bottom: 16px;
+}
+
+/* ─── Select controls ───────────────────────────────────────────────────────── */
+.npe-select {
+  height: 26px;
+  padding: 0 4px;
+  background: var(--npe-toolbar-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 3px;
+  color: var(--npe-chrome-text);
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  cursor: pointer;
+}
+
+.npe-select:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+/* ─── Font Size Widget ──────────────────────────────────────────────────────── */
+.npe-font-size-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 3px;
+  overflow: visible;
+  background: var(--npe-toolbar-bg);
+  height: 26px;
+}
+
+.npe-font-size-widget input[type="number"] {
+  width: 36px;
+  height: 24px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid var(--npe-chrome-border);
+  border-right: 1px solid var(--npe-chrome-border);
+  background: var(--npe-toolbar-bg);
+  color: var(--npe-chrome-text);
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  padding: 0 2px;
+  /* Hide spin buttons */
+  -moz-appearance: textfield;
+}
+
+.npe-font-size-widget input[type="number"]::-webkit-inner-spin-button,
+.npe-font-size-widget input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ─── Color Picker ──────────────────────────────────────────────────────────── */
+.npe-color-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  margin-top: 1px;
+  margin-left: 2px;
+  flex-shrink: 0;
+  /* Default: no color selected — show border outline */
+  border: 1px solid var(--npe-chrome-border);
+  background-color: transparent;
+}
+
+.npe-color-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--npe-toolbar-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  z-index: var(--npe-z-modal);
+  min-width: 220px;
+}
+
+.npe-color-swatches {
+  display: grid;
+  grid-template-columns: repeat(10, 20px);
+  gap: 3px;
+  margin-bottom: 8px;
+}
+
+.npe-color-swatch-btn {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.npe-color-swatch-btn:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+/* ─── Toast / Non-blocking notifications ────────────────────────────────────── */
+.npe-toast-container {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--npe-z-toast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.npe-toast {
+  background: #333;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 1;
+  transition: opacity 0.3s;
+  pointer-events: auto;
+}
+
+.npe-toast.npe-toast-error {
+  background: #cc3333;
+}
+
+/* ─── Fullscreen mode ───────────────────────────────────────────────────────── */
+.npe-editor.npe-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--npe-z-modal) + 100);
+  border-radius: 0;
+}
+
+/* ─── Dark Theme ────────────────────────────────────────────────────────────── */
+.npe-editor.npe-dark {
+  --npe-chrome-bg: #1e1e1e;
+  --npe-chrome-border: #3a3a3a;
+  --npe-chrome-text: #d4d4d4;
+  --npe-chrome-text-muted: #888;
+  --npe-toolbar-bg: #252526;
+  --npe-toolbar-border: #3a3a3a;
+  --npe-toolbar-btn-hover-bg: #3a3a3a;
+  --npe-toolbar-btn-active-bg: #094771;
+  --npe-toolbar-btn-active-text: #4fc3f7;
+  --npe-toolbar-separator: #3a3a3a;
+  --npe-canvas-bg: #1e1e1e;
+  --npe-canvas-border: #3a3a3a;
+  --npe-statusbar-bg: #1b1b1b;
+  --npe-statusbar-border: #3a3a3a;
+  --npe-statusbar-text: #888;
+  --npe-focus-ring: 0 0 0 2px #4fc3f766;
+}
+
+/* ─── Blue Theme ────────────────────────────────────────────────────────────── */
+.npe-editor.npe-theme-blue {
+  --npe-chrome-bg: #e8f0fe;
+  --npe-chrome-border: #aac4f6;
+  --npe-chrome-text: #0d2663;
+  --npe-chrome-text-muted: #3a5aa8;
+  --npe-toolbar-bg: #f0f6ff;
+  --npe-toolbar-border: #aac4f6;
+  --npe-toolbar-btn-hover-bg: #d0e4ff;
+  --npe-toolbar-btn-active-bg: #0057cc;
+  --npe-toolbar-btn-active-text: #fff;
+  --npe-toolbar-separator: #aac4f6;
+  --npe-canvas-bg: #fff;
+  --npe-canvas-border: #aac4f6;
+  --npe-statusbar-bg: #dce9ff;
+  --npe-statusbar-border: #aac4f6;
+  --npe-statusbar-text: #3a5aa8;
+}
+
+/* ─── Dark Blue Theme ───────────────────────────────────────────────────────── */
+.npe-editor.npe-theme-dark-blue {
+  --npe-chrome-bg: #0a1628;
+  --npe-chrome-border: #1e3a5f;
+  --npe-chrome-text: #c8d8f0;
+  --npe-chrome-text-muted: #6a8cba;
+  --npe-toolbar-bg: #0d1f3c;
+  --npe-toolbar-border: #1e3a5f;
+  --npe-toolbar-btn-hover-bg: #1e3a5f;
+  --npe-toolbar-btn-active-bg: #1a5cc7;
+  --npe-toolbar-btn-active-text: #fff;
+  --npe-toolbar-separator: #1e3a5f;
+  --npe-canvas-bg: #0d1f3c;
+  --npe-canvas-border: #1e3a5f;
+  --npe-statusbar-bg: #091526;
+  --npe-statusbar-border: #1e3a5f;
+  --npe-statusbar-text: #6a8cba;
+  --npe-focus-ring: 0 0 0 2px #4d9fff66;
+}
+
+/* ─── Midnight Theme ────────────────────────────────────────────────────────── */
+.npe-editor.npe-theme-midnight {
+  --npe-chrome-bg: #0c0c18;
+  --npe-chrome-border: #2a2a40;
+  --npe-chrome-text: #c0c0e0;
+  --npe-chrome-text-muted: #6060a0;
+  --npe-toolbar-bg: #111128;
+  --npe-toolbar-border: #2a2a40;
+  --npe-toolbar-btn-hover-bg: #2a2a40;
+  --npe-toolbar-btn-active-bg: #3a3a7a;
+  --npe-toolbar-btn-active-text: #c0c0ff;
+  --npe-toolbar-separator: #2a2a40;
+  --npe-canvas-bg: #111128;
+  --npe-canvas-border: #2a2a40;
+  --npe-statusbar-bg: #090914;
+  --npe-statusbar-border: #2a2a40;
+  --npe-statusbar-text: #6060a0;
+  --npe-focus-ring: 0 0 0 2px #7070ff66;
+}
+
+/* ─── Toolbar Group Responsive Wrapping ────────────────────────────────────── */
+.npe-toolbar-group {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1px;
+  padding: 0 2px;
+  /* Groups never split across lines — they wrap as units */
+}
+
+/* ─── Dropdown Arrow ────────────────────────────────────────────────────────── */
+.npe-dropdown-arrow {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.npe-dropdown-arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+}
+
+/* ─── More Menu — pushed to far right of toolbar ────────────────────────────── */
+.npe-toolbar-group:has(.npe-more-menu-btn),
+.npe-more-menu-group {
+  margin-left: auto;
+}
+
+/* ─── Heading Select ────────────────────────────────────────────────────────── */
+.npe-heading-select {
+  max-width: 110px;
+}
+
+/* ─── Font Family Select ────────────────────────────────────────────────────── */
+.npe-font-family-select {
+  max-width: 120px;
+}
+
+/* ─── Font Size Widget ──────────────────────────────────────────────────────── */
+
+/* Replace the <select> with a custom dropdown trigger button */
+.npe-font-size-dropdown-btn {
+  width: 22px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-left: 1px solid var(--npe-chrome-border);
+  border-radius: 0 2px 2px 0;
+  background: var(--npe-toolbar-bg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--npe-chrome-text);
+  opacity: 0.7;
+}
+
+.npe-font-size-dropdown-btn:hover {
+  background: var(--npe-toolbar-btn-hover-bg);
+  opacity: 1;
+}
+
+.npe-font-size-dropdown-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+/* The popup list */
+.npe-font-size-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--npe-toolbar-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  z-index: var(--npe-z-modal);
+  padding: 4px 0;
+  min-width: 64px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.npe-font-size-popup-item {
+  display: block;
+  width: 100%;
+  padding: 4px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  color: var(--npe-chrome-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.npe-font-size-popup-item:hover,
+.npe-font-size-popup-item.npe-active {
+  background: var(--npe-toolbar-btn-hover-bg);
+}
+
+.npe-font-size-dec,
+.npe-font-size-inc {
+  min-width: 22px;
+  height: 24px;
+  padding: 0 3px;
+  border: none;
+  border-radius: 0;
+}
+
+.npe-font-size-dec {
+  border-radius: 2px 0 0 2px;
+}
+
+.npe-font-size-inc {
+  border-radius: 0;
+}
+
+/* Hide the old <select>-based preset */
+.npe-font-size-preset {
+  display: none;
+}
+
+/* ─── Color Picker Panel Layout ─────────────────────────────────────────────── */
+.npe-color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.npe-color-hex-input {
+  flex: 1;
+  height: 28px;
+  padding: 0 6px;
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 12px;
+  background: var(--npe-toolbar-bg);
+  color: var(--npe-chrome-text);
+}
+
+.npe-color-hex-input:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+.npe-color-native {
+  width: 32px;
+  height: 28px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* ─── Toolbar Button Primary Variant ───────────────────────────────────────── */
+.npe-btn.npe-btn-primary {
+  background: var(--npe-toolbar-btn-active-bg);
+  color: var(--npe-toolbar-btn-active-text);
+  border-color: transparent;
+}
+
+.npe-btn.npe-btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* ─── Disabled toolbar controls ────────────────────────────────────────────── */
+.npe-btn.npe-disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.npe-select:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TASK 6 — Insert Features: Modals, Table Context Menu, Table Resize,
+             Emoji / Special Characters Pickers
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Modal Header / Footer / Body ─────────────────────────────────────────── */
+.npe-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.npe-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.npe-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.npe-modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--npe-chrome-text-muted);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.npe-modal-close:hover {
+  color: var(--npe-chrome-text);
+  background: var(--npe-toolbar-btn-hover-bg);
+}
+
+.npe-modal-close:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+/* ─── Modal Tabs ────────────────────────────────────────────────────────────── */
+.npe-modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--npe-chrome-border);
+  margin-bottom: 16px;
+}
+
+.npe-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--npe-chrome-text-muted);
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  font-weight: 500;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.npe-tab:hover {
+  color: var(--npe-chrome-text);
+}
+
+.npe-tab.npe-tab-active {
+  color: var(--npe-toolbar-btn-active-text);
+  border-bottom-color: var(--npe-toolbar-btn-active-text);
+}
+
+.npe-tab:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+/* ─── Modal Panel ───────────────────────────────────────────────────────────── */
+.npe-modal-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── Form controls inside modals ──────────────────────────────────────────── */
+.npe-form-label {
+  font-size: var(--npe-font-size);
+  color: var(--npe-chrome-text);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.npe-form-input {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  background: var(--npe-toolbar-bg);
+  color: var(--npe-chrome-text);
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  box-sizing: border-box;
+}
+
+.npe-form-input:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+  border-color: var(--npe-toolbar-btn-active-text);
+}
+
+.npe-form-check-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--npe-chrome-text);
+  font-size: var(--npe-font-size);
+  user-select: none;
+}
+
+.npe-form-checkbox {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Number inputs in table modal */
+.npe-table-number-input {
+  width: 80px;
+}
+
+/* ─── Link Modal ────────────────────────────────────────────────────────────── */
+.npe-link-modal {
+  min-width: 340px;
+}
+
+/* ─── Image / Video Modals ──────────────────────────────────────────────────── */
+.npe-image-modal,
+.npe-video-modal {
+  min-width: 380px;
+}
+
+/* ─── Form group spacing ────────────────────────────────────────────────────── */
+.npe-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ─── Upload zone (image modal) ─────────────────────────────────────────────── */
+.npe-image-upload-zone {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 24px 18px;
+  border: 2px dashed var(--npe-chrome-border);
+  border-radius: 8px;
+  background: var(--npe-chrome-bg);
+  color: var(--npe-chrome-text-muted);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  user-select: none;
+}
+
+.npe-image-upload-zone:hover,
+.npe-image-upload-zone:focus-visible {
+  border-color: var(--npe-toolbar-btn-active-text, #0057cc);
+  background: var(--npe-toolbar-btn-active-bg);
+  box-shadow: 0 0 0 3px rgba(0, 87, 204, 0.1);
+  outline: none;
+}
+
+.npe-image-upload-zone.drag-over {
+  border-color: var(--npe-toolbar-btn-active-text, #0057cc);
+  background: var(--npe-toolbar-btn-active-bg);
+}
+
+.npe-image-upload-zone.has-files {
+  border-style: solid;
+  border-color: var(--npe-toolbar-btn-active-text, #0057cc);
+}
+
+.npe-image-upload-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.npe-image-upload-icon svg {
+  width: 38px;
+  height: 38px;
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.npe-image-upload-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--npe-chrome-text);
+}
+
+.npe-image-upload-hint {
+  font-size: 12px;
+  color: var(--npe-chrome-text-muted);
+  line-height: 1.4;
+}
+
+.npe-image-upload-files {
+  font-size: 12px;
+  color: var(--npe-chrome-text-muted);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.4;
+  min-height: 1em;
+}
+
+.npe-image-upload-zone.has-files .npe-image-upload-files {
+  color: var(--npe-toolbar-btn-active-text, #0057cc);
+  font-weight: 500;
+}
+
+/* ─── OR divider ────────────────────────────────────────────────────────────── */
+.npe-form-divider {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  text-align: center;
+}
+
+.npe-form-divider::before,
+.npe-form-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--npe-chrome-border);
+}
+
+.npe-form-divider::before { margin-right: 12px; }
+.npe-form-divider::after  { margin-left:  12px; }
+
+.npe-form-divider span {
+  color: var(--npe-chrome-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Dropzone */
+.npe-dropzone {
+  border: 2px dashed var(--npe-chrome-border);
+  border-radius: 6px;
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--npe-chrome-text-muted);
+  font-size: var(--npe-font-size);
+  transition: border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+
+.npe-dropzone:hover,
+.npe-dropzone-active {
+  border-color: var(--npe-toolbar-btn-active-text);
+  background: var(--npe-toolbar-btn-active-bg);
+  color: var(--npe-toolbar-btn-active-text);
+}
+
+/* Hidden file input */
+.npe-file-input {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Upload progress */
+.npe-upload-progress {
+  font-size: 12px;
+  color: var(--npe-chrome-text-muted);
+  padding: 4px 0;
+}
+
+.npe-upload-progress::before {
+  content: '⟳ ';
+}
+
+/* Upload error */
+.npe-upload-error {
+  font-size: 12px;
+  color: #cc3333;
+  padding: 4px 0;
+}
+
+/* ─── Table Modal ───────────────────────────────────────────────────────────── */
+.npe-table-modal {
+  min-width: 300px;
+}
+
+/* ─── Emoji Picker / Special Characters Picker ─────────────────────────────── */
+.npe-emoji-picker,
+.npe-special-chars-picker {
+  min-width: 360px;
+  max-width: 520px;
+}
+
+.npe-emoji-search {
+  margin-bottom: 10px;
+}
+
+.npe-emoji-grid,
+.npe-special-chars-grid {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.npe-emoji-category-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--npe-chrome-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 2px 4px;
+}
+
+.npe-emoji-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.npe-emoji-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.1s;
+}
+
+.npe-emoji-btn:hover {
+  background: var(--npe-toolbar-btn-hover-bg);
+  border-color: var(--npe-chrome-border);
+}
+
+.npe-emoji-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+.npe-special-char-btn {
+  background: none;
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 3px;
+  width: 34px;
+  height: 30px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--npe-chrome-text);
+  font-family: serif;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.npe-special-char-btn:hover {
+  background: var(--npe-toolbar-btn-hover-bg);
+  border-color: var(--npe-toolbar-btn-active-text);
+}
+
+.npe-special-char-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+}
+
+.npe-emoji-empty {
+  color: var(--npe-chrome-text-muted);
+  text-align: center;
+  padding: 12px 0;
+  font-size: var(--npe-font-size);
+}
+
+/* ─── Table Context Menu ────────────────────────────────────────────────────── */
+.npe-context-menu {
+  background: var(--npe-toolbar-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  min-width: 180px;
+  padding: 4px 0;
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+}
+
+.npe-context-menu-item {
+  display: block;
+  width: 100%;
+  padding: 7px 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--npe-chrome-text);
+  cursor: pointer;
+  font-family: var(--npe-font);
+  font-size: var(--npe-font-size);
+  white-space: nowrap;
+}
+
+.npe-context-menu-item:hover,
+.npe-context-menu-item:focus {
+  background: var(--npe-toolbar-btn-hover-bg);
+  outline: none;
+}
+
+.npe-context-menu-item:focus-visible {
+  box-shadow: inset var(--npe-focus-ring);
+}
+
+.npe-context-menu-sep {
+  height: 1px;
+  background: var(--npe-chrome-border);
+  margin: 4px 0;
+}
+
+/* ─── Table Column Resize Handle ────────────────────────────────────────────── */
+.npe-col-resize-handle {
+  background: var(--npe-toolbar-btn-active-text);
+  opacity: 0.5;
+  pointer-events: all;
+  transition: opacity 0.15s;
+}
+
+.npe-col-resize-handle:hover {
+  opacity: 0.9;
+}
+
+/* ─── Find & Replace Modal (additional layout) ──────────────────────────────── */
+.npe-find-replace-modal {
+  min-width: 380px;
+}
+
+.npe-fr-options {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ─── Source Modal (additional layout) ──────────────────────────────────────── */
+.npe-source-modal {
+  min-width: 520px;
+  max-width: 80vw;
+  width: 600px;
+}
+
+.npe-source-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.npe-source-textarea {
+  width: 100%;
+  min-height: 280px;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 4px;
+  background: var(--npe-canvas-bg);
+  color: var(--npe-chrome-text);
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  tab-size: 2;
+  box-sizing: border-box;
+}
+
+.npe-source-textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring);
+  border-color: var(--npe-toolbar-btn-active-text);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TASK 7 — Overlays: Image/Video Resize, Floating Toolbar, Block Drag-Drop
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Image / Video Selection Border ───────────────────────────────────────── */
+.npe-img-select-border {
+  position: fixed;
+  box-sizing: border-box;
+  border: 2px solid var(--npe-toolbar-btn-active-text, #0057cc);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 10100;
+}
+
+/* ─── Image / Video Resize Handles ─────────────────────────────────────────── */
+.npe-img-resize-handle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--npe-toolbar-bg, #fff);
+  border: 2px solid var(--npe-toolbar-btn-active-text, #0057cc);
+  border-radius: 2px;
+  box-sizing: border-box;
+  z-index: 10101;
+  pointer-events: all;
+}
+
+/* Cursor per handle position */
+.npe-img-handle-nw { cursor: nw-resize; }
+.npe-img-handle-n  { cursor: n-resize;  }
+.npe-img-handle-ne { cursor: ne-resize; }
+.npe-img-handle-e  { cursor: e-resize;  }
+.npe-img-handle-se { cursor: se-resize; }
+.npe-img-handle-s  { cursor: s-resize;  }
+.npe-img-handle-sw { cursor: sw-resize; }
+.npe-img-handle-w  { cursor: w-resize;  }
+
+/* ─── Image / Video Live Size Label ────────────────────────────────────────── */
+.npe-img-size-label {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font-size: 11px;
+  font-family: var(--npe-font, system-ui, sans-serif);
+  padding: 2px 7px;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 10102;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ─── Image / Video Contextual Mini-Toolbar ─────────────────────────────────── */
+.npe-img-toolbar {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--npe-toolbar-bg, #fff);
+  border: 1px solid var(--npe-chrome-border, #d0d0d0);
+  border-radius: 4px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  padding: 3px 5px;
+  z-index: 10103;
+  pointer-events: all;
+  user-select: none;
+}
+
+.npe-img-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--npe-chrome-text, #222);
+  padding: 0;
+  font-family: var(--npe-font, system-ui, sans-serif);
+  transition: background 0.1s;
+}
+
+.npe-img-toolbar-btn:hover {
+  background: var(--npe-toolbar-btn-hover-bg, #e8e8e8);
+  border-color: var(--npe-chrome-border, #d0d0d0);
+}
+
+.npe-img-toolbar-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring, 0 0 0 2px #0057cc66);
+}
+
+.npe-img-drag-handle {
+  cursor: grab;
+  font-size: 16px;
+  letter-spacing: -1px;
+  color: var(--npe-chrome-text-muted, #666);
+}
+
+.npe-img-drag-handle:active {
+  cursor: grabbing;
+}
+
+.npe-img-delete-btn:hover {
+  background: #fde0e0;
+  border-color: #cc3333;
+  color: #cc3333;
+}
+
+/* ─── Floating Selection Toolbar ────────────────────────────────────────────── */
+.npe-floating-toolbar {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--npe-toolbar-bg, #fff);
+  border: 1px solid var(--npe-chrome-border, #d0d0d0);
+  border-radius: 5px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  padding: 3px 5px;
+  z-index: 10200;
+  pointer-events: all;
+  user-select: none;
+  /* Subtle entrance animation */
+  animation: npe-ftb-appear 0.12s ease-out both;
+}
+
+@keyframes npe-ftb-appear {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.npe-floating-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--npe-chrome-text, #222);
+  padding: 0 4px;
+  font-family: var(--npe-font, system-ui, sans-serif);
+  transition: background 0.1s;
+}
+
+.npe-floating-toolbar-btn:hover {
+  background: var(--npe-toolbar-btn-hover-bg, #e8e8e8);
+  border-color: var(--npe-chrome-border, #d0d0d0);
+}
+
+.npe-floating-toolbar-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--npe-focus-ring, 0 0 0 2px #0057cc66);
+}
+
+.npe-floating-toolbar-sep {
+  display: inline-block;
+  width: 1px;
+  height: 18px;
+  background: var(--npe-toolbar-separator, #d0d0d0);
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+
+/* ─── Block Drag Ghost ──────────────────────────────────────────────────────── */
+.npe-block-drag-ghost {
+  background: var(--npe-toolbar-btn-active-bg, #d0e4ff);
+  border: 2px dashed var(--npe-toolbar-btn-active-text, #0057cc);
+  border-radius: 3px;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 20000;
+}
+
+/* ─── Drop Placeholder (rendered inside iframe via injected style) ───────────
+   The placeholder itself is a <div> injected into the iframe document.
+   Its styles must be applied inline (since we can't inject host CSS into iframe).
+   The .npe-drop-placeholder class is kept here for documentation purposes only —
+   styles are set inline in BlockDragDrop._showPlaceholder().
+   ────────────────────────────────────────────────────────────────────────────── */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TASK 9 — Help Panel / Keyboard Shortcuts
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.npe-help-panel {
+  min-width: 360px;
+  max-width: 520px;
+}
+
+.npe-help-body {
+  padding: 0;
+}
+
+.npe-help-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--npe-font-size);
+}
+
+.npe-help-table tr:not(:last-child) td {
+  border-bottom: 1px solid var(--npe-chrome-border);
+}
+
+.npe-help-key,
+.npe-help-action {
+  padding: 7px 8px;
+  color: var(--npe-chrome-text);
+}
+
+.npe-help-key {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.npe-help-key kbd {
+  display: inline-block;
+  background: var(--npe-chrome-bg);
+  border: 1px solid var(--npe-chrome-border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-family: var(--npe-font);
+  font-size: 12px;
+  color: var(--npe-chrome-text);
+  box-shadow: 0 1px 0 var(--npe-chrome-border);
+}
+
+/* ─── Statusbar label/value spacing ────────────────────────────────────────── */
+.npe-statusbar-label {
+  color: var(--npe-statusbar-text);
+  margin-right: 4px;
+}
+
+.npe-statusbar-value {
+  color: var(--npe-chrome-text);
+  font-weight: 500;
+}

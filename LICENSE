@@ -1,0 +1,511 @@
+Neiki's Page Editor Source-Available License
+
+Copyright (c) 2026-present neikiri (Jindřich Stoklasa)
+Contact: neikiri@neikiri.dev, jindrichstoklasa1@gmail.com
+
+This license ("License") applies to Neiki's Page Editor
+("Software"), including its source code, compiled code, minified code,
+documentation, examples, demos, assets, configuration files, and any
+other materials distributed with this License.
+
+This is a source-available commercial-use license. It is not an
+open-source license approved by the Open Source Initiative and it is
+not a Free Software license as defined by the Free Software Foundation.
+
+All rights not expressly granted in this License are reserved by the
+Author.
+
+By downloading, copying, installing, running, modifying, distributing,
+or otherwise using the Software, you agree to this License. If you do
+not agree, you must not use the Software.
+
+======================================================================
+Non-binding Summary
+======================================================================
+
+This summary is provided for convenience only. If it conflicts with the
+license terms below, the license terms below control.
+
+You may:
+
+  - Use the Software in personal, internal, commercial, SaaS, client,
+    and production projects.
+  - Modify the Software for your own use or for use inside your own
+    product.
+  - Bundle the Software inside a larger website, application, CMS,
+    SaaS product, internal tool, or client deliverable.
+  - Sell your own product that includes the Software as an embedded
+    editor component.
+  - Create forks, patches, and pull requests for development or
+    contribution purposes.
+
+You may not, without separate written permission from the Author:
+
+  - Sell, rent, license, sublicense, host, or distribute the Software
+    as a standalone editor product.
+  - Rebrand, white-label, or present the Software as your own editor,
+    component, SDK, library, package, or competing product.
+  - Publish the Software or a modified version as a standalone package
+    on npm, a CDN, marketplace, plugin store, app store, or similar
+    distribution channel.
+  - Remove, hide, falsify, or materially reduce the required author
+    attribution.
+  - Use the Software to create a competing standalone editor product.
+  - Use the Software in safety-critical or high-risk systems.
+
+======================================================================
+1. Definitions
+======================================================================
+
+1.1 "Author" means neikiri (Jindřich Stoklasa), including any successor
+    or legal entity to whom the Author transfers rights in the Software.
+
+1.2 "Software" means Neiki's Page Editor and any part of it, including
+    any modified, compiled, minified, bundled, obfuscated, translated,
+    packaged, or otherwise transformed version.
+
+1.3 "Integrated Product" means a website, web application, desktop
+    application, mobile application, CMS, SaaS product, internal
+    business tool, client deliverable, or other end-user product that:
+
+    (a) embeds the Software as one component; and
+
+    (b) provides substantial independent functionality beyond merely
+        offering, repackaging, hosting, exposing, selling, licensing,
+        or distributing an editor or substantially similar editor
+        functionality.
+
+    A product whose primary purpose or primary user-facing value is
+    "an editor" is not an Integrated Product.
+
+1.4 "Standalone Editor Product" means any package, library, component,
+    SDK, plugin, extension, template, starter kit, SaaS offering,
+    hosted service, marketplace listing, app-store listing, CDN
+    distribution, or other product or service whose primary purpose is
+    to provide, sell, license, expose, host, repackage, rebrand,
+    white-label, or compete with the Software or substantially similar
+    page editor / rich text editor functionality.
+
+1.5 "Attribution Notice" means a clear credit identifying the Software
+    and the Author, substantially equivalent to:
+
+        Neiki's Page Editor by neikiri (Jindřich Stoklasa)
+
+1.6 "Contribution" means any source code, patch, pull request,
+    documentation, translation, asset, design, issue attachment,
+    suggestion, or other material intentionally submitted by you to an
+    official repository, channel, or project controlled by the Author
+    for inclusion in or improvement of the Software.
+
+1.7 "Production Use" means use outside private local development,
+    testing, evaluation, or staging environments, including public
+    websites, customer-facing services, paid services, client work, and
+    internal business systems.
+
+======================================================================
+2. License Grant
+======================================================================
+
+Subject to your compliance with this License, the Author grants you a
+worldwide, non-exclusive, non-transferable, royalty-free, perpetual
+license to:
+
+2.1 use, run, install, execute, evaluate, and test the Software;
+
+2.2 copy, modify, and create derivative works of the Software for your
+    own use or for incorporation into an Integrated Product;
+
+2.3 compile, minify, bundle, package, and distribute the Software solely
+    as an embedded component of an Integrated Product;
+
+2.4 sell, license, sublicense, host, deploy, or otherwise commercially
+    operate an Integrated Product that includes the Software, provided
+    that the Software itself is not sold, licensed, marketed, exposed,
+    hosted, or distributed as a Standalone Editor Product; and
+
+2.5 make a reasonable number of backup or archival copies.
+
+This license is subject to termination under Section 10.
+
+For clarity: you may build and sell websites, applications, CMS
+systems, SaaS products, internal tools, and client deliverables that
+include the Software as an embedded editor component.
+
+======================================================================
+3. Attribution
+======================================================================
+
+3.1 You must keep the original copyright notices, license notices,
+    author notices, and attribution notices intact.
+
+3.2 In every public, production, commercial, or client-facing Integrated
+    Product that exposes the Software's editor interface, the Software
+    must provide a clear Attribution Notice in one of these places:
+
+    (a) the editor Help dialog;
+
+    (b) the editor About dialog;
+
+    (c) the editor More / Settings / Help menu;
+
+    (d) a product credits, legal notices, or documentation page that is
+        reasonably discoverable by end users; or
+
+    (e) an equivalent location appropriate for the product.
+
+3.3 The Attribution Notice must be readable, truthful, and not hidden
+    behind debug-only tools, developer-only menus, hover-only text,
+    intentionally obscure styling, paywalls, or other mechanisms that
+    make it unavailable to typical users.
+
+3.4 You may adapt the surrounding UI, translate surrounding text, and
+    style the notice to match your product, provided the notice remains
+    clear and reasonably visible.
+
+3.5 You may not remove, hide, disable, obscure, falsify, replace,
+    materially shrink, or materially reduce the visibility of the
+    Attribution Notice.
+
+======================================================================
+4. Restrictions
+======================================================================
+
+Unless you have prior written permission from the Author, you must not:
+
+4.1 sell, license, sublicense, rent, lease, host, publish, distribute,
+    or otherwise make available the Software, in original or modified
+    form, as a Standalone Editor Product;
+
+4.2 rebrand, white-label, or present the Software, in original or
+    modified form, as your own editor, library, SDK, framework,
+    component, plugin, package, template, or product;
+
+4.3 remove, hide, disable, alter, replace, falsify, or circumvent any
+    copyright notice, license notice, author notice, Attribution Notice,
+    or technical measure whose purpose is to display or preserve such
+    notices;
+
+4.4 publish, upload, mirror, or distribute the Software, in original or
+    modified form, to npm, another package registry, a CDN, marketplace,
+    plugin store, extension store, app store, model hub, template store,
+    or similar channel as a standalone editor, package, component,
+    template, library, SDK, or competing product;
+
+4.5 use the names "Neiki's Page Editor", "neikiri", "Jindřich
+    Stoklasa", or any confusingly similar name, mark, logo, domain, or
+    branding except to truthfully state that your Integrated Product
+    uses Neiki's Page Editor;
+
+4.6 imply that your product, fork, modification, service, or derivative
+    is official, endorsed, sponsored, certified, or approved by the
+    Author unless the Author has given written permission;
+
+4.7 use the Software in violation of applicable law, sanctions,
+    export-control rules, privacy laws, or third-party rights;
+
+4.8 use the Software in any system where failure could reasonably be
+    expected to cause death, personal injury, severe property damage,
+    severe environmental damage, or other safety-critical harm,
+    including life-support, medical devices on which life depends,
+    nuclear facilities, aviation control, weapons systems, or similar
+    high-risk environments;
+
+4.9 use the Software, or a substantial part of it, to train,
+    fine-tune, evaluate, or generate a machine-learning model whose
+    primary purpose is to reproduce, replace, or create a competing
+    Standalone Editor Product;
+
+4.10 systematically scrape, crawl, mass-download, mirror, or archive the
+     Software's official repositories, documentation, demos, or
+     distribution endpoints for the purpose of creating an unofficial
+     distribution, competing product, or dataset for the activity
+     prohibited in Section 4.9; or
+
+4.11 reverse engineer, decompile, disassemble, or otherwise derive
+     source code or internal design from a compiled, minified,
+     bundled, or obfuscated copy of the Software for the purpose of
+     removing attribution, bypassing license restrictions, creating a
+     Standalone Editor Product, or creating a competing product.
+
+Reverse engineering strictly for debugging, interoperability, security
+review, or integration with your own Integrated Product is permitted to
+the extent allowed by applicable law and this License.
+
+======================================================================
+5. Development Sharing and Forks
+======================================================================
+
+You may create private or public forks, branches, patches, and pull
+requests for development, testing, code review, security review, bug
+fixing, customization, or contributing improvements back to the Author,
+provided that:
+
+5.1 the fork or modified version retains this License and all required
+    notices;
+
+5.2 the fork or modified version is not used or distributed as a
+    Standalone Editor Product;
+
+5.3 the fork or modified version is not marketed as an official version
+    of the Software unless the Author gives written permission; and
+
+5.4 any Production Use complies with this License.
+
+======================================================================
+6. Contributions
+======================================================================
+
+6.1 By submitting a Contribution, you grant the Author a perpetual,
+    worldwide, non-exclusive, royalty-free, irrevocable, sublicensable,
+    and transferable license to use, copy, modify, merge, publish,
+    distribute, sublicense, relicense, and otherwise exploit the
+    Contribution, in whole or in part, as part of the Software or any
+    related project, under this License, a later version of this
+    License, or separate commercial/source-available terms chosen by
+    the Author.
+
+6.2 The purpose of Section 6.1 is to allow the Author to maintain,
+    improve, distribute, and commercially sustain the Software,
+    including through source-available or commercial licensing models.
+    It does not require you to assign copyright ownership of your
+    Contribution to the Author.
+
+6.3 You represent that you have the legal right to submit the
+    Contribution and grant the rights described in this Section.
+
+6.4 Contributions are provided "as is", without warranty.
+
+======================================================================
+7. Separate Commercial Permissions
+======================================================================
+
+7.1 The Author may grant separate written permission to use, sell,
+    license, white-label, redistribute, host, or otherwise exploit the
+    Software outside the scope of this License.
+
+7.2 Such permission must be explicit and in writing. It is not granted
+    by silence, informal discussion, public comments, social-media
+    posts, or failure to object.
+
+7.3 Permission requests may be sent to:
+
+        neikiri@neikiri.dev
+        jindrichstoklasa1@gmail.com
+
+======================================================================
+8. Ownership and Reservation of Rights
+======================================================================
+
+8.1 The Software is licensed, not sold.
+
+8.2 The Author retains all copyright, ownership, title, and interest in
+    and to the Software, including all intellectual-property rights.
+
+8.3 No rights are granted by implication, estoppel, exhaustion, or
+    otherwise, except as expressly stated in this License.
+
+8.4 No trademark, service mark, trade name, logo, branding, domain name,
+    or identity rights are granted except as necessary to truthfully
+    identify the Software as required or permitted by this License.
+
+======================================================================
+9. Third-Party Materials
+======================================================================
+
+The Software may include or interact with third-party code, libraries,
+fonts, icons, assets, examples, build tools, or other materials. Those
+materials may be governed by their own licenses. This License does not
+replace, override, or modify third-party license terms.
+
+======================================================================
+10. Termination
+======================================================================
+
+10.1 This License is effective until terminated.
+
+10.2 Your rights under this License terminate automatically if you
+     breach any term of this License.
+
+10.3 If the breach is non-willful and reasonably curable, the Author
+     may reinstate your rights if you fully cure the breach within
+     fourteen (14) days after written notice. The Author is not
+     required to reinstate rights for intentional misuse, intentional
+     removal of attribution, intentional white-labeling, or intentional
+     distribution as a Standalone Editor Product.
+
+10.4 Upon termination, you must stop using, copying, modifying,
+     distributing, selling, licensing, hosting, and providing the
+     Software. You must delete or destroy copies in your control,
+     except copies retained solely for legal, archival, audit, or
+     backup purposes and not used.
+
+10.5 Sections 1, 6, 8, 9, 10.4, 11, 12, 13, 14, 15, 16, 17, and 18
+     survive termination.
+
+======================================================================
+11. Disclaimer of Warranty
+======================================================================
+
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITH ALL FAULTS AND
+WITHOUT WARRANTY OF ANY KIND.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE AUTHOR DISCLAIMS
+ALL WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, STATUTORY, OR
+OTHERWISE, INCLUDING WARRANTIES OF MERCHANTABILITY, SATISFACTORY
+QUALITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT,
+ACCURACY, SECURITY, AVAILABILITY, UNINTERRUPTED OPERATION,
+ERROR-FREE OPERATION, AND WARRANTIES ARISING FROM COURSE OF DEALING,
+USAGE, OR TRADE PRACTICE.
+
+YOU ARE SOLELY RESPONSIBLE FOR EVALUATING, TESTING, AND DETERMINING
+WHETHER THE SOFTWARE IS SUITABLE FOR YOUR USE.
+
+======================================================================
+12. Limitation of Liability
+======================================================================
+
+12.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE AUTHOR
+     SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+     CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF
+     PROFITS, REVENUE, DATA, GOODWILL, BUSINESS, BUSINESS OPPORTUNITY,
+     CONTENT, USE, OR COST OF SUBSTITUTE GOODS OR SERVICES, ARISING OUT
+     OF OR RELATED TO THE SOFTWARE OR THIS LICENSE, WHETHER BASED IN
+     CONTRACT, TORT, STRICT LIABILITY, OR ANY OTHER LEGAL THEORY, EVEN
+     IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+12.2 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IF YOU PAID THE
+     AUTHOR DIRECTLY FOR THE SOFTWARE, THE AUTHOR'S TOTAL CUMULATIVE
+     LIABILITY ARISING OUT OF OR RELATED TO THE SOFTWARE OR THIS
+     LICENSE SHALL NOT EXCEED THE AMOUNT YOU PAID DIRECTLY TO THE
+     AUTHOR SPECIFICALLY FOR THE SOFTWARE DURING THE TWELVE (12) MONTHS
+     BEFORE THE EVENT GIVING RISE TO LIABILITY.
+
+12.3 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IF YOU DID NOT
+     PAY THE AUTHOR DIRECTLY FOR THE SOFTWARE, THE AUTHOR'S TOTAL
+     CUMULATIVE LIABILITY ARISING OUT OF OR RELATED TO THE SOFTWARE OR
+     THIS LICENSE SHALL NOT EXCEED FIFTY EUROS (EUR 50).
+
+12.4 Nothing in this License limits liability that cannot be limited
+     under applicable law.
+
+======================================================================
+13. Indemnity
+======================================================================
+
+If you distribute, sell, license, host, sublicense, or otherwise provide
+an Integrated Product that includes the Software, you agree to defend,
+indemnify, and hold harmless the Author from claims, damages,
+liabilities, losses, costs, and expenses, including reasonable legal
+fees, arising out of or related to:
+
+13.1 your Integrated Product;
+
+13.2 your modifications to the Software;
+
+13.3 your distribution, sale, licensing, hosting, or other provision of
+     the Software;
+
+13.4 your breach of this License; or
+
+13.5 your violation of applicable law or third-party rights.
+
+======================================================================
+14. Compliance with Laws and Data
+======================================================================
+
+14.1 You must comply with all applicable laws and regulations in
+     connection with your use of the Software, including export,
+     re-export, sanctions, anti-corruption, privacy, and data-protection
+     laws.
+
+14.2 The Software, as distributed by the Author, is not intended to
+     collect or process personal data. If your integration, hosting,
+     configuration, or modification causes personal data to be collected
+     or processed, you are solely responsible for compliance with
+     applicable privacy and data-protection laws.
+
+======================================================================
+15. Governing Law and Venue
+======================================================================
+
+15.1 This License is governed by the laws of the Czech Republic,
+     excluding conflict-of-law rules and excluding the United Nations
+     Convention on Contracts for the International Sale of Goods.
+
+15.2 Any dispute arising out of or relating to this License or the
+     Software shall be subject to the exclusive jurisdiction of the
+     competent courts of the Czech Republic, with venue in Prague,
+     unless mandatory applicable law requires otherwise.
+
+15.3 Nothing in this License limits non-waivable consumer rights granted
+     by mandatory law.
+
+======================================================================
+16. Assignment
+======================================================================
+
+You may not assign, delegate, or transfer this License or your rights or
+obligations under it without the Author's prior written consent. Any
+attempted assignment in violation of this Section is void.
+
+The Author may assign or transfer this License and related rights and
+obligations, including in connection with a merger, acquisition,
+reorganization, or sale of assets relating to the Software.
+
+======================================================================
+17. Miscellaneous
+======================================================================
+
+17.1 The Author's failure or delay in enforcing any term is not a
+     waiver.
+
+17.2 If any term is held invalid, illegal, or unenforceable, the
+     remaining terms remain in effect. The invalid term shall be
+     interpreted or replaced to achieve the original intent as closely
+     as possible while remaining valid.
+
+17.3 This License does not create a partnership, joint venture, agency,
+     fiduciary, employment, or franchise relationship.
+
+17.4 Section headings are for convenience only and do not affect
+     interpretation.
+
+17.5 The words "include", "includes", and "including" mean "including
+     without limitation".
+
+17.6 References to "written" or "in writing" include email and other
+     durable electronic communications clearly attributable to the
+     sender.
+
+17.7 The English version of this License is the controlling version.
+     Translations are provided for convenience only.
+
+======================================================================
+18. License Changes and Prior Releases
+======================================================================
+
+18.1 This License applies only to copies of the Software distributed
+     with this License.
+
+18.2 Copies of the Software previously distributed under another
+     license remain governed by the license terms that applied to those
+     copies.
+
+18.3 The Author may release future copies or versions of the Software
+     under this License, a modified license, a different license, or
+     separate commercial terms.
+
+18.4 Future license changes do not retroactively change the terms of a
+     copy already distributed with this License, unless you separately
+     agree to those new terms.
+
+======================================================================
+19. Entire Agreement
+======================================================================
+
+This License is the entire agreement between you and the Author
+regarding the Software and supersedes prior or contemporaneous
+understandings concerning its subject matter, unless you and the Author
+have entered into a separate written agreement. If a separate written
+agreement conflicts with this License, the separate written agreement
+controls only to the extent of the conflict.

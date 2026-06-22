@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neiki's Page Editor</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      height: 65px;
+      min-height: 65px;
+      background: #1E1E1E;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 16px;
+      border-bottom: 1px solid #334155;
+      position: relative;
+    }
+
+    .header-logo {
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      font-weight: 600;
+      color: #f1f5f9;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+      pointer-events: none;
+    }
+
+    .header-btn {
+      background: #334155;
+      border: 1px solid #475569;
+      color: #e2e8f0;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s, border-color 0.15s;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .header-btn:hover {
+      background: #475569;
+      border-color: #64748b;
+    }
+
+    .header-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ── Editor ── */
+    .editor-wrapper {
+      height: calc(100% - 65px);
+    }
+
+    #editor {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script src="../dist/neiki-page-editor.min.js"></script>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <img src="logo.svg" alt="Neiki's Page Editor" class="header-logo">
+    <span class="header-title">Neiki's Page Editor</span>
+    <a href="https://github.com/neikiri/neiki-page-editor" target="_blank" class="header-btn" title="GitHub" aria-label="GitHub">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    </a>
+  </header>
+
+  <!-- ── Editor ── -->
+  <div class="editor-wrapper">
+    <div id="editor"></div>
+  </div>
+  <script>
+    const editor = new NeikiPageEditor('#editor', {
+      initialContent: `<h1>Welcome to Neiki's Page Editor! 🖊️</h1>
+<p><strong>Neiki's Page Editor</strong> is a <em>lightweight</em>, <u>zero-dependency</u> visual page editor that lets you edit full HTML pages — not just rich-text blocks — inside an isolated iframe canvas with <strong>browser-accurate rendering</strong>.</p>
+<h2>🚀 Key Features</h2>
+<ul>
+<li><strong>Full-page editing</strong> — edit real HTML &amp; CSS, not just a text block</li>
+<li>🎨 <strong>5 UI themes</strong> — light, dark, blue, dark-blue, midnight</li>
+<li>🌍 <strong>Multilingual</strong> — English &amp; Czech built-in; extend via <code>addTranslation()</code></li>
+<li>📐 <strong>30+ toolbar tools</strong> — headings, fonts, colors, tables, embeds &amp; more</li>
+<li>🔒 <strong>CSS isolation</strong> — page styles never bleed into editor chrome</li>
+<li>🔌 <strong>CMS-ready</strong> — load &amp; save via your own async <code>loadHandler</code> / <code>saveHandler</code></li>
+</ul>
+<blockquote><p><em>"One script tag, zero dependencies, full-page fidelity."</em></p></blockquote>
+<h2>🛠️ Try It Out</h2>
+<p>Select any text to see the <strong>floating toolbar</strong>. Use the <strong>Insert ▾</strong> menu to add a link, image, table, or emoji. Open <strong>Source View</strong> to edit raw HTML and CSS directly. Press <code>Ctrl+S</code> to save.</p>`,
+      theme: 'light',
+      language: 'en',
+    });
+  </script>
+</body>
+</html>
