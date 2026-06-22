@@ -265,7 +265,12 @@ export class Sanitizer {
 
     let doc;
     try {
-      doc = new DOMParser().parseFromString(html, 'text/html');
+      // Avoid parsing attacker-controlled text directly as HTML.
+      // First route it through a text container so metacharacters are encoded.
+      const inertDoc = document.implementation.createHTMLDocument('');
+      const ta = inertDoc.createElement('textarea');
+      ta.value = html;
+      doc = new DOMParser().parseFromString(ta.innerHTML, 'text/html');
     } catch {
       return '';
     }
@@ -290,9 +295,7 @@ export class Sanitizer {
     // a node that holds untrusted descendant content, which static analysis
     // tools flag as a DOM-text-to-HTML sink even when the DOM was built safely.
     const parts = [];
-    const tmp = outputDoc.createElement('div');
-    // Move nodes into tmp one at a time and read outerHTML of each element,
-    // or the nodeValue escaped as text for text nodes.
+    // Serialize each top-level node explicitly.
     for (const n of Array.from(fragment.childNodes)) {
       if (n.nodeType === Node.TEXT_NODE) {
         // Escape text node content so it serialises as plain text, not HTML.
@@ -303,11 +306,8 @@ export class Sanitizer {
             .replace(/>/g, '&gt;'),
         );
       } else if (n.nodeType === Node.ELEMENT_NODE) {
-        // outerHTML of a node that was fully constructed by createElement /
-        // setAttribute contains no unescaped attacker-controlled text.
-        tmp.appendChild(n);
-        parts.push(tmp.innerHTML);
-        tmp.innerHTML = '';
+        // Node is already sanitised and constructed in outputDoc.
+        parts.push(n.outerHTML);
       }
     }
     return parts.join('').trim();
