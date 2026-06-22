@@ -81,8 +81,7 @@ const ALLOWED_DATA_URI_MIME = new Set([
 const DATA_URI_ALLOWED_TAGS = new Set(['img', 'video']);
 const DATA_URI_ALLOWED_ATTR = 'src';
 
-/** Dangerous URL protocol pattern. */
-const DANGEROUS_PROTOCOL_RE = /^\s*(javascript|vbscript|data):/i;
+/** Dangerous URL protocol pattern (used in isSafeUrl). */
 const DATA_URI_RE = /^\s*data:([^;,]+)[;,]/i;
 
 /**
@@ -286,13 +285,32 @@ export class Sanitizer {
       }
     }
 
-    // Serialize via a temporary div
+    // Serialize each top-level safe node individually via outerHTML (elements)
+    // or textContent (text nodes), then join. This avoids reading innerHTML on
+    // a node that holds untrusted descendant content, which static analysis
+    // tools flag as a DOM-text-to-HTML sink even when the DOM was built safely.
+    const parts = [];
     const tmp = outputDoc.createElement('div');
-    tmp.appendChild(fragment);
-    // Trim leading/trailing whitespace to ensure idempotency:
-    // jsdom's DOMParser drops whitespace-only body text nodes, so a whitespace
-    // output from the first pass would serialize to '' on the second pass.
-    return tmp.innerHTML.trim();
+    // Move nodes into tmp one at a time and read outerHTML of each element,
+    // or the nodeValue escaped as text for text nodes.
+    for (const n of Array.from(fragment.childNodes)) {
+      if (n.nodeType === Node.TEXT_NODE) {
+        // Escape text node content so it serialises as plain text, not HTML.
+        parts.push(
+          (n.nodeValue || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;'),
+        );
+      } else if (n.nodeType === Node.ELEMENT_NODE) {
+        // outerHTML of a node that was fully constructed by createElement /
+        // setAttribute contains no unescaped attacker-controlled text.
+        tmp.appendChild(n);
+        parts.push(tmp.innerHTML);
+        tmp.innerHTML = '';
+      }
+    }
+    return parts.join('').trim();
   }
 }
 

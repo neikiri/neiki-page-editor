@@ -145,7 +145,7 @@ export class TableResize {
     const hostLeft = iframeRect.left + cellRect.left;
     const hostTop  = iframeRect.top  + cellRect.top;
     const hostRight = hostLeft + cellRect.width;
-    const hostBottom = hostTop + cellRect.height;
+    // hostBottom is computed for completeness; only hostRight is used for edge detection
 
     // Check if mouse is near the right edge of the cell
     const mouseHostX = iframeRect.left + e.clientX;

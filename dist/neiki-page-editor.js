@@ -810,182 +810,6 @@ var ButtonBase = class {
   }
 };
 
-// src/toolbar/buttons/DropdownButton.js
-var DropdownButton = class extends ButtonBase {
-  /**
-   * @param {object} opts
-   * @param {string} opts.id
-   * @param {string} opts.label
-   * @param {string} [opts.icon]
-   * @param {Array<{id: string, label: string, icon?: string, action?: Function}>} opts.items
-   * @param {Function} [opts.onItemClick]
-   * @param {boolean} [opts.disabled]
-   * @param {boolean} [opts.hideArrow] — if true, omit the dropdown chevron
-   * @param {boolean} [opts.alignRight] — if true, dropdown opens left-aligned to its right edge (avoids viewport overflow)
-   */
-  constructor(opts = {}) {
-    super(__spreadProps(__spreadValues({}, opts), {
-      toggle: true,
-      onClick: (e) => this._toggleDropdown(e)
-    }));
-    this._items = opts.items || [];
-    this._onItemClick = opts.onItemClick || null;
-    this._hideArrow = opts.hideArrow || false;
-    this._alignRight = opts.alignRight || false;
-    if (this._hideArrow && this._el) {
-      const arrow = this._el.querySelector(".npe-dropdown-arrow");
-      if (arrow) arrow.remove();
-    }
-    this._dropdown = null;
-    this._open = false;
-    this._buildDropdown();
-    this._bindDocumentClose();
-  }
-  _render() {
-    super._render();
-    if (this._el) {
-      const arrow = document.createElement("span");
-      arrow.className = "npe-dropdown-arrow";
-      arrow.setAttribute("aria-hidden", "true");
-      arrow.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>';
-      this._el.appendChild(arrow);
-      this._el.setAttribute("aria-haspopup", "true");
-      this._el.setAttribute("aria-expanded", "false");
-    }
-  }
-  _buildDropdown() {
-    const menu = document.createElement("ul");
-    menu.className = "npe-dropdown";
-    menu.setAttribute("role", "menu");
-    menu.style.display = "none";
-    for (const item of this._items) {
-      const li = document.createElement("li");
-      li.className = "npe-dropdown-item";
-      li.setAttribute("role", "menuitem");
-      li.setAttribute("tabindex", "0");
-      if (item.icon) {
-        const iconSpan = document.createElement("span");
-        iconSpan.className = "npe-dropdown-item-icon";
-        iconSpan.setAttribute("aria-hidden", "true");
-        if (item.icon.trim().startsWith("<")) {
-          iconSpan.innerHTML = item.icon;
-        } else {
-          iconSpan.textContent = item.icon;
-        }
-        li.appendChild(iconSpan);
-      }
-      const labelSpan = document.createElement("span");
-      labelSpan.textContent = item.label;
-      li.appendChild(labelSpan);
-      li.addEventListener("click", (e) => {
-        e.stopPropagation();
-        this._closeDropdown();
-        if (item.action) item.action(e, item);
-        if (this._onItemClick) this._onItemClick(item, e);
-      });
-      li.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          li.click();
-        }
-      });
-      menu.appendChild(li);
-    }
-    this._dropdown = menu;
-  }
-  _bindDocumentClose() {
-    this._docCloseHandler = (e) => {
-      if (this._open && this._el && !this._el.contains(e.target) && this._dropdown && !this._dropdown.contains(e.target)) {
-        this._closeDropdown();
-      }
-    };
-    this._keyCloseHandler = (e) => {
-      if (e.key === "Escape" && this._open) {
-        this._closeDropdown();
-        if (this._el) this._el.focus();
-      }
-    };
-    document.addEventListener("mousedown", this._docCloseHandler, true);
-    document.addEventListener("keydown", this._keyCloseHandler, true);
-  }
-  _toggleDropdown(e) {
-    if (e) e.stopPropagation();
-    if (this._open) {
-      this._closeDropdown();
-    } else {
-      this._openDropdown();
-    }
-  }
-  _openDropdown() {
-    if (!this._dropdown || !this._el) return;
-    this._open = true;
-    if (!this._dropdown.parentNode) {
-      const container = this._el.parentNode || document.body;
-      container.style.position = "relative";
-      container.appendChild(this._dropdown);
-    }
-    if (this._alignRight) {
-      this._dropdown.style.left = "auto";
-      this._dropdown.style.right = "0";
-    } else {
-      this._dropdown.style.left = "0";
-      this._dropdown.style.right = "auto";
-    }
-    this._dropdown.style.display = "block";
-    this._el.setAttribute("aria-expanded", "true");
-    this.setActive(true);
-  }
-  _closeDropdown() {
-    if (!this._dropdown) return;
-    this._open = false;
-    this._dropdown.style.display = "none";
-    if (this._el) {
-      this._el.setAttribute("aria-expanded", "false");
-    }
-    this.setActive(false);
-  }
-  /**
-   * Update the items in the dropdown.
-   * @param {Array} items
-   */
-  setItems(items) {
-    this._items = items;
-    if (this._dropdown) {
-      this._dropdown.innerHTML = "";
-      for (const item of items) {
-        const li = document.createElement("li");
-        li.className = "npe-dropdown-item";
-        li.setAttribute("role", "menuitem");
-        li.setAttribute("tabindex", "0");
-        li.textContent = item.label;
-        li.addEventListener("click", (e) => {
-          e.stopPropagation();
-          this._closeDropdown();
-          if (item.action) item.action(e, item);
-          if (this._onItemClick) this._onItemClick(item, e);
-        });
-        this._dropdown.appendChild(li);
-      }
-    }
-  }
-  /**
-   * Return the rendered button element.
-   */
-  render() {
-    return this._el;
-  }
-  destroy() {
-    this._closeDropdown();
-    document.removeEventListener("mousedown", this._docCloseHandler, true);
-    document.removeEventListener("keydown", this._keyCloseHandler, true);
-    if (this._dropdown && this._dropdown.parentNode) {
-      this._dropdown.parentNode.removeChild(this._dropdown);
-    }
-    this._dropdown = null;
-    super.destroy();
-  }
-};
-
 // src/toolbar/buttons/HeadingSelect.js
 var HeadingSelect = class {
   /**
@@ -1632,6 +1456,182 @@ var ColorPickerButton = class extends ButtonBase {
       this._panel.parentNode.removeChild(this._panel);
     }
     this._panel = null;
+    super.destroy();
+  }
+};
+
+// src/toolbar/buttons/DropdownButton.js
+var DropdownButton = class extends ButtonBase {
+  /**
+   * @param {object} opts
+   * @param {string} opts.id
+   * @param {string} opts.label
+   * @param {string} [opts.icon]
+   * @param {Array<{id: string, label: string, icon?: string, action?: Function}>} opts.items
+   * @param {Function} [opts.onItemClick]
+   * @param {boolean} [opts.disabled]
+   * @param {boolean} [opts.hideArrow] — if true, omit the dropdown chevron
+   * @param {boolean} [opts.alignRight] — if true, dropdown opens left-aligned to its right edge (avoids viewport overflow)
+   */
+  constructor(opts = {}) {
+    super(__spreadProps(__spreadValues({}, opts), {
+      toggle: true,
+      onClick: (e) => this._toggleDropdown(e)
+    }));
+    this._items = opts.items || [];
+    this._onItemClick = opts.onItemClick || null;
+    this._hideArrow = opts.hideArrow || false;
+    this._alignRight = opts.alignRight || false;
+    if (this._hideArrow && this._el) {
+      const arrow = this._el.querySelector(".npe-dropdown-arrow");
+      if (arrow) arrow.remove();
+    }
+    this._dropdown = null;
+    this._open = false;
+    this._buildDropdown();
+    this._bindDocumentClose();
+  }
+  _render() {
+    super._render();
+    if (this._el) {
+      const arrow = document.createElement("span");
+      arrow.className = "npe-dropdown-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>';
+      this._el.appendChild(arrow);
+      this._el.setAttribute("aria-haspopup", "true");
+      this._el.setAttribute("aria-expanded", "false");
+    }
+  }
+  _buildDropdown() {
+    const menu = document.createElement("ul");
+    menu.className = "npe-dropdown";
+    menu.setAttribute("role", "menu");
+    menu.style.display = "none";
+    for (const item of this._items) {
+      const li = document.createElement("li");
+      li.className = "npe-dropdown-item";
+      li.setAttribute("role", "menuitem");
+      li.setAttribute("tabindex", "0");
+      if (item.icon) {
+        const iconSpan = document.createElement("span");
+        iconSpan.className = "npe-dropdown-item-icon";
+        iconSpan.setAttribute("aria-hidden", "true");
+        if (item.icon.trim().startsWith("<")) {
+          iconSpan.innerHTML = item.icon;
+        } else {
+          iconSpan.textContent = item.icon;
+        }
+        li.appendChild(iconSpan);
+      }
+      const labelSpan = document.createElement("span");
+      labelSpan.textContent = item.label;
+      li.appendChild(labelSpan);
+      li.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this._closeDropdown();
+        if (item.action) item.action(e, item);
+        if (this._onItemClick) this._onItemClick(item, e);
+      });
+      li.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          li.click();
+        }
+      });
+      menu.appendChild(li);
+    }
+    this._dropdown = menu;
+  }
+  _bindDocumentClose() {
+    this._docCloseHandler = (e) => {
+      if (this._open && this._el && !this._el.contains(e.target) && this._dropdown && !this._dropdown.contains(e.target)) {
+        this._closeDropdown();
+      }
+    };
+    this._keyCloseHandler = (e) => {
+      if (e.key === "Escape" && this._open) {
+        this._closeDropdown();
+        if (this._el) this._el.focus();
+      }
+    };
+    document.addEventListener("mousedown", this._docCloseHandler, true);
+    document.addEventListener("keydown", this._keyCloseHandler, true);
+  }
+  _toggleDropdown(e) {
+    if (e) e.stopPropagation();
+    if (this._open) {
+      this._closeDropdown();
+    } else {
+      this._openDropdown();
+    }
+  }
+  _openDropdown() {
+    if (!this._dropdown || !this._el) return;
+    this._open = true;
+    if (!this._dropdown.parentNode) {
+      const container = this._el.parentNode || document.body;
+      container.style.position = "relative";
+      container.appendChild(this._dropdown);
+    }
+    if (this._alignRight) {
+      this._dropdown.style.left = "auto";
+      this._dropdown.style.right = "0";
+    } else {
+      this._dropdown.style.left = "0";
+      this._dropdown.style.right = "auto";
+    }
+    this._dropdown.style.display = "block";
+    this._el.setAttribute("aria-expanded", "true");
+    this.setActive(true);
+  }
+  _closeDropdown() {
+    if (!this._dropdown) return;
+    this._open = false;
+    this._dropdown.style.display = "none";
+    if (this._el) {
+      this._el.setAttribute("aria-expanded", "false");
+    }
+    this.setActive(false);
+  }
+  /**
+   * Update the items in the dropdown.
+   * @param {Array} items
+   */
+  setItems(items) {
+    this._items = items;
+    if (this._dropdown) {
+      this._dropdown.innerHTML = "";
+      for (const item of items) {
+        const li = document.createElement("li");
+        li.className = "npe-dropdown-item";
+        li.setAttribute("role", "menuitem");
+        li.setAttribute("tabindex", "0");
+        li.textContent = item.label;
+        li.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this._closeDropdown();
+          if (item.action) item.action(e, item);
+          if (this._onItemClick) this._onItemClick(item, e);
+        });
+        this._dropdown.appendChild(li);
+      }
+    }
+  }
+  /**
+   * Return the rendered button element.
+   */
+  render() {
+    return this._el;
+  }
+  destroy() {
+    this._closeDropdown();
+    document.removeEventListener("mousedown", this._docCloseHandler, true);
+    document.removeEventListener("keydown", this._keyCloseHandler, true);
+    if (this._dropdown && this._dropdown.parentNode) {
+      this._dropdown.parentNode.removeChild(this._dropdown);
+    }
+    this._dropdown = null;
     super.destroy();
   }
 };
@@ -5151,7 +5151,6 @@ var TableResize = class {
     const hostLeft = iframeRect.left + cellRect.left;
     const hostTop = iframeRect.top + cellRect.top;
     const hostRight = hostLeft + cellRect.width;
-    const hostBottom = hostTop + cellRect.height;
     const mouseHostX = iframeRect.left + e.clientX;
     const THRESHOLD = 6;
     if (mouseHostX >= hostRight - THRESHOLD && mouseHostX <= hostRight + THRESHOLD) {
@@ -6285,8 +6284,8 @@ var BlockDragDrop = class {
     const iframeRect = iframeEl.getBoundingClientRect();
     const iframeScrollTop = iframeDoc.documentElement.scrollTop || iframeDoc.body.scrollTop || 0;
     const iframeScrollLeft = iframeDoc.documentElement.scrollLeft || iframeDoc.body.scrollLeft || 0;
-    const dropX = e.clientX - iframeRect.left + iframeScrollLeft;
-    const dropY = e.clientY - iframeRect.top + iframeScrollTop;
+    void (e.clientX - iframeRect.left + iframeScrollLeft);
+    void (e.clientY - iframeRect.top + iframeScrollTop);
     const setCursorAtDrop = () => {
       if (!iframeDoc) return;
       try {
@@ -6827,13 +6826,27 @@ var ContentSerializer = class {
   }
   /**
    * Set innerHTML of the iframe body after sanitization.
+   * When a sanitizer is provided the HTML is sanitized before writing.
+   * Without a sanitizer the html is still written safely through a
+   * DocumentFragment rather than assigned directly to innerHTML.
    * @param {string} html
    */
   setContent(html) {
     const body = this._getBody();
     if (!body) return;
-    const sanitized = this._sanitizer ? this._sanitizer.sanitize(html) : html;
-    body.innerHTML = sanitized;
+    const doc = body.ownerDocument;
+    const finalHtml = this._sanitizer ? this._sanitizer.sanitize(html) : html;
+    let frag;
+    try {
+      frag = doc.createRange().createContextualFragment(finalHtml);
+    } catch (e) {
+      const tmp = doc.createElement("div");
+      tmp.innerHTML = finalHtml;
+      frag = doc.createDocumentFragment();
+      while (tmp.firstChild) frag.appendChild(tmp.firstChild);
+    }
+    while (body.firstChild) body.removeChild(body.firstChild);
+    body.appendChild(frag);
   }
   /**
    * Get the plain text content of the iframe body (no HTML tags).
@@ -7310,9 +7323,20 @@ var Sanitizer = class {
         fragment.appendChild(n);
       }
     }
+    const parts = [];
     const tmp = outputDoc.createElement("div");
-    tmp.appendChild(fragment);
-    return tmp.innerHTML.trim();
+    for (const n of Array.from(fragment.childNodes)) {
+      if (n.nodeType === Node.TEXT_NODE) {
+        parts.push(
+          (n.nodeValue || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        );
+      } else if (n.nodeType === Node.ELEMENT_NODE) {
+        tmp.appendChild(n);
+        parts.push(tmp.innerHTML);
+        tmp.innerHTML = "";
+      }
+    }
+    return parts.join("").trim();
   }
 };
 

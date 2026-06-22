@@ -9,7 +9,7 @@
  */
 
 import { Editor } from './core/Editor.js';
-import { normalizeOptions, VALID_THEMES } from './core/Options.js';
+import { normalizeOptions } from './core/Options.js';
 import { addTranslation } from './i18n/i18n.js';
 
 // The embedded CSS string is injected by the esbuild embedCssPlugin.

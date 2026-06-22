@@ -8,7 +8,6 @@
  */
 
 import { ButtonBase } from './buttons/ButtonBase.js';
-import { DropdownButton } from './buttons/DropdownButton.js';
 import { HeadingSelect } from './buttons/HeadingSelect.js';
 import { FontFamilySelect } from './buttons/FontFamilySelect.js';
 import { FontSizeWidget } from './buttons/FontSizeWidget.js';

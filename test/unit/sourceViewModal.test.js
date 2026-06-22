@@ -225,7 +225,13 @@ describe('SourceViewModal — apply behaviour', () => {
   test('apply sanitizes HTML before writing to serializer', () => {
     const setContent = jest.fn();
     const serializer = { getContent: () => '', setContent };
-    const sanitizeFn = jest.fn((html) => html.replace(/<script[^>]*>.*?<\/script>/gi, ''));
+    // Use a DOMParser-based sanitizer rather than a regex to avoid bad-tag-filter
+    // and incomplete-sanitization warnings from static analysis tools.
+    const sanitizeFn = jest.fn((input) => {
+      const parsed = new DOMParser().parseFromString(input, 'text/html');
+      parsed.querySelectorAll('script').forEach(el => el.remove());
+      return parsed.body.innerHTML;
+    });
     const sanitizer = { sanitize: sanitizeFn };
     const hostEl = document.createElement('div');
     document.body.appendChild(hostEl);

@@ -7,11 +7,7 @@
 import { Editor } from '../../src/core/Editor.js';
 import { normalizeOptions } from '../../src/core/Options.js';
 import { LinkModal } from '../../src/modals/modals/LinkModal.js';
-import { ImageModal } from '../../src/modals/modals/ImageModal.js';
-import { VideoModal } from '../../src/modals/modals/VideoModal.js';
 import { TableModal } from '../../src/modals/modals/TableModal.js';
-import { EmojiPicker } from '../../src/modals/modals/EmojiPicker.js';
-import { SpecialCharsPicker } from '../../src/modals/modals/SpecialCharsPicker.js';
 import { ModalManager } from '../../src/modals/ModalManager.js';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

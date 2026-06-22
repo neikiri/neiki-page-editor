@@ -75,8 +75,14 @@ describe('ContentSerializer', () => {
 
     test('runs content through sanitizer when provided', () => {
       const canvas = makeCanvas('');
+      // Use a DOMParser-based approach rather than a regex to avoid bad-tag-filter
+      // and incomplete-sanitization warnings from static analysis tools.
       const sanitizer = {
-        sanitize: html => html.replace(/<script[^>]*>.*?<\/script>/gi, ''),
+        sanitize: (input) => {
+          const parsed = new DOMParser().parseFromString(input, 'text/html');
+          parsed.querySelectorAll('script').forEach(el => el.remove());
+          return parsed.body.innerHTML;
+        },
       };
       const cs = new ContentSerializer(canvas, sanitizer);
       cs.setContent('<p>Safe</p><script>evil()</script>');

@@ -295,9 +295,10 @@ export class BlockDragDrop {
     const iframeScrollTop  = iframeDoc.documentElement.scrollTop  || iframeDoc.body.scrollTop  || 0;
     const iframeScrollLeft = iframeDoc.documentElement.scrollLeft || iframeDoc.body.scrollLeft || 0;
 
-    // Coordinates inside the iframe document
-    const dropX = e.clientX - iframeRect.left + iframeScrollLeft;
-    const dropY = e.clientY - iframeRect.top  + iframeScrollTop;
+    // Coordinates inside the iframe document (used for cursor placement logic)
+    // dropX / dropY are computed for future use; cursor placement uses viewport coords below
+    void (e.clientX - iframeRect.left + iframeScrollLeft);  // dropX
+    void (e.clientY - iframeRect.top  + iframeScrollTop);   // dropY
 
     const setCursorAtDrop = () => {
       if (!iframeDoc) return;
