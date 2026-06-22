@@ -33,6 +33,10 @@
     "iframe",
     "vanilla-js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neikiri/neiki-page-editor"
+  },
   "author": "neikiri",
   "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {
