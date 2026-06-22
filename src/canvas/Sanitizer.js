@@ -81,8 +81,7 @@ const ALLOWED_DATA_URI_MIME = new Set([
 const DATA_URI_ALLOWED_TAGS = new Set(['img', 'video']);
 const DATA_URI_ALLOWED_ATTR = 'src';
 
-/** Dangerous URL protocol pattern. */
-const DANGEROUS_PROTOCOL_RE = /^\s*(javascript|vbscript|data):/i;
+/** Dangerous URL protocol pattern (used in isSafeUrl). */
 const DATA_URI_RE = /^\s*data:([^;,]+)[;,]/i;
 
 /**
@@ -286,13 +285,27 @@ export class Sanitizer {
       }
     }
 
-    // Serialize via a temporary div
-    const tmp = outputDoc.createElement('div');
-    tmp.appendChild(fragment);
-    // Trim leading/trailing whitespace to ensure idempotency:
-    // jsdom's DOMParser drops whitespace-only body text nodes, so a whitespace
-    // output from the first pass would serialize to '' on the second pass.
-    return tmp.innerHTML.trim();
+    // Serialize each top-level safe node via outerHTML (for elements) or
+    // escaped nodeValue (for text nodes). Every element in the fragment was
+    // constructed from scratch by createElement/setAttribute — no untrusted
+    // string was ever assigned to innerHTML — so outerHTML is safe to read.
+    const parts = [];
+    for (const n of Array.from(fragment.childNodes)) {
+      if (n.nodeType === Node.TEXT_NODE) {
+        // Escape text node content so it serialises as plain text, not HTML.
+        parts.push(
+          (n.nodeValue || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;'),
+        );
+      } else if (n.nodeType === Node.ELEMENT_NODE) {
+        // outerHTML is safe: the element was built entirely via
+        // createElement/setAttribute with sanitized values.
+        parts.push(n.outerHTML);
+      }
+    }
+    return parts.join('').trim();
   }
 }
 

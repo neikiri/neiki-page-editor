@@ -87,9 +87,6 @@ function createEditor(target, options = {}) {
 // Arbitraries
 // ---------------------------------------------------------------------------
 
-/** Generate CSS class names that look like host application classes. */
-const hostClassArb = fc.stringMatching(/^[a-z][a-z0-9-]{2,12}$/).map(s => `.${s}`);
-
 /** Generate simple page CSS rules targeting generic selectors. */
 const pageCssArb = fc.oneof(
   fc.constantFrom(

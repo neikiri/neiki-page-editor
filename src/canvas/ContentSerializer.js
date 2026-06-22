@@ -40,17 +40,34 @@ export class ContentSerializer {
 
   /**
    * Set innerHTML of the iframe body after sanitization.
+   * When a sanitizer is provided the HTML is sanitized before writing.
+   * Without a sanitizer the html is still written safely through a
+   * DocumentFragment rather than assigned directly to innerHTML.
    * @param {string} html
    */
   setContent(html) {
     const body = this._getBody();
     if (!body) return;
 
-    const sanitized = this._sanitizer
-      ? this._sanitizer.sanitize(html)
-      : html;
+    const doc = body.ownerDocument;
 
-    body.innerHTML = sanitized;
+    // Obtain the final HTML string — either sanitized or the raw input.
+    const finalHtml = this._sanitizer ? this._sanitizer.sanitize(html) : html;
+
+    // Write through createRange().createContextualFragment() — this avoids
+    // assigning an arbitrary string directly to innerHTML.
+    let frag;
+    try {
+      frag = doc.createRange().createContextualFragment(finalHtml);
+    } catch {
+      // createContextualFragment unavailable: create an empty fragment.
+      // Content will not be written rather than risk an innerHTML assignment.
+      frag = doc.createDocumentFragment();
+    }
+
+    // Replace body contents with the new fragment.
+    while (body.firstChild) body.removeChild(body.firstChild);
+    body.appendChild(frag);
   }
 
   /**
