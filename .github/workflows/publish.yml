@@ -29,7 +29,14 @@ jobs:
       - run: npm run build --if-present
 
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          PKG=$(node -p "require('./package.json').name")
+          if npm view "$PKG@$VERSION" version 2>/dev/null | grep -q "$VERSION"; then
+            echo "Version $VERSION already published to npm, skipping."
+          else
+            npm publish --provenance --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -48,6 +55,11 @@ jobs:
             pkg.publishConfig = { registry: 'https://npm.pkg.github.com' };
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
           "
-          npm publish
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "@neikiri/neiki-page-editor@$VERSION" version 2>/dev/null | grep -q "$VERSION"; then
+            echo "Version $VERSION already published to GitHub Packages, skipping."
+          else
+            npm publish
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
