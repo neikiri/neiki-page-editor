@@ -228,7 +228,7 @@ The minified CDN build embeds all editor CSS and exposes `window.NeikiPageEditor
 When distributing over a CDN, pin to a specific version to avoid unexpected breaking changes:
 
 ```html
-<script src="https://cdn.example.com/neiki-page-editor/0.1.0/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.1.0/neiki-page-editor.min.js"></script>
 ```
 
 ---
@@ -372,7 +372,7 @@ const editor = new NeikiPageEditor('#editor', {
     fullHtml: `<!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.example.com/theme.css">
+  <link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/neiki-page-editor.css">
   <style>h1 { color: navy; }</style>
 </head>
 <body>
@@ -659,9 +659,9 @@ const editor = new NeikiPageEditor('#editor', {
 
 ```js
 const editor = new NeikiPageEditor('#editor', {
-  cssUrls: ['https://cdn.example.com/theme.css'],
+  cssUrls: ['https://cdn.neikiri.dev/neiki-page-editor/neiki-page-editor.css'],
   // Allow URLs from your CDN without requiring a .css extension
-  stylesheetUrlValidator: (url) => url.startsWith('https://cdn.example.com/'),
+  stylesheetUrlValidator: (url) => url.startsWith('https://cdn.neikiri.dev/'),
   loadHandler: async () => ({ html: '<p>Content</p>' }),
 });
 ```
