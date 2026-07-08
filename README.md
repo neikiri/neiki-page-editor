@@ -34,17 +34,17 @@
 ---
 
 <p align="center">
-  <img src="assets/img/neiki-page-editor-light.png" alt="Neiki's Page Editor" width="900">
+  <img src="assets/img/previews/neiki-page-editor-light.png" alt="Neiki's Page Editor" width="900">
 </p>
 
 <p align="center">
-  <img src="assets/img/neiki-page-editor-blue.png" alt="Blue Theme" width="260">
-  <img src="assets/img/neiki-page-editor-dark.png" alt="Dark Theme" width="260">
-  <img src="assets/img/neiki-page-editor-dark-blue.png" alt="Dark Blue Theme" width="260">
-  <img src="assets/img/neiki-page-editor-midnight.png" alt="Midnight Theme" width="260">
-  <img src="assets/img/neiki-page-editor-void.png" alt="Void Theme" width="260">
-  <img src="assets/img/neiki-page-editor-autumn.png" alt="Autumn Theme" width="260">
-  <img src="assets/img/neiki-page-editor-dracula.png" alt="Dracula Theme" width="260">
+  <img src="assets/img/toolbars/neiki-page-editor-blue-toolbar.png" alt="Blue Theme" width="900">
+  <img src="assets/img/toolbars/neiki-page-editor-dark-toolbar.png" alt="Dark Theme" width="900">
+  <img src="assets/img/toolbars/neiki-page-editor-dark-blue-toolbar.png" alt="Dark Blue Theme" width="900">
+  <img src="assets/img/toolbars/neiki-page-editor-midnight-toolbar.png" alt="Midnight Theme" width="900">
+  <img src="assets/img/toolbars/neiki-page-editor-void-toolbar.png" alt="Void Theme" width="900">
+  <img src="assets/img/toolbars/neiki-page-editor-autumn-toolbar.png" alt="Autumn Theme" width="900">
+  <img src="assets/img/toolbars/neiki-page-editor-dracula-toolbar.png" alt="Dracula Theme" width="900">
 </p>
 
 ---
