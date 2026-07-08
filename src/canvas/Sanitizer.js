@@ -32,6 +32,93 @@ const ALLOWED_TAGS = new Set([
   'address', 'bdi', 'bdo', 'ruby', 'rt', 'rp', 'wbr', 'data',
 ]);
 
+/** SVG namespace URI, used to detect and (re)create foreign SVG elements. */
+const SVG_NS = 'http://www.w3.org/2000/svg';
+/** XLink namespace URI, needed for xlink:href attributes on older SVG markup. */
+const XLINK_NS = 'http://www.w3.org/1999/xlink';
+
+/**
+ * SVG elements that are allowed through. No scripting-capable elements
+ * (script, animate*, foreignObject) are included — animate/foreignObject
+ * are deliberately excluded even though they carry no JS themselves, to
+ * keep the surface small and predictable.
+ */
+const ALLOWED_SVG_TAGS = new Set([
+  'svg', 'g', 'path', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon',
+  'text', 'tspan', 'textPath', 'defs', 'use', 'symbol', 'title', 'desc',
+  'clipPath', 'mask', 'pattern', 'linearGradient', 'radialGradient', 'stop',
+  'marker', 'image', 'switch', 'view', 'filter',
+  'feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite',
+  'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap',
+  'feDistantLight', 'feDropShadow', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG',
+  'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode',
+  'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting',
+  'feSpotLight', 'feTile', 'feTurbulence',
+]);
+
+/** Attributes globally allowed on any SVG element (presentation attributes). */
+const SVG_ATTRS_GLOBAL = new Set([
+  'class', 'id', 'style', 'tabindex',
+  'fill', 'fill-rule', 'fill-opacity', 'stroke', 'stroke-width', 'stroke-linecap',
+  'stroke-linejoin', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-opacity',
+  'opacity', 'transform', 'clip-path', 'clip-rule', 'mask', 'filter', 'color',
+  'stop-color', 'stop-opacity', 'font-family', 'font-size', 'font-weight',
+  'font-style', 'text-anchor', 'dominant-baseline', 'visibility', 'display',
+  'vector-effect', 'paint-order',
+]);
+
+/** Per-SVG-element additional allowed attributes (case matches parsed DOM output). */
+const SVG_ATTRS_BY_TAG = {
+  svg: new Set(['viewBox', 'width', 'height', 'xmlns', 'preserveAspectRatio', 'version']),
+  path: new Set(['d', 'pathLength']),
+  rect: new Set(['x', 'y', 'width', 'height', 'rx', 'ry', 'pathLength']),
+  circle: new Set(['cx', 'cy', 'r', 'pathLength']),
+  ellipse: new Set(['cx', 'cy', 'rx', 'ry', 'pathLength']),
+  line: new Set(['x1', 'y1', 'x2', 'y2', 'pathLength']),
+  polyline: new Set(['points', 'pathLength']),
+  polygon: new Set(['points', 'pathLength']),
+  text: new Set(['x', 'y', 'dx', 'dy', 'rotate', 'textLength', 'lengthAdjust']),
+  tspan: new Set(['x', 'y', 'dx', 'dy', 'rotate', 'textLength', 'lengthAdjust']),
+  textPath: new Set(['href', 'xlink:href', 'startOffset', 'method', 'spacing']),
+  use: new Set(['href', 'xlink:href', 'x', 'y', 'width', 'height']),
+  image: new Set(['href', 'xlink:href', 'x', 'y', 'width', 'height', 'preserveAspectRatio']),
+  linearGradient: new Set(['x1', 'y1', 'x2', 'y2', 'gradientUnits', 'gradientTransform', 'spreadMethod', 'href', 'xlink:href']),
+  radialGradient: new Set(['cx', 'cy', 'r', 'fx', 'fy', 'fr', 'gradientUnits', 'gradientTransform', 'spreadMethod', 'href', 'xlink:href']),
+  stop: new Set(['offset', 'stop-color', 'stop-opacity']),
+  pattern: new Set(['x', 'y', 'width', 'height', 'patternUnits', 'patternContentUnits', 'patternTransform', 'viewBox', 'href', 'xlink:href', 'preserveAspectRatio']),
+  marker: new Set(['markerWidth', 'markerHeight', 'refX', 'refY', 'orient', 'markerUnits', 'viewBox', 'preserveAspectRatio']),
+  clipPath: new Set(['clipPathUnits']),
+  mask: new Set(['maskUnits', 'maskContentUnits', 'x', 'y', 'width', 'height']),
+  symbol: new Set(['viewBox', 'preserveAspectRatio', 'x', 'y', 'width', 'height']),
+  filter: new Set(['x', 'y', 'width', 'height', 'filterUnits', 'primitiveUnits']),
+  feGaussianBlur: new Set(['stdDeviation', 'in', 'result', 'edgeMode']),
+  feOffset: new Set(['dx', 'dy', 'in', 'result']),
+  feMerge: new Set(['result']),
+  feMergeNode: new Set(['in']),
+  feColorMatrix: new Set(['type', 'values', 'in', 'result']),
+  feComponentTransfer: new Set(['in', 'result']),
+  feFuncA: new Set(['type', 'tableValues', 'slope', 'intercept', 'amplitude', 'exponent', 'offset']),
+  feFuncR: new Set(['type', 'tableValues', 'slope', 'intercept', 'amplitude', 'exponent', 'offset']),
+  feFuncG: new Set(['type', 'tableValues', 'slope', 'intercept', 'amplitude', 'exponent', 'offset']),
+  feFuncB: new Set(['type', 'tableValues', 'slope', 'intercept', 'amplitude', 'exponent', 'offset']),
+  feFlood: new Set(['flood-color', 'flood-opacity', 'result']),
+  feComposite: new Set(['in', 'in2', 'operator', 'k1', 'k2', 'k3', 'k4', 'result']),
+  feBlend: new Set(['in', 'in2', 'mode', 'result']),
+  feDropShadow: new Set(['dx', 'dy', 'stdDeviation', 'flood-color', 'flood-opacity']),
+  feMorphology: new Set(['operator', 'radius', 'in', 'result']),
+  feTurbulence: new Set(['type', 'baseFrequency', 'numOctaves', 'seed', 'stitchTiles', 'result']),
+  feDisplacementMap: new Set(['in', 'in2', 'scale', 'xChannelSelector', 'yChannelSelector', 'result']),
+  feConvolveMatrix: new Set(['order', 'kernelMatrix', 'divisor', 'bias', 'targetX', 'targetY', 'edgeMode', 'kernelUnitLength', 'preserveAlpha', 'result', 'in']),
+  feDiffuseLighting: new Set(['surfaceScale', 'diffuseConstant', 'in', 'result']),
+  feSpecularLighting: new Set(['surfaceScale', 'specularConstant', 'specularExponent', 'in', 'result']),
+  feDistantLight: new Set(['azimuth', 'elevation']),
+  fePointLight: new Set(['x', 'y', 'z']),
+  feSpotLight: new Set(['x', 'y', 'z', 'pointsAtX', 'pointsAtY', 'pointsAtZ', 'specularExponent', 'limitingConeAngle']),
+  feTile: new Set(['in', 'result']),
+  feImage: new Set(['href', 'xlink:href', 'result', 'preserveAspectRatio']),
+  view: new Set(['viewBox', 'preserveAspectRatio']),
+};
+
 /**
  * Attributes globally allowed on any element (plus element-specific ones below).
  * data-* and aria-* are handled by prefix checks.
@@ -124,13 +211,23 @@ function isSafeUrl(value, tagName, attrName, allowDataUris) {
 /**
  * Determine whether an attribute name is in the allowed set for a given tag.
  *
- * @param {string} attrName  lowercase attribute name
- * @param {string} tagName   lowercase tag name
+ * @param {string} attrName  attribute name (lowercase for HTML, original case for SVG)
+ * @param {string} tagName   tag name (lowercase for HTML, original case for SVG)
+ * @param {boolean} [isSvg]  whether the element lives in the SVG namespace
  * @returns {boolean}
  */
-function isAllowedAttr(attrName, tagName) {
+function isAllowedAttr(attrName, tagName, isSvg) {
   // Block all on* event handlers
   if (/^on/i.test(attrName)) return false;
+
+  if (isSvg) {
+    if (SVG_ATTRS_GLOBAL.has(attrName)) return true;
+    if (/^data-[a-z]/i.test(attrName)) return true;
+    if (/^aria-[a-z]/i.test(attrName)) return true;
+    const svgTagAttrs = SVG_ATTRS_BY_TAG[tagName];
+    if (svgTagAttrs && svgTagAttrs.has(attrName)) return true;
+    return false;
+  }
 
   // Global allowlist
   if (ALLOWED_ATTRS_GLOBAL.has(attrName)) return true;
@@ -165,7 +262,10 @@ function sanitizeNode(node, doc, allowDataUris) {
     return [];
   }
 
-  const tagName = node.tagName.toLowerCase();
+  // SVG (and other foreign) content keeps its authored case (e.g. "linearGradient",
+  // "feGaussianBlur") — only HTML elements are safe to lowercase.
+  const isSvg = node.namespaceURI === SVG_NS;
+  const tagName = isSvg ? node.tagName : node.tagName.toLowerCase();
 
   // Hard block: remove element and all its children
   if (BLOCKED_TAGS.has(tagName)) {
@@ -173,7 +273,7 @@ function sanitizeNode(node, doc, allowDataUris) {
   }
 
   // Unknown element: skip the element but still recurse into children (preserves text)
-  const isKnown = ALLOWED_TAGS.has(tagName);
+  const isKnown = isSvg ? ALLOWED_SVG_TAGS.has(tagName) : ALLOWED_TAGS.has(tagName);
 
   const safeChildren = [];
   for (const child of Array.from(node.childNodes)) {
@@ -185,18 +285,18 @@ function sanitizeNode(node, doc, allowDataUris) {
     return safeChildren;
   }
 
-  // Create a clean element of the same type
-  const clean = doc.createElement(tagName);
+  // Create a clean element of the same type, in the same namespace
+  const clean = isSvg ? doc.createElementNS(SVG_NS, tagName) : doc.createElement(tagName);
 
   // Copy allowed attributes
   for (const attr of Array.from(node.attributes)) {
-    const name = attr.name.toLowerCase();
+    const name = isSvg ? attr.name : attr.name.toLowerCase();
     const value = attr.value;
 
-    if (!isAllowedAttr(name, tagName)) continue;
+    if (!isAllowedAttr(name, tagName, isSvg)) continue;
 
     // Validate URLs
-    if (name in URL_ATTRS || name === 'src' || name === 'href' || name === 'poster') {
+    if (name in URL_ATTRS || name === 'src' || name === 'href' || name === 'xlink:href' || name === 'poster') {
       if (!isSafeUrl(value, tagName, name, allowDataUris)) continue;
     }
 
@@ -209,7 +309,11 @@ function sanitizeNode(node, doc, allowDataUris) {
       continue;
     }
 
-    clean.setAttribute(name, value);
+    if (name === 'xlink:href') {
+      clean.setAttributeNS(XLINK_NS, 'xlink:href', value);
+    } else {
+      clean.setAttribute(name, value);
+    }
   }
 
   for (const child of safeChildren) {

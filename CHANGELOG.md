@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1]
+
+### Added
+
+- `Sanitizer` now allows `<svg>` and its common child elements (shapes, `text`/`tspan`, `defs`/`use`/`symbol`, gradients, patterns, clipPath/mask, markers, and filter primitives) to pass through and render, instead of being unwrapped. Elements are recreated in the SVG namespace so they render as vector graphics rather than inert tags. `<script>`, `<foreignObject>`, `animate*` elements, `on*` event handler attributes, and `javascript:`/`vbscript:` URLs (including on `xlink:href`) remain blocked; `data:` URIs inside SVG remain disallowed.
+
 ## [0.1.0] - 2026-06-22
 
 ### Added

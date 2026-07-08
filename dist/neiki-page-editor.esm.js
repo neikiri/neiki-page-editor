@@ -7143,6 +7143,148 @@ var ALLOWED_TAGS = /* @__PURE__ */ new Set([
   "wbr",
   "data"
 ]);
+var SVG_NS = "http://www.w3.org/2000/svg";
+var XLINK_NS = "http://www.w3.org/1999/xlink";
+var ALLOWED_SVG_TAGS = /* @__PURE__ */ new Set([
+  "svg",
+  "g",
+  "path",
+  "rect",
+  "circle",
+  "ellipse",
+  "line",
+  "polyline",
+  "polygon",
+  "text",
+  "tspan",
+  "textPath",
+  "defs",
+  "use",
+  "symbol",
+  "title",
+  "desc",
+  "clipPath",
+  "mask",
+  "pattern",
+  "linearGradient",
+  "radialGradient",
+  "stop",
+  "marker",
+  "image",
+  "switch",
+  "view",
+  "filter",
+  "feBlend",
+  "feColorMatrix",
+  "feComponentTransfer",
+  "feComposite",
+  "feConvolveMatrix",
+  "feDiffuseLighting",
+  "feDisplacementMap",
+  "feDistantLight",
+  "feDropShadow",
+  "feFlood",
+  "feFuncA",
+  "feFuncB",
+  "feFuncG",
+  "feFuncR",
+  "feGaussianBlur",
+  "feImage",
+  "feMerge",
+  "feMergeNode",
+  "feMorphology",
+  "feOffset",
+  "fePointLight",
+  "feSpecularLighting",
+  "feSpotLight",
+  "feTile",
+  "feTurbulence"
+]);
+var SVG_ATTRS_GLOBAL = /* @__PURE__ */ new Set([
+  "class",
+  "id",
+  "style",
+  "tabindex",
+  "fill",
+  "fill-rule",
+  "fill-opacity",
+  "stroke",
+  "stroke-width",
+  "stroke-linecap",
+  "stroke-linejoin",
+  "stroke-dasharray",
+  "stroke-dashoffset",
+  "stroke-opacity",
+  "opacity",
+  "transform",
+  "clip-path",
+  "clip-rule",
+  "mask",
+  "filter",
+  "color",
+  "stop-color",
+  "stop-opacity",
+  "font-family",
+  "font-size",
+  "font-weight",
+  "font-style",
+  "text-anchor",
+  "dominant-baseline",
+  "visibility",
+  "display",
+  "vector-effect",
+  "paint-order"
+]);
+var SVG_ATTRS_BY_TAG = {
+  svg: /* @__PURE__ */ new Set(["viewBox", "width", "height", "xmlns", "preserveAspectRatio", "version"]),
+  path: /* @__PURE__ */ new Set(["d", "pathLength"]),
+  rect: /* @__PURE__ */ new Set(["x", "y", "width", "height", "rx", "ry", "pathLength"]),
+  circle: /* @__PURE__ */ new Set(["cx", "cy", "r", "pathLength"]),
+  ellipse: /* @__PURE__ */ new Set(["cx", "cy", "rx", "ry", "pathLength"]),
+  line: /* @__PURE__ */ new Set(["x1", "y1", "x2", "y2", "pathLength"]),
+  polyline: /* @__PURE__ */ new Set(["points", "pathLength"]),
+  polygon: /* @__PURE__ */ new Set(["points", "pathLength"]),
+  text: /* @__PURE__ */ new Set(["x", "y", "dx", "dy", "rotate", "textLength", "lengthAdjust"]),
+  tspan: /* @__PURE__ */ new Set(["x", "y", "dx", "dy", "rotate", "textLength", "lengthAdjust"]),
+  textPath: /* @__PURE__ */ new Set(["href", "xlink:href", "startOffset", "method", "spacing"]),
+  use: /* @__PURE__ */ new Set(["href", "xlink:href", "x", "y", "width", "height"]),
+  image: /* @__PURE__ */ new Set(["href", "xlink:href", "x", "y", "width", "height", "preserveAspectRatio"]),
+  linearGradient: /* @__PURE__ */ new Set(["x1", "y1", "x2", "y2", "gradientUnits", "gradientTransform", "spreadMethod", "href", "xlink:href"]),
+  radialGradient: /* @__PURE__ */ new Set(["cx", "cy", "r", "fx", "fy", "fr", "gradientUnits", "gradientTransform", "spreadMethod", "href", "xlink:href"]),
+  stop: /* @__PURE__ */ new Set(["offset", "stop-color", "stop-opacity"]),
+  pattern: /* @__PURE__ */ new Set(["x", "y", "width", "height", "patternUnits", "patternContentUnits", "patternTransform", "viewBox", "href", "xlink:href", "preserveAspectRatio"]),
+  marker: /* @__PURE__ */ new Set(["markerWidth", "markerHeight", "refX", "refY", "orient", "markerUnits", "viewBox", "preserveAspectRatio"]),
+  clipPath: /* @__PURE__ */ new Set(["clipPathUnits"]),
+  mask: /* @__PURE__ */ new Set(["maskUnits", "maskContentUnits", "x", "y", "width", "height"]),
+  symbol: /* @__PURE__ */ new Set(["viewBox", "preserveAspectRatio", "x", "y", "width", "height"]),
+  filter: /* @__PURE__ */ new Set(["x", "y", "width", "height", "filterUnits", "primitiveUnits"]),
+  feGaussianBlur: /* @__PURE__ */ new Set(["stdDeviation", "in", "result", "edgeMode"]),
+  feOffset: /* @__PURE__ */ new Set(["dx", "dy", "in", "result"]),
+  feMerge: /* @__PURE__ */ new Set(["result"]),
+  feMergeNode: /* @__PURE__ */ new Set(["in"]),
+  feColorMatrix: /* @__PURE__ */ new Set(["type", "values", "in", "result"]),
+  feComponentTransfer: /* @__PURE__ */ new Set(["in", "result"]),
+  feFuncA: /* @__PURE__ */ new Set(["type", "tableValues", "slope", "intercept", "amplitude", "exponent", "offset"]),
+  feFuncR: /* @__PURE__ */ new Set(["type", "tableValues", "slope", "intercept", "amplitude", "exponent", "offset"]),
+  feFuncG: /* @__PURE__ */ new Set(["type", "tableValues", "slope", "intercept", "amplitude", "exponent", "offset"]),
+  feFuncB: /* @__PURE__ */ new Set(["type", "tableValues", "slope", "intercept", "amplitude", "exponent", "offset"]),
+  feFlood: /* @__PURE__ */ new Set(["flood-color", "flood-opacity", "result"]),
+  feComposite: /* @__PURE__ */ new Set(["in", "in2", "operator", "k1", "k2", "k3", "k4", "result"]),
+  feBlend: /* @__PURE__ */ new Set(["in", "in2", "mode", "result"]),
+  feDropShadow: /* @__PURE__ */ new Set(["dx", "dy", "stdDeviation", "flood-color", "flood-opacity"]),
+  feMorphology: /* @__PURE__ */ new Set(["operator", "radius", "in", "result"]),
+  feTurbulence: /* @__PURE__ */ new Set(["type", "baseFrequency", "numOctaves", "seed", "stitchTiles", "result"]),
+  feDisplacementMap: /* @__PURE__ */ new Set(["in", "in2", "scale", "xChannelSelector", "yChannelSelector", "result"]),
+  feConvolveMatrix: /* @__PURE__ */ new Set(["order", "kernelMatrix", "divisor", "bias", "targetX", "targetY", "edgeMode", "kernelUnitLength", "preserveAlpha", "result", "in"]),
+  feDiffuseLighting: /* @__PURE__ */ new Set(["surfaceScale", "diffuseConstant", "in", "result"]),
+  feSpecularLighting: /* @__PURE__ */ new Set(["surfaceScale", "specularConstant", "specularExponent", "in", "result"]),
+  feDistantLight: /* @__PURE__ */ new Set(["azimuth", "elevation"]),
+  fePointLight: /* @__PURE__ */ new Set(["x", "y", "z"]),
+  feSpotLight: /* @__PURE__ */ new Set(["x", "y", "z", "pointsAtX", "pointsAtY", "pointsAtZ", "specularExponent", "limitingConeAngle"]),
+  feTile: /* @__PURE__ */ new Set(["in", "result"]),
+  feImage: /* @__PURE__ */ new Set(["href", "xlink:href", "result", "preserveAspectRatio"]),
+  view: /* @__PURE__ */ new Set(["viewBox", "preserveAspectRatio"])
+};
 var ALLOWED_ATTRS_GLOBAL = /* @__PURE__ */ new Set([
   "class",
   "id",
@@ -7209,8 +7351,16 @@ function isSafeUrl(value, tagName, attrName, allowDataUris) {
   if (/^(javascript|vbscript):/i.test(decoded)) return false;
   return true;
 }
-function isAllowedAttr(attrName, tagName) {
+function isAllowedAttr(attrName, tagName, isSvg) {
   if (/^on/i.test(attrName)) return false;
+  if (isSvg) {
+    if (SVG_ATTRS_GLOBAL.has(attrName)) return true;
+    if (/^data-[a-z]/i.test(attrName)) return true;
+    if (/^aria-[a-z]/i.test(attrName)) return true;
+    const svgTagAttrs = SVG_ATTRS_BY_TAG[tagName];
+    if (svgTagAttrs && svgTagAttrs.has(attrName)) return true;
+    return false;
+  }
   if (ALLOWED_ATTRS_GLOBAL.has(attrName)) return true;
   if (/^data-[a-z]/i.test(attrName)) return true;
   if (/^aria-[a-z]/i.test(attrName)) return true;
@@ -7225,11 +7375,12 @@ function sanitizeNode(node, doc, allowDataUris) {
   if (node.nodeType !== Node.ELEMENT_NODE) {
     return [];
   }
-  const tagName = node.tagName.toLowerCase();
+  const isSvg = node.namespaceURI === SVG_NS;
+  const tagName = isSvg ? node.tagName : node.tagName.toLowerCase();
   if (BLOCKED_TAGS.has(tagName)) {
     return [];
   }
-  const isKnown = ALLOWED_TAGS.has(tagName);
+  const isKnown = isSvg ? ALLOWED_SVG_TAGS.has(tagName) : ALLOWED_TAGS.has(tagName);
   const safeChildren = [];
   for (const child of Array.from(node.childNodes)) {
     safeChildren.push(...sanitizeNode(child, doc, allowDataUris));
@@ -7237,12 +7388,12 @@ function sanitizeNode(node, doc, allowDataUris) {
   if (!isKnown) {
     return safeChildren;
   }
-  const clean = doc.createElement(tagName);
+  const clean = isSvg ? doc.createElementNS(SVG_NS, tagName) : doc.createElement(tagName);
   for (const attr of Array.from(node.attributes)) {
-    const name = attr.name.toLowerCase();
+    const name = isSvg ? attr.name : attr.name.toLowerCase();
     const value = attr.value;
-    if (!isAllowedAttr(name, tagName)) continue;
-    if (name in URL_ATTRS || name === "src" || name === "href" || name === "poster") {
+    if (!isAllowedAttr(name, tagName, isSvg)) continue;
+    if (name in URL_ATTRS || name === "src" || name === "href" || name === "xlink:href" || name === "poster") {
       if (!isSafeUrl(value, tagName, name, allowDataUris)) continue;
     }
     if (name === "style") {
@@ -7252,7 +7403,11 @@ function sanitizeNode(node, doc, allowDataUris) {
       }
       continue;
     }
-    clean.setAttribute(name, value);
+    if (name === "xlink:href") {
+      clean.setAttributeNS(XLINK_NS, "xlink:href", value);
+    } else {
+      clean.setAttribute(name, value);
+    }
   }
   for (const child of safeChildren) {
     clean.appendChild(child);

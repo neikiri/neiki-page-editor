@@ -460,12 +460,57 @@ describe('Sanitizer — unknown elements', () => {
     expect(out).toContain('<p>child content</p>');
   });
 
-  test('SVG is stripped but text content is preserved', () => {
+  test('SVG is rendered but embedded script is stripped', () => {
     const out = s.sanitize('<svg><script>alert(1)</script><text>label</text></svg>');
-    expect(out).not.toContain('<svg');
+    expect(out).toContain('<svg');
+    expect(out).toContain('<text>label</text>');
     expect(out).not.toContain('<script');
-    // Text node inside svg/text may be preserved depending on unwrapping depth
     expect(out).not.toContain('alert');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// SVG support
+// ---------------------------------------------------------------------------
+describe('Sanitizer — SVG support', () => {
+  test('basic svg shape is preserved with its attributes', () => {
+    const out = s.sanitize('<svg viewBox="0 0 24 24" width="24" height="24"><path d="M0 0h24v24H0z" fill="#333"/></svg>');
+    expect(out).toContain('<svg');
+    expect(out).toContain('viewBox="0 0 24 24"');
+    expect(out).toContain('<path');
+    expect(out).toContain('d="M0 0h24v24H0z"');
+    expect(out).toContain('fill="#333"');
+  });
+
+  test('camelCase svg tags and attributes survive round-trip', () => {
+    const out = s.sanitize('<svg><defs><linearGradient id="g" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/></linearGradient></defs></svg>');
+    expect(out).toContain('<linearGradient');
+    expect(out).toContain('gradientUnits="userSpaceOnUse"');
+    expect(out).toContain('<stop');
+  });
+
+  test('onload and other event handlers are stripped from svg elements', () => {
+    const out = s.sanitize('<svg onload="alert(1)"><circle cx="5" cy="5" r="4" onclick="alert(2)"/></svg>');
+    expect(out).not.toMatch(/on\w+\s*=/i);
+    expect(out).not.toContain('alert');
+    expect(out).toContain('<circle');
+  });
+
+  test('javascript: URLs are blocked on svg use/xlink:href', () => {
+    const out = s.sanitize('<svg><use xlink:href="javascript:alert(1)"/></svg>');
+    expect(out).not.toContain('javascript:');
+  });
+
+  test('foreignObject is unwrapped out of svg', () => {
+    const out = s.sanitize('<svg><foreignObject><div>x</div></foreignObject></svg>');
+    expect(out).not.toContain('foreignObject');
+  });
+
+  test('idempotency for svg markup', () => {
+    const input = '<svg viewBox="0 0 10 10"><rect x="0" y="0" width="10" height="10" fill="red"/></svg>';
+    const once = s.sanitize(input);
+    const twice = s.sanitize(once);
+    expect(twice).toBe(once);
   });
 });
 
