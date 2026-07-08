@@ -57,7 +57,7 @@ describe('ThemeManager', () => {
 
   test('toggleTheme() cycles through all themes', () => {
     const tm = new ThemeManager(shell, 'light');
-    const expected = ['dark', 'blue', 'dark-blue', 'midnight', 'void', 'autumn', 'light'];
+    const expected = ['dark', 'blue', 'dark-blue', 'midnight', 'void', 'autumn', 'dracula', 'light'];
     for (const theme of expected) {
       tm.toggleTheme();
       expect(tm.getTheme()).toBe(theme);

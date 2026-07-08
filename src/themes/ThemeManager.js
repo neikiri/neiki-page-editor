@@ -12,6 +12,7 @@ const THEME_CLASS_MAP = {
   'midnight': 'npe-theme-midnight',
   'void': 'npe-theme-void',
   'autumn': 'npe-theme-autumn',
+  'dracula': 'npe-theme-dracula',
 };
 
 const STORAGE_KEY = 'npe-theme';

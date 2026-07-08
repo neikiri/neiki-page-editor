@@ -694,6 +694,64 @@
   --npe-focus-ring: 0 0 0 2px #fe801966;
 }
 
+/* Dracula Theme — https://github.com/dracula/dracula-theme (official palette) */
+.npe-editor.npe-theme-dracula {
+  --npe-chrome-bg: #282a36;         /* Background */
+  --npe-chrome-border: #44475a;     /* Current Line / Selection */
+  --npe-chrome-text: #f8f8f2;       /* Foreground */
+  --npe-chrome-text-muted: #6272a4; /* Comment */
+  --npe-toolbar-bg: #21222c;        /* darker chrome for depth against the canvas */
+  --npe-toolbar-border: #44475a;
+  --npe-toolbar-btn-hover-bg: #343746;
+  --npe-toolbar-btn-active-bg: #44475a;
+  --npe-toolbar-btn-active-text: #bd93f9; /* Purple */
+  --npe-toolbar-separator: #44475a;
+  --npe-canvas-bg: #282a36;
+  --npe-canvas-border: #44475a;
+  --npe-statusbar-bg: #21222c;
+  --npe-statusbar-border: #44475a;
+  --npe-statusbar-text: #6272a4;
+  --npe-focus-ring: 0 0 0 2px #bd93f999;
+}
+
+/* Dracula — toolbar icons glow the signature purple at rest, brighten to pink on hover */
+.npe-editor.npe-theme-dracula .npe-btn svg {
+  color: #bd93f9; /* Purple */
+}
+
+.npe-editor.npe-theme-dracula .npe-btn:hover svg {
+  color: #ff79c6; /* Pink */
+}
+
+.npe-editor.npe-theme-dracula .npe-btn[aria-pressed="true"] svg,
+.npe-editor.npe-theme-dracula .npe-btn.npe-active svg {
+  color: #ff79c6; /* Pink — active tools stand out from the purple resting state */
+}
+
+/* Dracula — the Insert "+" label and dropdown-arrow chevrons echo the purple accent */
+.npe-editor.npe-theme-dracula .npe-btn-label,
+.npe-editor.npe-theme-dracula .npe-dropdown-arrow svg {
+  color: #bd93f9;
+}
+
+/* Dracula — select controls and the font-size input carry the purple accent text */
+.npe-editor.npe-theme-dracula .npe-select,
+.npe-editor.npe-theme-dracula .npe-font-size-widget input[type="number"] {
+  color: #bd93f9;
+}
+
+/* Dracula — dropdown / menu item icons pick up the accent too */
+.npe-editor.npe-theme-dracula .npe-dropdown-item-icon {
+  color: #bd93f9;
+}
+
+/* Dracula — pink focus ring on text-entry controls for a lively two-tone accent */
+.npe-editor.npe-theme-dracula .npe-select:focus-visible,
+.npe-editor.npe-theme-dracula .npe-font-size-widget input[type="number"]:focus-visible,
+.npe-editor.npe-theme-dracula .npe-form-input:focus-visible {
+  box-shadow: 0 0 0 2px #ff79c699;
+}
+
 /* ─── Toolbar Group Responsive Wrapping ────────────────────────────────────── */
 .npe-toolbar-group {
   display: inline-flex;

@@ -202,6 +202,7 @@ export const zh = {
   'theme.midnight': '午夜',
   'theme.void': '虚空',
   'theme.autumn': '秋天',
+  'theme.dracula': 'Dracula',
 
   // Help
   'help.title': '帮助',

@@ -202,6 +202,7 @@ export const de = {
   'theme.midnight': 'Mitternacht',
   'theme.void': 'Void',
   'theme.autumn': 'Herbst',
+  'theme.dracula': 'Dracula',
 
   // Help
   'help.title': 'Hilfe',

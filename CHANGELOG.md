@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0]
+
+### Added
+
+- `dracula` theme — official [Dracula](https://draculatheme.com) color palette, ported from Neiki's Editor. Selectable via `theme: 'dracula'`, `editor.setTheme('dracula')`, and included in the `editor.toggleTheme()` cycle.
+
+### Changed
+
+- Demo (`demo/index.html`): replaced the placeholder welcome text with a full landing-page demo (hero section, feature cards) using the `pageStyles` option for the page's CSS.
+
 ## [0.3.0]
 
 ### Added
@@ -80,7 +90,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions workflows: CI checks, CodeQL security analysis, and npm + GitHub Packages publish on tag push.
 - `demo/index.html` (CDN-style demo) and `demo/esm.html` (ESM import demo).
 
-[Unreleased]: https://github.com/neikiri/neiki-page-editor/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/neikiri/neiki-page-editor/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/neikiri/neiki-page-editor/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/neikiri/neiki-page-editor/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/neikiri/neiki-page-editor/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/neikiri/neiki-page-editor/compare/0.1.0...0.1.1

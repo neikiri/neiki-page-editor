@@ -22,6 +22,7 @@ Desktop.ini
 .idea/
 .kiro/
 *.code-workspace
+.claude/
 
 # Test / coverage
 coverage/
@@ -76,3 +77,6 @@ storage/
 
 # Reference folder
 ref/
+
+# Screenshot folder
+screenshot/

@@ -202,6 +202,7 @@ export const fr = {
   'theme.midnight': 'Minuit',
   'theme.void': 'Vide',
   'theme.autumn': 'Automne',
+  'theme.dracula': 'Dracula',
 
   // Help
   'help.title': 'Aide',

@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/web%20components-29ABE2.svg?style=for-the-badge&logo=webcomponentsdotorg&logoColor=white" alt="Web Components">
   <br>
   <img src="https://img.shields.io/badge/License-Source%20Available-2563EB?style=for-the-badge&logo=open-source-initiative&logoColor=white&labelColor=000F15&logoWidth=20" alt="License">
-  <img src="https://img.shields.io/badge/Version-0.3.0-2563EB?style=for-the-badge&logo=semantic-release&logoColor=white&labelColor=000F15&logoWidth=20" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.4.0-2563EB?style=for-the-badge&logo=semantic-release&logoColor=white&labelColor=000F15&logoWidth=20" alt="Version">
 </p>
 
 <p align="center">
@@ -22,7 +22,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Features-30%2B%20Tools-3b82f6?style=flat&labelColor=383C43" />
-  <img src="https://img.shields.io/badge/Themes-7%20Built--in-8b5cf6?style=flat&labelColor=383C43" />
+  <img src="https://img.shields.io/badge/Themes-8%20Built--in-8b5cf6?style=flat&labelColor=383C43" />
   <img src="https://img.shields.io/badge/Setup-Zero%20Config-22c55e?style=flat&labelColor=383C43" />
   <img src="https://img.shields.io/badge/iframe-CSS%20Isolated-f97316?style=flat&labelColor=383C43" />
 </p>
@@ -44,6 +44,7 @@
   <img src="assets/img/neiki-page-editor-midnight.png" alt="Midnight Theme" width="260">
   <img src="assets/img/neiki-page-editor-void.png" alt="Void Theme" width="260">
   <img src="assets/img/neiki-page-editor-autumn.png" alt="Autumn Theme" width="260">
+  <img src="assets/img/neiki-page-editor-dracula.png" alt="Dracula Theme" width="260">
 </p>
 
 ---
@@ -124,7 +125,7 @@ If you want a page editor that renders real CSS, works from a single file, and i
 - **Familiar toolbar UX** — layout and controls match Neiki's Editor exactly.
 - **Full-page editing** — load a body fragment or an entire HTML document with `<style>` blocks and external stylesheets.
 - **Zero runtime dependencies** — vanilla JavaScript only.
-- **Seven built-in themes** — light, dark, blue, dark-blue, midnight, void, autumn.
+- **Eight built-in themes** — light, dark, blue, dark-blue, midnight, void, autumn, dracula.
 - **Seven built-in languages** — English, Czech, Spanish, Simplified Chinese, German, French, Japanese — with an extensible i18n system.
 - **PHP sanitization helper** — optional server-side complement for database persistence.
 
@@ -146,7 +147,7 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 **Pin a specific version**
 
 ```html
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.3.0/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.min.js"></script>
 ```
 
 **Load CSS and JS separately**
@@ -157,8 +158,8 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 <script src="https://cdn.neikiri.dev/neiki-page-editor/neiki-page-editor.js"></script>
 
 <!-- Or pinned -->
-<link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/0.3.0/neiki-page-editor.css">
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.3.0/neiki-page-editor.js"></script>
+<link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.css">
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.js"></script>
 ```
 
 **Alternative CDN — jsDelivr**
@@ -167,7 +168,7 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 <script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@latest/dist/neiki-page-editor.min.js"></script>
 
 <!-- Pinned -->
-<script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@0.3.0/dist/neiki-page-editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@0.4.0/dist/neiki-page-editor.min.js"></script>
 ```
 
 **Package manager**
@@ -239,7 +240,7 @@ The minified CDN build embeds all editor CSS and exposes `window.NeikiPageEditor
 When distributing over a CDN, pin to a specific version to avoid unexpected breaking changes:
 
 ```html
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.3.0/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.min.js"></script>
 ```
 
 ---
@@ -448,7 +449,7 @@ Pass options as the second argument to `new NeikiPageEditor(selector, options)`.
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `theme` | `string` | `'light'` | Initial theme: `'light'`, `'dark'`, `'blue'`, `'dark-blue'`, `'midnight'`, `'void'`, `'autumn'` |
+| `theme` | `string` | `'light'` | Initial theme: `'light'`, `'dark'`, `'blue'`, `'dark-blue'`, `'midnight'`, `'void'`, `'autumn'`, `'dracula'` |
 | `persistTheme` | `boolean` | `false` | Persist theme choice in `localStorage` |
 | `language` | `string` | `'en'` | UI language code: `'en'`, `'cs'`, or custom |
 | `translations` | `object` | `{}` | Per-instance translation key overrides |
@@ -550,7 +551,7 @@ editor.destroy()            // remove all DOM, listeners, and iframe references 
 
 ```js
 editor.toggleFullscreen()   // toggle fullscreen mode on the editor shell
-editor.setTheme(name)       // set theme: 'light' | 'dark' | 'blue' | 'dark-blue' | 'midnight' | 'void' | 'autumn'
+editor.setTheme(name)       // set theme: 'light' | 'dark' | 'blue' | 'dark-blue' | 'midnight' | 'void' | 'autumn' | 'dracula'
 editor.toggleTheme()        // cycle to the next theme
 editor.getTheme()           // → string: current theme name
 ```
@@ -842,7 +843,7 @@ error.saveFailed      error.loadFailed       error.uploadFailed
 
 ## Themes
 
-Seven built-in themes affect the editor chrome (toolbar, status bar, modals, dropdowns) only. Page content inside the iframe is **never** forcibly re-themed.
+Eight built-in themes affect the editor chrome (toolbar, status bar, modals, dropdowns) only. Page content inside the iframe is **never** forcibly re-themed.
 
 | Theme name | Description | CSS class on `.npe-editor` |
 |---|---|---|
@@ -853,12 +854,13 @@ Seven built-in themes affect the editor chrome (toolbar, status bar, modals, dro
 | `midnight` | Deep dark theme | `npe-theme-midnight` |
 | `void` | Dark purple cyberpunk theme with neon glow accents | `npe-theme-void` |
 | `autumn` | Warm retro theme with a gruvbox-inspired palette | `npe-theme-autumn` |
+| `dracula` | Official Dracula palette, dark with purple/pink accents | `npe-theme-dracula` |
 
 ### Switching themes programmatically
 
 ```js
 editor.setTheme('dark');
-editor.toggleTheme();    // cycles: light → dark → blue → dark-blue → midnight → void → autumn → light
+editor.toggleTheme();    // cycles: light → dark → blue → dark-blue → midnight → void → autumn → dracula → light
 editor.getTheme();       // → 'dark'
 ```
 

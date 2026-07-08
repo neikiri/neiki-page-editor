@@ -201,6 +201,7 @@ export const cs = {
   'theme.midnight': 'Půlnoční',
   'theme.void': 'Void',
   'theme.autumn': 'Podzim',
+  'theme.dracula': 'Dracula',
 
   // Help
   'help.title': 'Nápověda',

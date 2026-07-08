@@ -202,6 +202,7 @@ export const ja = {
   'theme.midnight': 'ミッドナイト',
   'theme.void': 'ヴォイド',
   'theme.autumn': 'オータム',
+  'theme.dracula': 'Dracula',
 
   // Help
   'help.title': 'ヘルプ',

@@ -121,7 +121,7 @@ var DEFAULT_TOOLBAR = [
   "|",
   "moreMenu"
 ];
-var VALID_THEMES = ["light", "dark", "blue", "dark-blue", "midnight", "void", "autumn"];
+var VALID_THEMES = ["light", "dark", "blue", "dark-blue", "midnight", "void", "autumn", "dracula"];
 var VALID_EDIT_MODES = ["body", "regions"];
 var DEFAULTS = {
   initialContent: "",
@@ -396,6 +396,7 @@ var en = {
   "theme.midnight": "Midnight",
   "theme.void": "Void",
   "theme.autumn": "Autumn",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "Help",
   "help.close": "Close",
@@ -596,6 +597,7 @@ var cs = {
   "theme.midnight": "P\u016Flno\u010Dn\xED",
   "theme.void": "Void",
   "theme.autumn": "Podzim",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "N\xE1pov\u011Bda",
   "help.close": "Zav\u0159\xEDt",
@@ -796,6 +798,7 @@ var es = {
   "theme.midnight": "Medianoche",
   "theme.void": "Vac\xEDo",
   "theme.autumn": "Oto\xF1o",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "Ayuda",
   "help.close": "Cerrar",
@@ -996,6 +999,7 @@ var zh = {
   "theme.midnight": "\u5348\u591C",
   "theme.void": "\u865A\u7A7A",
   "theme.autumn": "\u79CB\u5929",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "\u5E2E\u52A9",
   "help.close": "\u5173\u95ED",
@@ -1196,6 +1200,7 @@ var de = {
   "theme.midnight": "Mitternacht",
   "theme.void": "Void",
   "theme.autumn": "Herbst",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "Hilfe",
   "help.close": "Schlie\xDFen",
@@ -1396,6 +1401,7 @@ var fr = {
   "theme.midnight": "Minuit",
   "theme.void": "Vide",
   "theme.autumn": "Automne",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "Aide",
   "help.close": "Fermer",
@@ -1596,6 +1602,7 @@ var ja = {
   "theme.midnight": "\u30DF\u30C3\u30C9\u30CA\u30A4\u30C8",
   "theme.void": "\u30F4\u30A9\u30A4\u30C9",
   "theme.autumn": "\u30AA\u30FC\u30BF\u30E0",
+  "theme.dracula": "Dracula",
   // Help
   "help.title": "\u30D8\u30EB\u30D7",
   "help.close": "\u9589\u3058\u308B",
@@ -8554,7 +8561,8 @@ var THEME_CLASS_MAP = {
   "dark-blue": "npe-theme-dark-blue",
   "midnight": "npe-theme-midnight",
   "void": "npe-theme-void",
-  "autumn": "npe-theme-autumn"
+  "autumn": "npe-theme-autumn",
+  "dracula": "npe-theme-dracula"
 };
 var STORAGE_KEY = "npe-theme";
 var ThemeManager = class {
@@ -8913,7 +8921,7 @@ var AutosaveManager = class {
 // src/core/Editor.js
 var CHANGE_DEBOUNCE_MS = 300;
 var TOAST_DURATION_MS = 4e3;
-var NPE_VERSION = "0.3.0";
+var NPE_VERSION = "0.4.0";
 var NPE_LOGO_URL = "https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg";
 var NPE_GITHUB_URL = "https://github.com/neikiri/neiki-page-editor";
 var Editor = class {
@@ -10677,6 +10685,64 @@ var EDITOR_CSS = `/**\r
   --npe-statusbar-border: #3c3836;\r
   --npe-statusbar-text: #a89984;\r
   --npe-focus-ring: 0 0 0 2px #fe801966;\r
+}\r
+\r
+/* Dracula Theme \u2014 https://github.com/dracula/dracula-theme (official palette) */\r
+.npe-editor.npe-theme-dracula {\r
+  --npe-chrome-bg: #282a36;         /* Background */\r
+  --npe-chrome-border: #44475a;     /* Current Line / Selection */\r
+  --npe-chrome-text: #f8f8f2;       /* Foreground */\r
+  --npe-chrome-text-muted: #6272a4; /* Comment */\r
+  --npe-toolbar-bg: #21222c;        /* darker chrome for depth against the canvas */\r
+  --npe-toolbar-border: #44475a;\r
+  --npe-toolbar-btn-hover-bg: #343746;\r
+  --npe-toolbar-btn-active-bg: #44475a;\r
+  --npe-toolbar-btn-active-text: #bd93f9; /* Purple */\r
+  --npe-toolbar-separator: #44475a;\r
+  --npe-canvas-bg: #282a36;\r
+  --npe-canvas-border: #44475a;\r
+  --npe-statusbar-bg: #21222c;\r
+  --npe-statusbar-border: #44475a;\r
+  --npe-statusbar-text: #6272a4;\r
+  --npe-focus-ring: 0 0 0 2px #bd93f999;\r
+}\r
+\r
+/* Dracula \u2014 toolbar icons glow the signature purple at rest, brighten to pink on hover */\r
+.npe-editor.npe-theme-dracula .npe-btn svg {\r
+  color: #bd93f9; /* Purple */\r
+}\r
+\r
+.npe-editor.npe-theme-dracula .npe-btn:hover svg {\r
+  color: #ff79c6; /* Pink */\r
+}\r
+\r
+.npe-editor.npe-theme-dracula .npe-btn[aria-pressed="true"] svg,\r
+.npe-editor.npe-theme-dracula .npe-btn.npe-active svg {\r
+  color: #ff79c6; /* Pink \u2014 active tools stand out from the purple resting state */\r
+}\r
+\r
+/* Dracula \u2014 the Insert "+" label and dropdown-arrow chevrons echo the purple accent */\r
+.npe-editor.npe-theme-dracula .npe-btn-label,\r
+.npe-editor.npe-theme-dracula .npe-dropdown-arrow svg {\r
+  color: #bd93f9;\r
+}\r
+\r
+/* Dracula \u2014 select controls and the font-size input carry the purple accent text */\r
+.npe-editor.npe-theme-dracula .npe-select,\r
+.npe-editor.npe-theme-dracula .npe-font-size-widget input[type="number"] {\r
+  color: #bd93f9;\r
+}\r
+\r
+/* Dracula \u2014 dropdown / menu item icons pick up the accent too */\r
+.npe-editor.npe-theme-dracula .npe-dropdown-item-icon {\r
+  color: #bd93f9;\r
+}\r
+\r
+/* Dracula \u2014 pink focus ring on text-entry controls for a lively two-tone accent */\r
+.npe-editor.npe-theme-dracula .npe-select:focus-visible,\r
+.npe-editor.npe-theme-dracula .npe-font-size-widget input[type="number"]:focus-visible,\r
+.npe-editor.npe-theme-dracula .npe-form-input:focus-visible {\r
+  box-shadow: 0 0 0 2px #ff79c699;\r
 }\r
 \r
 /* \u2500\u2500\u2500 Toolbar Group Responsive Wrapping \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */\r
