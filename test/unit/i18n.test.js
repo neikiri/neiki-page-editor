@@ -15,7 +15,7 @@ describe('i18n', () => {
   });
 
   test('falls back to English for unknown language', () => {
-    const i18n = createI18n('de');
+    const i18n = createI18n('xx');
     expect(i18n.t('toolbar.bold')).toBe('Bold');
   });
 
@@ -48,16 +48,29 @@ describe('i18n', () => {
   });
 
   test('addTranslation registers a new language', () => {
-    addTranslation('de', { 'toolbar.bold': 'Fett' });
-    const i18n = createI18n('de');
+    addTranslation('xx', { 'toolbar.bold': 'Fett' });
+    const i18n = createI18n('xx');
     expect(i18n.t('toolbar.bold')).toBe('Fett');
-    // Unknown key in de falls back to en
+    // Unknown key in xx falls back to en
     expect(i18n.t('toolbar.italic')).toBe('Italic');
   });
 
-  test('getAvailableLanguages includes en and cs', () => {
+  test('getAvailableLanguages includes all built-in languages', () => {
     const langs = getAvailableLanguages();
     expect(langs).toContain('en');
     expect(langs).toContain('cs');
+    expect(langs).toContain('es');
+    expect(langs).toContain('zh');
+    expect(langs).toContain('de');
+    expect(langs).toContain('fr');
+    expect(langs).toContain('ja');
+  });
+
+  test('returns translations for each new built-in language', () => {
+    expect(createI18n('es').t('toolbar.bold')).toBe('Negrita');
+    expect(createI18n('zh').t('toolbar.bold')).toBe('粗体');
+    expect(createI18n('de').t('toolbar.bold')).toBe('Fett');
+    expect(createI18n('fr').t('toolbar.bold')).toBe('Gras');
+    expect(createI18n('ja').t('toolbar.bold')).toBe('太字');
   });
 });

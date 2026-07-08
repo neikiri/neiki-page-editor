@@ -121,7 +121,7 @@ var DEFAULT_TOOLBAR = [
   "|",
   "moreMenu"
 ];
-var VALID_THEMES = ["light", "dark", "blue", "dark-blue", "midnight"];
+var VALID_THEMES = ["light", "dark", "blue", "dark-blue", "midnight", "void"];
 var VALID_EDIT_MODES = ["body", "regions"];
 var DEFAULTS = {
   initialContent: "",
@@ -394,9 +394,13 @@ var en = {
   "theme.blue": "Blue",
   "theme.darkBlue": "Dark Blue",
   "theme.midnight": "Midnight",
+  "theme.void": "Void",
   // Help
-  "help.title": "Keyboard Shortcuts",
+  "help.title": "Help",
   "help.close": "Close",
+  "help.author": "Author",
+  "help.version": "Version",
+  "help.github": "GitHub",
   // Overlay — media resize / contextual toolbar
   "overlay.media.toolbar": "Media toolbar",
   "overlay.media.drag": "Drag to reposition",
@@ -589,9 +593,13 @@ var cs = {
   "theme.blue": "Modr\xE9",
   "theme.darkBlue": "Tmav\u011B modr\xE9",
   "theme.midnight": "P\u016Flno\u010Dn\xED",
+  "theme.void": "Void",
   // Help
-  "help.title": "Kl\xE1vesov\xE9 zkratky",
+  "help.title": "N\xE1pov\u011Bda",
   "help.close": "Zav\u0159\xEDt",
+  "help.author": "Autor",
+  "help.version": "Verze",
+  "help.github": "GitHub",
   // Overlay — media resize / contextual toolbar
   "overlay.media.toolbar": "Panel m\xE9di\xED",
   "overlay.media.drag": "P\u0159et\xE1hnout pro p\u0159em\xEDst\u011Bn\xED",
@@ -604,10 +612,1010 @@ var cs = {
   "floatingToolbar.moveBlockDown": "P\u0159esunout blok n\xED\u017Ee"
 };
 
+// src/i18n/es.js
+var es = {
+  // Toolbar buttons
+  "toolbar.viewCode": "Ver c\xF3digo fuente",
+  "toolbar.undo": "Deshacer",
+  "toolbar.redo": "Rehacer",
+  "toolbar.findReplace": "Buscar y reemplazar",
+  "toolbar.bold": "Negrita",
+  "toolbar.italic": "Cursiva",
+  "toolbar.underline": "Subrayado",
+  "toolbar.strikethrough": "Tachado",
+  "toolbar.superscript": "Super\xEDndice",
+  "toolbar.subscript": "Sub\xEDndice",
+  "toolbar.code": "C\xF3digo en l\xEDnea",
+  "toolbar.removeFormat": "Quitar formato",
+  "toolbar.heading": "Encabezado",
+  "toolbar.fontFamily": "Tipo de letra",
+  "toolbar.fontSize": "Tama\xF1o de letra",
+  "toolbar.foreColor": "Color de texto",
+  "toolbar.backColor": "Color de fondo",
+  "toolbar.alignLeft": "Alinear a la izquierda",
+  "toolbar.alignCenter": "Centrar",
+  "toolbar.alignRight": "Alinear a la derecha",
+  "toolbar.alignJustify": "Justificar",
+  "toolbar.indent": "Aumentar sangr\xEDa",
+  "toolbar.outdent": "Disminuir sangr\xEDa",
+  "toolbar.bulletList": "Lista con vi\xF1etas",
+  "toolbar.numberedList": "Lista numerada",
+  "toolbar.blockquote": "Cita",
+  "toolbar.horizontalRule": "L\xEDnea horizontal",
+  "toolbar.insertDropdown": "Insertar",
+  "toolbar.moreMenu": "M\xE1s",
+  // Heading options
+  "heading.paragraph": "P\xE1rrafo",
+  "heading.h1": "Encabezado 1",
+  "heading.h2": "Encabezado 2",
+  "heading.h3": "Encabezado 3",
+  "heading.h4": "Encabezado 4",
+  "heading.h5": "Encabezado 5",
+  "heading.h6": "Encabezado 6",
+  // Font families
+  "fontFamily.sansSerif": "Sans Serif",
+  "fontFamily.serif": "Serif",
+  "fontFamily.monospace": "Monoespaciada",
+  "fontFamily.cursive": "Cursiva",
+  // Insert dropdown
+  "insert.link": "Enlace",
+  "insert.image": "Imagen",
+  "insert.video": "V\xEDdeo",
+  "insert.table": "Tabla",
+  "insert.emoji": "Emoji",
+  "insert.specialChars": "Caracteres especiales",
+  // More menu
+  "menu.more.save": "Guardar",
+  "menu.more.preview": "Vista previa",
+  "menu.more.download": "Descargar",
+  "menu.more.print": "Imprimir",
+  "menu.more.autosave": "Guardado autom\xE1tico",
+  "menu.more.clearAll": "Borrar todo",
+  "menu.more.changeTheme": "Cambiar tema",
+  "menu.more.fullscreen": "Pantalla completa",
+  "menu.more.help": "Ayuda",
+  // Modals — common actions
+  "modal.common.insert": "Insertar",
+  "modal.common.cancel": "Cancelar",
+  "modal.common.apply": "Aplicar",
+  "modal.common.close": "Cerrar",
+  // Modals — Link
+  "modal.link.title": "Insertar enlace",
+  "modal.link.url": "URL",
+  "modal.link.text": "Texto a mostrar",
+  "modal.link.newTab": "Abrir en una pesta\xF1a nueva",
+  "modal.link.insert": "Insertar",
+  "modal.link.cancel": "Cancelar",
+  // Modals — Image
+  "modal.image.title": "Insertar imagen",
+  "modal.image.urlTab": "URL",
+  "modal.image.uploadTab": "Subir",
+  "modal.image.tabUrl": "URL",
+  "modal.image.tabUpload": "Subir",
+  "modal.image.url": "URL de la imagen",
+  "modal.image.uploadLabel": "Subir imagen",
+  "modal.image.uploadHintHandler": "Se subir\xE1 mediante el gestor configurado",
+  "modal.image.uploadHintBase64": "Se convertir\xE1 a base64",
+  "modal.image.alt": "Texto alternativo",
+  "modal.image.altPlaceholder": "Describe la imagen",
+  "modal.image.width": "Ancho (opcional)",
+  "modal.image.widthPlaceholder": "p. ej. 300px o 50%",
+  "modal.image.or": "O",
+  "modal.image.invalidFile": "Solo se aceptan archivos de imagen (PNG, JPEG, GIF, WebP, AVIF).",
+  "modal.image.uploading": "Subiendo\u2026",
+  "modal.image.upload": "Elige archivos o arr\xE1stralos aqu\xED",
+  "modal.image.dropzone": "Suelta las im\xE1genes aqu\xED o haz clic para explorar",
+  "modal.image.insert": "Insertar",
+  "modal.image.cancel": "Cancelar",
+  // Modals — Video
+  "modal.video.title": "Insertar v\xEDdeo",
+  "modal.video.urlTab": "URL",
+  "modal.video.uploadTab": "Subir",
+  "modal.video.tabUrl": "URL",
+  "modal.video.tabUpload": "Subir",
+  "modal.video.url": "URL del v\xEDdeo",
+  "modal.video.upload": "Elegir archivo",
+  "modal.video.insert": "Insertar",
+  "modal.video.cancel": "Cancelar",
+  // Modals — Table
+  "modal.table.title": "Insertar tabla",
+  "modal.table.rows": "Filas",
+  "modal.table.cols": "Columnas",
+  "modal.table.columns": "Columnas",
+  "modal.table.headerRow": "Incluir fila de encabezado",
+  "modal.table.insert": "Insertar",
+  "modal.table.cancel": "Cancelar",
+  // Modals — Emoji / Special chars
+  "modal.emoji.title": "Insertar emoji",
+  "modal.specialChars.title": "Caracteres especiales",
+  // Context menu — table
+  "contextMenu.table.insertRowAbove": "Insertar fila arriba",
+  "contextMenu.table.insertRowBelow": "Insertar fila abajo",
+  "contextMenu.table.insertColLeft": "Insertar columna a la izquierda",
+  "contextMenu.table.insertColRight": "Insertar columna a la derecha",
+  "contextMenu.table.deleteRow": "Eliminar fila",
+  "contextMenu.table.deleteCol": "Eliminar columna",
+  "contextMenu.table.deleteTable": "Eliminar tabla",
+  "contextMenu.table.mergeCells": "Combinar celdas",
+  "contextMenu.table.splitCell": "Dividir celda",
+  // Modals — Source View
+  "modal.source.title": "Ver c\xF3digo fuente",
+  "modal.source.html": "HTML",
+  "modal.source.css": "CSS",
+  "modal.source.apply": "Aplicar",
+  "modal.source.cancel": "Cancelar",
+  // Modals — Find & Replace
+  "modal.findReplace.title": "Buscar y reemplazar",
+  "modal.findReplace.find": "Buscar",
+  "modal.findReplace.replace": "Reemplazar con",
+  "modal.findReplace.caseSensitive": "Distinguir may\xFAsculas y min\xFAsculas",
+  "modal.findReplace.useRegex": "Expresi\xF3n regular",
+  "modal.findReplace.findNext": "Buscar siguiente",
+  "modal.findReplace.replaceOne": "Reemplazar",
+  "modal.findReplace.replaceAll": "Reemplazar todo",
+  "modal.findReplace.close": "Cerrar",
+  // Color picker
+  "color.apply": "Aplicar",
+  "color.reset": "Restablecer",
+  "color.hex": "Hex",
+  // Status bar
+  "statusbar.words": "Palabras",
+  "statusbar.characters": "Caracteres",
+  "statusbar.block": "Bloque",
+  "statusbar.autosave": "Guardado autom\xE1tico",
+  "statusbar.autosave.saved": "Guardado",
+  "statusbar.autosave.saving": "Guardando\u2026",
+  "statusbar.autosave.off": "Desactivado",
+  "statusbar.autosave.ago": "hace",
+  // Table context menu
+  "table.insertRowAbove": "Insertar fila arriba",
+  "table.insertRowBelow": "Insertar fila abajo",
+  "table.insertColLeft": "Insertar columna a la izquierda",
+  "table.insertColRight": "Insertar columna a la derecha",
+  "table.deleteRow": "Eliminar fila",
+  "table.deleteColumn": "Eliminar columna",
+  "table.deleteTable": "Eliminar tabla",
+  "table.mergeCells": "Combinar celdas",
+  "table.splitCell": "Dividir celda",
+  // Confirm messages
+  "confirm.clearAll": "\xBFSeguro que quieres borrar todo el contenido?",
+  // Error / status messages
+  "error.saveFailed": "Error al guardar. Tus cambios se han conservado.",
+  "error.loadFailed": "No se pudo cargar el contenido.",
+  "error.invalidUrl": "URL no v\xE1lida.",
+  "error.uploadFailed": "Error al subir el archivo: {file}",
+  "error.dataUrisDisabled": "La incrustaci\xF3n de archivos est\xE1 desactivada. Proporciona una URL o configura un gestor de subida.",
+  "error.invalidStylesheetUrl": "URL de hoja de estilos rechazada: {url}",
+  // Themes
+  "theme.light": "Claro",
+  "theme.dark": "Oscuro",
+  "theme.blue": "Azul",
+  "theme.darkBlue": "Azul oscuro",
+  "theme.midnight": "Medianoche",
+  "theme.void": "Vac\xEDo",
+  // Help
+  "help.title": "Ayuda",
+  "help.close": "Cerrar",
+  "help.author": "Autor",
+  "help.version": "Versi\xF3n",
+  "help.github": "GitHub",
+  // Overlay — media resize / contextual toolbar
+  "overlay.media.toolbar": "Barra de herramientas multimedia",
+  "overlay.media.drag": "Arrastra para reposicionar",
+  "overlay.media.replace": "Reemplazar",
+  "overlay.media.delete": "Eliminar",
+  // Floating toolbar
+  "floatingToolbar.label": "Barra de herramientas de selecci\xF3n",
+  "floatingToolbar.link": "Insertar enlace",
+  "floatingToolbar.moveBlockUp": "Mover bloque hacia arriba",
+  "floatingToolbar.moveBlockDown": "Mover bloque hacia abajo"
+};
+
+// src/i18n/zh.js
+var zh = {
+  // Toolbar buttons
+  "toolbar.viewCode": "\u67E5\u770B\u6E90\u4EE3\u7801",
+  "toolbar.undo": "\u64A4\u9500",
+  "toolbar.redo": "\u91CD\u505A",
+  "toolbar.findReplace": "\u67E5\u627E\u548C\u66FF\u6362",
+  "toolbar.bold": "\u7C97\u4F53",
+  "toolbar.italic": "\u659C\u4F53",
+  "toolbar.underline": "\u4E0B\u5212\u7EBF",
+  "toolbar.strikethrough": "\u5220\u9664\u7EBF",
+  "toolbar.superscript": "\u4E0A\u6807",
+  "toolbar.subscript": "\u4E0B\u6807",
+  "toolbar.code": "\u884C\u5185\u4EE3\u7801",
+  "toolbar.removeFormat": "\u6E05\u9664\u683C\u5F0F",
+  "toolbar.heading": "\u6807\u9898",
+  "toolbar.fontFamily": "\u5B57\u4F53",
+  "toolbar.fontSize": "\u5B57\u53F7",
+  "toolbar.foreColor": "\u6587\u5B57\u989C\u8272",
+  "toolbar.backColor": "\u80CC\u666F\u989C\u8272",
+  "toolbar.alignLeft": "\u5DE6\u5BF9\u9F50",
+  "toolbar.alignCenter": "\u5C45\u4E2D\u5BF9\u9F50",
+  "toolbar.alignRight": "\u53F3\u5BF9\u9F50",
+  "toolbar.alignJustify": "\u4E24\u7AEF\u5BF9\u9F50",
+  "toolbar.indent": "\u589E\u52A0\u7F29\u8FDB",
+  "toolbar.outdent": "\u51CF\u5C11\u7F29\u8FDB",
+  "toolbar.bulletList": "\u9879\u76EE\u7B26\u53F7\u5217\u8868",
+  "toolbar.numberedList": "\u7F16\u53F7\u5217\u8868",
+  "toolbar.blockquote": "\u5F15\u7528",
+  "toolbar.horizontalRule": "\u6C34\u5E73\u7EBF",
+  "toolbar.insertDropdown": "\u63D2\u5165",
+  "toolbar.moreMenu": "\u66F4\u591A",
+  // Heading options
+  "heading.paragraph": "\u6BB5\u843D",
+  "heading.h1": "\u6807\u9898 1",
+  "heading.h2": "\u6807\u9898 2",
+  "heading.h3": "\u6807\u9898 3",
+  "heading.h4": "\u6807\u9898 4",
+  "heading.h5": "\u6807\u9898 5",
+  "heading.h6": "\u6807\u9898 6",
+  // Font families
+  "fontFamily.sansSerif": "\u65E0\u886C\u7EBF\u4F53",
+  "fontFamily.serif": "\u886C\u7EBF\u4F53",
+  "fontFamily.monospace": "\u7B49\u5BBD\u5B57\u4F53",
+  "fontFamily.cursive": "\u624B\u5199\u4F53",
+  // Insert dropdown
+  "insert.link": "\u94FE\u63A5",
+  "insert.image": "\u56FE\u7247",
+  "insert.video": "\u89C6\u9891",
+  "insert.table": "\u8868\u683C",
+  "insert.emoji": "\u8868\u60C5\u7B26\u53F7",
+  "insert.specialChars": "\u7279\u6B8A\u5B57\u7B26",
+  // More menu
+  "menu.more.save": "\u4FDD\u5B58",
+  "menu.more.preview": "\u9884\u89C8",
+  "menu.more.download": "\u4E0B\u8F7D",
+  "menu.more.print": "\u6253\u5370",
+  "menu.more.autosave": "\u81EA\u52A8\u4FDD\u5B58",
+  "menu.more.clearAll": "\u6E05\u7A7A\u5168\u90E8",
+  "menu.more.changeTheme": "\u5207\u6362\u4E3B\u9898",
+  "menu.more.fullscreen": "\u5168\u5C4F",
+  "menu.more.help": "\u5E2E\u52A9",
+  // Modals — common actions
+  "modal.common.insert": "\u63D2\u5165",
+  "modal.common.cancel": "\u53D6\u6D88",
+  "modal.common.apply": "\u5E94\u7528",
+  "modal.common.close": "\u5173\u95ED",
+  // Modals — Link
+  "modal.link.title": "\u63D2\u5165\u94FE\u63A5",
+  "modal.link.url": "\u7F51\u5740",
+  "modal.link.text": "\u663E\u793A\u6587\u5B57",
+  "modal.link.newTab": "\u5728\u65B0\u6807\u7B7E\u9875\u4E2D\u6253\u5F00",
+  "modal.link.insert": "\u63D2\u5165",
+  "modal.link.cancel": "\u53D6\u6D88",
+  // Modals — Image
+  "modal.image.title": "\u63D2\u5165\u56FE\u7247",
+  "modal.image.urlTab": "\u7F51\u5740",
+  "modal.image.uploadTab": "\u4E0A\u4F20",
+  "modal.image.tabUrl": "\u7F51\u5740",
+  "modal.image.tabUpload": "\u4E0A\u4F20",
+  "modal.image.url": "\u56FE\u7247\u7F51\u5740",
+  "modal.image.uploadLabel": "\u4E0A\u4F20\u56FE\u7247",
+  "modal.image.uploadHintHandler": "\u5C06\u901A\u8FC7\u5DF2\u914D\u7F6E\u7684\u5904\u7406\u7A0B\u5E8F\u4E0A\u4F20",
+  "modal.image.uploadHintBase64": "\u5C06\u8F6C\u6362\u4E3A base64",
+  "modal.image.alt": "\u66FF\u4EE3\u6587\u5B57",
+  "modal.image.altPlaceholder": "\u63CF\u8FF0\u8FD9\u5F20\u56FE\u7247",
+  "modal.image.width": "\u5BBD\u5EA6\uFF08\u53EF\u9009\uFF09",
+  "modal.image.widthPlaceholder": "\u4F8B\u5982 300px \u6216 50%",
+  "modal.image.or": "\u6216",
+  "modal.image.invalidFile": "\u4EC5\u63A5\u53D7\u56FE\u7247\u6587\u4EF6\uFF08PNG\u3001JPEG\u3001GIF\u3001WebP\u3001AVIF\uFF09\u3002",
+  "modal.image.uploading": "\u4E0A\u4F20\u4E2D\u2026",
+  "modal.image.upload": "\u9009\u62E9\u6587\u4EF6\u6216\u62D6\u653E\u5230\u6B64\u5904",
+  "modal.image.dropzone": "\u5C06\u56FE\u7247\u62D6\u653E\u5230\u6B64\u5904\uFF0C\u6216\u70B9\u51FB\u6D4F\u89C8",
+  "modal.image.insert": "\u63D2\u5165",
+  "modal.image.cancel": "\u53D6\u6D88",
+  // Modals — Video
+  "modal.video.title": "\u63D2\u5165\u89C6\u9891",
+  "modal.video.urlTab": "\u7F51\u5740",
+  "modal.video.uploadTab": "\u4E0A\u4F20",
+  "modal.video.tabUrl": "\u7F51\u5740",
+  "modal.video.tabUpload": "\u4E0A\u4F20",
+  "modal.video.url": "\u89C6\u9891\u7F51\u5740",
+  "modal.video.upload": "\u9009\u62E9\u6587\u4EF6",
+  "modal.video.insert": "\u63D2\u5165",
+  "modal.video.cancel": "\u53D6\u6D88",
+  // Modals — Table
+  "modal.table.title": "\u63D2\u5165\u8868\u683C",
+  "modal.table.rows": "\u884C\u6570",
+  "modal.table.cols": "\u5217\u6570",
+  "modal.table.columns": "\u5217\u6570",
+  "modal.table.headerRow": "\u5305\u542B\u8868\u5934\u884C",
+  "modal.table.insert": "\u63D2\u5165",
+  "modal.table.cancel": "\u53D6\u6D88",
+  // Modals — Emoji / Special chars
+  "modal.emoji.title": "\u63D2\u5165\u8868\u60C5\u7B26\u53F7",
+  "modal.specialChars.title": "\u7279\u6B8A\u5B57\u7B26",
+  // Context menu — table
+  "contextMenu.table.insertRowAbove": "\u5728\u4E0A\u65B9\u63D2\u5165\u884C",
+  "contextMenu.table.insertRowBelow": "\u5728\u4E0B\u65B9\u63D2\u5165\u884C",
+  "contextMenu.table.insertColLeft": "\u5728\u5DE6\u4FA7\u63D2\u5165\u5217",
+  "contextMenu.table.insertColRight": "\u5728\u53F3\u4FA7\u63D2\u5165\u5217",
+  "contextMenu.table.deleteRow": "\u5220\u9664\u884C",
+  "contextMenu.table.deleteCol": "\u5220\u9664\u5217",
+  "contextMenu.table.deleteTable": "\u5220\u9664\u8868\u683C",
+  "contextMenu.table.mergeCells": "\u5408\u5E76\u5355\u5143\u683C",
+  "contextMenu.table.splitCell": "\u62C6\u5206\u5355\u5143\u683C",
+  // Modals — Source View
+  "modal.source.title": "\u67E5\u770B\u6E90\u4EE3\u7801",
+  "modal.source.html": "HTML",
+  "modal.source.css": "CSS",
+  "modal.source.apply": "\u5E94\u7528",
+  "modal.source.cancel": "\u53D6\u6D88",
+  // Modals — Find & Replace
+  "modal.findReplace.title": "\u67E5\u627E\u548C\u66FF\u6362",
+  "modal.findReplace.find": "\u67E5\u627E",
+  "modal.findReplace.replace": "\u66FF\u6362\u4E3A",
+  "modal.findReplace.caseSensitive": "\u533A\u5206\u5927\u5C0F\u5199",
+  "modal.findReplace.useRegex": "\u6B63\u5219\u8868\u8FBE\u5F0F",
+  "modal.findReplace.findNext": "\u67E5\u627E\u4E0B\u4E00\u4E2A",
+  "modal.findReplace.replaceOne": "\u66FF\u6362",
+  "modal.findReplace.replaceAll": "\u5168\u90E8\u66FF\u6362",
+  "modal.findReplace.close": "\u5173\u95ED",
+  // Color picker
+  "color.apply": "\u5E94\u7528",
+  "color.reset": "\u91CD\u7F6E",
+  "color.hex": "\u5341\u516D\u8FDB\u5236",
+  // Status bar
+  "statusbar.words": "\u5B57\u6570",
+  "statusbar.characters": "\u5B57\u7B26\u6570",
+  "statusbar.block": "\u533A\u5757",
+  "statusbar.autosave": "\u81EA\u52A8\u4FDD\u5B58",
+  "statusbar.autosave.saved": "\u5DF2\u4FDD\u5B58",
+  "statusbar.autosave.saving": "\u4FDD\u5B58\u4E2D\u2026",
+  "statusbar.autosave.off": "\u5DF2\u5173\u95ED",
+  "statusbar.autosave.ago": "\u524D",
+  // Table context menu
+  "table.insertRowAbove": "\u5728\u4E0A\u65B9\u63D2\u5165\u884C",
+  "table.insertRowBelow": "\u5728\u4E0B\u65B9\u63D2\u5165\u884C",
+  "table.insertColLeft": "\u5728\u5DE6\u4FA7\u63D2\u5165\u5217",
+  "table.insertColRight": "\u5728\u53F3\u4FA7\u63D2\u5165\u5217",
+  "table.deleteRow": "\u5220\u9664\u884C",
+  "table.deleteColumn": "\u5220\u9664\u5217",
+  "table.deleteTable": "\u5220\u9664\u8868\u683C",
+  "table.mergeCells": "\u5408\u5E76\u5355\u5143\u683C",
+  "table.splitCell": "\u62C6\u5206\u5355\u5143\u683C",
+  // Confirm messages
+  "confirm.clearAll": "\u786E\u5B9A\u8981\u6E05\u7A7A\u5168\u90E8\u5185\u5BB9\u5417\uFF1F",
+  // Error / status messages
+  "error.saveFailed": "\u4FDD\u5B58\u5931\u8D25\uFF0C\u60A8\u7684\u66F4\u6539\u5DF2\u4FDD\u7559\u3002",
+  "error.loadFailed": "\u5185\u5BB9\u52A0\u8F7D\u5931\u8D25\u3002",
+  "error.invalidUrl": "\u7F51\u5740\u65E0\u6548\u3002",
+  "error.uploadFailed": "\u4E0A\u4F20\u5931\u8D25\uFF1A{file}",
+  "error.dataUrisDisabled": "\u6587\u4EF6\u5185\u5D4C\u529F\u80FD\u5DF2\u7981\u7528\uFF0C\u8BF7\u63D0\u4F9B\u7F51\u5740\u6216\u914D\u7F6E\u4E0A\u4F20\u5904\u7406\u7A0B\u5E8F\u3002",
+  "error.invalidStylesheetUrl": "\u6837\u5F0F\u8868\u7F51\u5740\u88AB\u62D2\u7EDD\uFF1A{url}",
+  // Themes
+  "theme.light": "\u6D45\u8272",
+  "theme.dark": "\u6DF1\u8272",
+  "theme.blue": "\u84DD\u8272",
+  "theme.darkBlue": "\u6DF1\u84DD\u8272",
+  "theme.midnight": "\u5348\u591C",
+  "theme.void": "\u865A\u7A7A",
+  // Help
+  "help.title": "\u5E2E\u52A9",
+  "help.close": "\u5173\u95ED",
+  "help.author": "\u4F5C\u8005",
+  "help.version": "\u7248\u672C",
+  "help.github": "GitHub",
+  // Overlay — media resize / contextual toolbar
+  "overlay.media.toolbar": "\u5A92\u4F53\u5DE5\u5177\u680F",
+  "overlay.media.drag": "\u62D6\u52A8\u4EE5\u91CD\u65B0\u5B9A\u4F4D",
+  "overlay.media.replace": "\u66FF\u6362",
+  "overlay.media.delete": "\u5220\u9664",
+  // Floating toolbar
+  "floatingToolbar.label": "\u9009\u533A\u5DE5\u5177\u680F",
+  "floatingToolbar.link": "\u63D2\u5165\u94FE\u63A5",
+  "floatingToolbar.moveBlockUp": "\u4E0A\u79FB\u533A\u5757",
+  "floatingToolbar.moveBlockDown": "\u4E0B\u79FB\u533A\u5757"
+};
+
+// src/i18n/de.js
+var de = {
+  // Toolbar buttons
+  "toolbar.viewCode": "Quellcode anzeigen",
+  "toolbar.undo": "R\xFCckg\xE4ngig",
+  "toolbar.redo": "Wiederholen",
+  "toolbar.findReplace": "Suchen & Ersetzen",
+  "toolbar.bold": "Fett",
+  "toolbar.italic": "Kursiv",
+  "toolbar.underline": "Unterstrichen",
+  "toolbar.strikethrough": "Durchgestrichen",
+  "toolbar.superscript": "Hochgestellt",
+  "toolbar.subscript": "Tiefgestellt",
+  "toolbar.code": "Inline-Code",
+  "toolbar.removeFormat": "Formatierung entfernen",
+  "toolbar.heading": "\xDCberschrift",
+  "toolbar.fontFamily": "Schriftart",
+  "toolbar.fontSize": "Schriftgr\xF6\xDFe",
+  "toolbar.foreColor": "Textfarbe",
+  "toolbar.backColor": "Hintergrundfarbe",
+  "toolbar.alignLeft": "Linksb\xFCndig",
+  "toolbar.alignCenter": "Zentriert",
+  "toolbar.alignRight": "Rechtsb\xFCndig",
+  "toolbar.alignJustify": "Blocksatz",
+  "toolbar.indent": "Einzug vergr\xF6\xDFern",
+  "toolbar.outdent": "Einzug verkleinern",
+  "toolbar.bulletList": "Aufz\xE4hlungsliste",
+  "toolbar.numberedList": "Nummerierte Liste",
+  "toolbar.blockquote": "Zitat",
+  "toolbar.horizontalRule": "Horizontale Linie",
+  "toolbar.insertDropdown": "Einf\xFCgen",
+  "toolbar.moreMenu": "Mehr",
+  // Heading options
+  "heading.paragraph": "Absatz",
+  "heading.h1": "\xDCberschrift 1",
+  "heading.h2": "\xDCberschrift 2",
+  "heading.h3": "\xDCberschrift 3",
+  "heading.h4": "\xDCberschrift 4",
+  "heading.h5": "\xDCberschrift 5",
+  "heading.h6": "\xDCberschrift 6",
+  // Font families
+  "fontFamily.sansSerif": "Serifenlos",
+  "fontFamily.serif": "Serif",
+  "fontFamily.monospace": "Monospace",
+  "fontFamily.cursive": "Kursivschrift",
+  // Insert dropdown
+  "insert.link": "Link",
+  "insert.image": "Bild",
+  "insert.video": "Video",
+  "insert.table": "Tabelle",
+  "insert.emoji": "Emoji",
+  "insert.specialChars": "Sonderzeichen",
+  // More menu
+  "menu.more.save": "Speichern",
+  "menu.more.preview": "Vorschau",
+  "menu.more.download": "Herunterladen",
+  "menu.more.print": "Drucken",
+  "menu.more.autosave": "Automatisches Speichern",
+  "menu.more.clearAll": "Alles l\xF6schen",
+  "menu.more.changeTheme": "Design \xE4ndern",
+  "menu.more.fullscreen": "Vollbild",
+  "menu.more.help": "Hilfe",
+  // Modals — common actions
+  "modal.common.insert": "Einf\xFCgen",
+  "modal.common.cancel": "Abbrechen",
+  "modal.common.apply": "\xDCbernehmen",
+  "modal.common.close": "Schlie\xDFen",
+  // Modals — Link
+  "modal.link.title": "Link einf\xFCgen",
+  "modal.link.url": "URL",
+  "modal.link.text": "Anzeigetext",
+  "modal.link.newTab": "In neuem Tab \xF6ffnen",
+  "modal.link.insert": "Einf\xFCgen",
+  "modal.link.cancel": "Abbrechen",
+  // Modals — Image
+  "modal.image.title": "Bild einf\xFCgen",
+  "modal.image.urlTab": "URL",
+  "modal.image.uploadTab": "Hochladen",
+  "modal.image.tabUrl": "URL",
+  "modal.image.tabUpload": "Hochladen",
+  "modal.image.url": "Bild-URL",
+  "modal.image.uploadLabel": "Bild hochladen",
+  "modal.image.uploadHintHandler": "Wird \xFCber den konfigurierten Handler hochgeladen",
+  "modal.image.uploadHintBase64": "Wird in Base64 konvertiert",
+  "modal.image.alt": "Alternativtext",
+  "modal.image.altPlaceholder": "Beschreibe das Bild",
+  "modal.image.width": "Breite (optional)",
+  "modal.image.widthPlaceholder": "z. B. 300px oder 50%",
+  "modal.image.or": "ODER",
+  "modal.image.invalidFile": "Nur Bilddateien (PNG, JPEG, GIF, WebP, AVIF) werden akzeptiert.",
+  "modal.image.uploading": "Wird hochgeladen\u2026",
+  "modal.image.upload": "Dateien ausw\xE4hlen oder hierher ziehen",
+  "modal.image.dropzone": "Bilder hier ablegen oder klicken zum Durchsuchen",
+  "modal.image.insert": "Einf\xFCgen",
+  "modal.image.cancel": "Abbrechen",
+  // Modals — Video
+  "modal.video.title": "Video einf\xFCgen",
+  "modal.video.urlTab": "URL",
+  "modal.video.uploadTab": "Hochladen",
+  "modal.video.tabUrl": "URL",
+  "modal.video.tabUpload": "Hochladen",
+  "modal.video.url": "Video-URL",
+  "modal.video.upload": "Datei ausw\xE4hlen",
+  "modal.video.insert": "Einf\xFCgen",
+  "modal.video.cancel": "Abbrechen",
+  // Modals — Table
+  "modal.table.title": "Tabelle einf\xFCgen",
+  "modal.table.rows": "Zeilen",
+  "modal.table.cols": "Spalten",
+  "modal.table.columns": "Spalten",
+  "modal.table.headerRow": "Kopfzeile einschlie\xDFen",
+  "modal.table.insert": "Einf\xFCgen",
+  "modal.table.cancel": "Abbrechen",
+  // Modals — Emoji / Special chars
+  "modal.emoji.title": "Emoji einf\xFCgen",
+  "modal.specialChars.title": "Sonderzeichen",
+  // Context menu — table
+  "contextMenu.table.insertRowAbove": "Zeile oberhalb einf\xFCgen",
+  "contextMenu.table.insertRowBelow": "Zeile unterhalb einf\xFCgen",
+  "contextMenu.table.insertColLeft": "Spalte links einf\xFCgen",
+  "contextMenu.table.insertColRight": "Spalte rechts einf\xFCgen",
+  "contextMenu.table.deleteRow": "Zeile l\xF6schen",
+  "contextMenu.table.deleteCol": "Spalte l\xF6schen",
+  "contextMenu.table.deleteTable": "Tabelle l\xF6schen",
+  "contextMenu.table.mergeCells": "Zellen verbinden",
+  "contextMenu.table.splitCell": "Zelle teilen",
+  // Modals — Source View
+  "modal.source.title": "Quellcode anzeigen",
+  "modal.source.html": "HTML",
+  "modal.source.css": "CSS",
+  "modal.source.apply": "\xDCbernehmen",
+  "modal.source.cancel": "Abbrechen",
+  // Modals — Find & Replace
+  "modal.findReplace.title": "Suchen & Ersetzen",
+  "modal.findReplace.find": "Suchen",
+  "modal.findReplace.replace": "Ersetzen durch",
+  "modal.findReplace.caseSensitive": "Gro\xDF-/Kleinschreibung beachten",
+  "modal.findReplace.useRegex": "Regul\xE4rer Ausdruck",
+  "modal.findReplace.findNext": "Weitersuchen",
+  "modal.findReplace.replaceOne": "Ersetzen",
+  "modal.findReplace.replaceAll": "Alle ersetzen",
+  "modal.findReplace.close": "Schlie\xDFen",
+  // Color picker
+  "color.apply": "\xDCbernehmen",
+  "color.reset": "Zur\xFCcksetzen",
+  "color.hex": "Hex",
+  // Status bar
+  "statusbar.words": "W\xF6rter",
+  "statusbar.characters": "Zeichen",
+  "statusbar.block": "Block",
+  "statusbar.autosave": "Automatisches Speichern",
+  "statusbar.autosave.saved": "Gespeichert",
+  "statusbar.autosave.saving": "Speichern\u2026",
+  "statusbar.autosave.off": "Aus",
+  "statusbar.autosave.ago": "vor",
+  // Table context menu
+  "table.insertRowAbove": "Zeile oberhalb einf\xFCgen",
+  "table.insertRowBelow": "Zeile unterhalb einf\xFCgen",
+  "table.insertColLeft": "Spalte links einf\xFCgen",
+  "table.insertColRight": "Spalte rechts einf\xFCgen",
+  "table.deleteRow": "Zeile l\xF6schen",
+  "table.deleteColumn": "Spalte l\xF6schen",
+  "table.deleteTable": "Tabelle l\xF6schen",
+  "table.mergeCells": "Zellen verbinden",
+  "table.splitCell": "Zelle teilen",
+  // Confirm messages
+  "confirm.clearAll": "M\xF6chtest du wirklich den gesamten Inhalt l\xF6schen?",
+  // Error / status messages
+  "error.saveFailed": "Speichern fehlgeschlagen. Deine \xC4nderungen bleiben erhalten.",
+  "error.loadFailed": "Inhalt konnte nicht geladen werden.",
+  "error.invalidUrl": "Ung\xFCltige URL.",
+  "error.uploadFailed": "Upload fehlgeschlagen: {file}",
+  "error.dataUrisDisabled": "Das Einbetten von Dateien ist deaktiviert. Bitte gib eine URL an oder konfiguriere einen Upload-Handler.",
+  "error.invalidStylesheetUrl": "Stylesheet-URL abgelehnt: {url}",
+  // Themes
+  "theme.light": "Hell",
+  "theme.dark": "Dunkel",
+  "theme.blue": "Blau",
+  "theme.darkBlue": "Dunkelblau",
+  "theme.midnight": "Mitternacht",
+  "theme.void": "Void",
+  // Help
+  "help.title": "Hilfe",
+  "help.close": "Schlie\xDFen",
+  "help.author": "Autor",
+  "help.version": "Version",
+  "help.github": "GitHub",
+  // Overlay — media resize / contextual toolbar
+  "overlay.media.toolbar": "Medien-Werkzeugleiste",
+  "overlay.media.drag": "Ziehen zum Verschieben",
+  "overlay.media.replace": "Ersetzen",
+  "overlay.media.delete": "L\xF6schen",
+  // Floating toolbar
+  "floatingToolbar.label": "Auswahl-Werkzeugleiste",
+  "floatingToolbar.link": "Link einf\xFCgen",
+  "floatingToolbar.moveBlockUp": "Block nach oben verschieben",
+  "floatingToolbar.moveBlockDown": "Block nach unten verschieben"
+};
+
+// src/i18n/fr.js
+var fr = {
+  // Toolbar buttons
+  "toolbar.viewCode": "Voir le code source",
+  "toolbar.undo": "Annuler",
+  "toolbar.redo": "R\xE9tablir",
+  "toolbar.findReplace": "Rechercher et remplacer",
+  "toolbar.bold": "Gras",
+  "toolbar.italic": "Italique",
+  "toolbar.underline": "Soulign\xE9",
+  "toolbar.strikethrough": "Barr\xE9",
+  "toolbar.superscript": "Exposant",
+  "toolbar.subscript": "Indice",
+  "toolbar.code": "Code en ligne",
+  "toolbar.removeFormat": "Supprimer la mise en forme",
+  "toolbar.heading": "Titre",
+  "toolbar.fontFamily": "Police",
+  "toolbar.fontSize": "Taille de police",
+  "toolbar.foreColor": "Couleur du texte",
+  "toolbar.backColor": "Couleur de fond",
+  "toolbar.alignLeft": "Aligner \xE0 gauche",
+  "toolbar.alignCenter": "Centrer",
+  "toolbar.alignRight": "Aligner \xE0 droite",
+  "toolbar.alignJustify": "Justifier",
+  "toolbar.indent": "Augmenter le retrait",
+  "toolbar.outdent": "Diminuer le retrait",
+  "toolbar.bulletList": "Liste \xE0 puces",
+  "toolbar.numberedList": "Liste num\xE9rot\xE9e",
+  "toolbar.blockquote": "Citation",
+  "toolbar.horizontalRule": "Ligne horizontale",
+  "toolbar.insertDropdown": "Ins\xE9rer",
+  "toolbar.moreMenu": "Plus",
+  // Heading options
+  "heading.paragraph": "Paragraphe",
+  "heading.h1": "Titre 1",
+  "heading.h2": "Titre 2",
+  "heading.h3": "Titre 3",
+  "heading.h4": "Titre 4",
+  "heading.h5": "Titre 5",
+  "heading.h6": "Titre 6",
+  // Font families
+  "fontFamily.sansSerif": "Sans Serif",
+  "fontFamily.serif": "Serif",
+  "fontFamily.monospace": "Monospace",
+  "fontFamily.cursive": "Cursive",
+  // Insert dropdown
+  "insert.link": "Lien",
+  "insert.image": "Image",
+  "insert.video": "Vid\xE9o",
+  "insert.table": "Tableau",
+  "insert.emoji": "Emoji",
+  "insert.specialChars": "Caract\xE8res sp\xE9ciaux",
+  // More menu
+  "menu.more.save": "Enregistrer",
+  "menu.more.preview": "Aper\xE7u",
+  "menu.more.download": "T\xE9l\xE9charger",
+  "menu.more.print": "Imprimer",
+  "menu.more.autosave": "Enregistrement automatique",
+  "menu.more.clearAll": "Tout effacer",
+  "menu.more.changeTheme": "Changer de th\xE8me",
+  "menu.more.fullscreen": "Plein \xE9cran",
+  "menu.more.help": "Aide",
+  // Modals — common actions
+  "modal.common.insert": "Ins\xE9rer",
+  "modal.common.cancel": "Annuler",
+  "modal.common.apply": "Appliquer",
+  "modal.common.close": "Fermer",
+  // Modals — Link
+  "modal.link.title": "Ins\xE9rer un lien",
+  "modal.link.url": "URL",
+  "modal.link.text": "Texte affich\xE9",
+  "modal.link.newTab": "Ouvrir dans un nouvel onglet",
+  "modal.link.insert": "Ins\xE9rer",
+  "modal.link.cancel": "Annuler",
+  // Modals — Image
+  "modal.image.title": "Ins\xE9rer une image",
+  "modal.image.urlTab": "URL",
+  "modal.image.uploadTab": "T\xE9l\xE9verser",
+  "modal.image.tabUrl": "URL",
+  "modal.image.tabUpload": "T\xE9l\xE9verser",
+  "modal.image.url": "URL de l\u2019image",
+  "modal.image.uploadLabel": "T\xE9l\xE9verser une image",
+  "modal.image.uploadHintHandler": "Sera t\xE9l\xE9vers\xE9e via le gestionnaire configur\xE9",
+  "modal.image.uploadHintBase64": "Sera convertie en base64",
+  "modal.image.alt": "Texte alternatif",
+  "modal.image.altPlaceholder": "D\xE9crivez l\u2019image",
+  "modal.image.width": "Largeur (optionnel)",
+  "modal.image.widthPlaceholder": "ex. 300px ou 50%",
+  "modal.image.or": "OU",
+  "modal.image.invalidFile": "Seuls les fichiers image (PNG, JPEG, GIF, WebP, AVIF) sont accept\xE9s.",
+  "modal.image.uploading": "T\xE9l\xE9versement\u2026",
+  "modal.image.upload": "Choisissez des fichiers ou glissez-d\xE9posez",
+  "modal.image.dropzone": "D\xE9posez les images ici ou cliquez pour parcourir",
+  "modal.image.insert": "Ins\xE9rer",
+  "modal.image.cancel": "Annuler",
+  // Modals — Video
+  "modal.video.title": "Ins\xE9rer une vid\xE9o",
+  "modal.video.urlTab": "URL",
+  "modal.video.uploadTab": "T\xE9l\xE9verser",
+  "modal.video.tabUrl": "URL",
+  "modal.video.tabUpload": "T\xE9l\xE9verser",
+  "modal.video.url": "URL de la vid\xE9o",
+  "modal.video.upload": "Choisir un fichier",
+  "modal.video.insert": "Ins\xE9rer",
+  "modal.video.cancel": "Annuler",
+  // Modals — Table
+  "modal.table.title": "Ins\xE9rer un tableau",
+  "modal.table.rows": "Lignes",
+  "modal.table.cols": "Colonnes",
+  "modal.table.columns": "Colonnes",
+  "modal.table.headerRow": "Inclure une ligne d\u2019en-t\xEAte",
+  "modal.table.insert": "Ins\xE9rer",
+  "modal.table.cancel": "Annuler",
+  // Modals — Emoji / Special chars
+  "modal.emoji.title": "Ins\xE9rer un emoji",
+  "modal.specialChars.title": "Caract\xE8res sp\xE9ciaux",
+  // Context menu — table
+  "contextMenu.table.insertRowAbove": "Ins\xE9rer une ligne au-dessus",
+  "contextMenu.table.insertRowBelow": "Ins\xE9rer une ligne en dessous",
+  "contextMenu.table.insertColLeft": "Ins\xE9rer une colonne \xE0 gauche",
+  "contextMenu.table.insertColRight": "Ins\xE9rer une colonne \xE0 droite",
+  "contextMenu.table.deleteRow": "Supprimer la ligne",
+  "contextMenu.table.deleteCol": "Supprimer la colonne",
+  "contextMenu.table.deleteTable": "Supprimer le tableau",
+  "contextMenu.table.mergeCells": "Fusionner les cellules",
+  "contextMenu.table.splitCell": "Diviser la cellule",
+  // Modals — Source View
+  "modal.source.title": "Voir le code source",
+  "modal.source.html": "HTML",
+  "modal.source.css": "CSS",
+  "modal.source.apply": "Appliquer",
+  "modal.source.cancel": "Annuler",
+  // Modals — Find & Replace
+  "modal.findReplace.title": "Rechercher et remplacer",
+  "modal.findReplace.find": "Rechercher",
+  "modal.findReplace.replace": "Remplacer par",
+  "modal.findReplace.caseSensitive": "Respecter la casse",
+  "modal.findReplace.useRegex": "Expression r\xE9guli\xE8re",
+  "modal.findReplace.findNext": "Suivant",
+  "modal.findReplace.replaceOne": "Remplacer",
+  "modal.findReplace.replaceAll": "Tout remplacer",
+  "modal.findReplace.close": "Fermer",
+  // Color picker
+  "color.apply": "Appliquer",
+  "color.reset": "R\xE9initialiser",
+  "color.hex": "Hex",
+  // Status bar
+  "statusbar.words": "Mots",
+  "statusbar.characters": "Caract\xE8res",
+  "statusbar.block": "Bloc",
+  "statusbar.autosave": "Enregistrement automatique",
+  "statusbar.autosave.saved": "Enregistr\xE9",
+  "statusbar.autosave.saving": "Enregistrement\u2026",
+  "statusbar.autosave.off": "D\xE9sactiv\xE9",
+  "statusbar.autosave.ago": "il y a",
+  // Table context menu
+  "table.insertRowAbove": "Ins\xE9rer une ligne au-dessus",
+  "table.insertRowBelow": "Ins\xE9rer une ligne en dessous",
+  "table.insertColLeft": "Ins\xE9rer une colonne \xE0 gauche",
+  "table.insertColRight": "Ins\xE9rer une colonne \xE0 droite",
+  "table.deleteRow": "Supprimer la ligne",
+  "table.deleteColumn": "Supprimer la colonne",
+  "table.deleteTable": "Supprimer le tableau",
+  "table.mergeCells": "Fusionner les cellules",
+  "table.splitCell": "Diviser la cellule",
+  // Confirm messages
+  "confirm.clearAll": "Voulez-vous vraiment effacer tout le contenu ?",
+  // Error / status messages
+  "error.saveFailed": "\xC9chec de l\u2019enregistrement. Vos modifications sont conserv\xE9es.",
+  "error.loadFailed": "\xC9chec du chargement du contenu.",
+  "error.invalidUrl": "URL invalide.",
+  "error.uploadFailed": "\xC9chec du t\xE9l\xE9versement : {file}",
+  "error.dataUrisDisabled": "L\u2019int\xE9gration de fichiers est d\xE9sactiv\xE9e. Veuillez fournir une URL ou configurer un gestionnaire de t\xE9l\xE9versement.",
+  "error.invalidStylesheetUrl": "URL de feuille de style rejet\xE9e : {url}",
+  // Themes
+  "theme.light": "Clair",
+  "theme.dark": "Sombre",
+  "theme.blue": "Bleu",
+  "theme.darkBlue": "Bleu fonc\xE9",
+  "theme.midnight": "Minuit",
+  "theme.void": "Vide",
+  // Help
+  "help.title": "Aide",
+  "help.close": "Fermer",
+  "help.author": "Auteur",
+  "help.version": "Version",
+  "help.github": "GitHub",
+  // Overlay — media resize / contextual toolbar
+  "overlay.media.toolbar": "Barre d\u2019outils multim\xE9dia",
+  "overlay.media.drag": "Faites glisser pour repositionner",
+  "overlay.media.replace": "Remplacer",
+  "overlay.media.delete": "Supprimer",
+  // Floating toolbar
+  "floatingToolbar.label": "Barre d\u2019outils de s\xE9lection",
+  "floatingToolbar.link": "Ins\xE9rer un lien",
+  "floatingToolbar.moveBlockUp": "D\xE9placer le bloc vers le haut",
+  "floatingToolbar.moveBlockDown": "D\xE9placer le bloc vers le bas"
+};
+
+// src/i18n/ja.js
+var ja = {
+  // Toolbar buttons
+  "toolbar.viewCode": "\u30BD\u30FC\u30B9\u3092\u8868\u793A",
+  "toolbar.undo": "\u5143\u306B\u623B\u3059",
+  "toolbar.redo": "\u3084\u308A\u76F4\u3059",
+  "toolbar.findReplace": "\u691C\u7D22\u3068\u7F6E\u63DB",
+  "toolbar.bold": "\u592A\u5B57",
+  "toolbar.italic": "\u659C\u4F53",
+  "toolbar.underline": "\u4E0B\u7DDA",
+  "toolbar.strikethrough": "\u53D6\u308A\u6D88\u3057\u7DDA",
+  "toolbar.superscript": "\u4E0A\u4ED8\u304D\u6587\u5B57",
+  "toolbar.subscript": "\u4E0B\u4ED8\u304D\u6587\u5B57",
+  "toolbar.code": "\u30A4\u30F3\u30E9\u30A4\u30F3\u30B3\u30FC\u30C9",
+  "toolbar.removeFormat": "\u66F8\u5F0F\u3092\u30AF\u30EA\u30A2",
+  "toolbar.heading": "\u898B\u51FA\u3057",
+  "toolbar.fontFamily": "\u30D5\u30A9\u30F3\u30C8",
+  "toolbar.fontSize": "\u30D5\u30A9\u30F3\u30C8\u30B5\u30A4\u30BA",
+  "toolbar.foreColor": "\u6587\u5B57\u8272",
+  "toolbar.backColor": "\u80CC\u666F\u8272",
+  "toolbar.alignLeft": "\u5DE6\u63C3\u3048",
+  "toolbar.alignCenter": "\u4E2D\u592E\u63C3\u3048",
+  "toolbar.alignRight": "\u53F3\u63C3\u3048",
+  "toolbar.alignJustify": "\u4E21\u7AEF\u63C3\u3048",
+  "toolbar.indent": "\u30A4\u30F3\u30C7\u30F3\u30C8\u3092\u5897\u3084\u3059",
+  "toolbar.outdent": "\u30A4\u30F3\u30C7\u30F3\u30C8\u3092\u6E1B\u3089\u3059",
+  "toolbar.bulletList": "\u7B87\u6761\u66F8\u304D\u30EA\u30B9\u30C8",
+  "toolbar.numberedList": "\u756A\u53F7\u4ED8\u304D\u30EA\u30B9\u30C8",
+  "toolbar.blockquote": "\u5F15\u7528",
+  "toolbar.horizontalRule": "\u6C34\u5E73\u7DDA",
+  "toolbar.insertDropdown": "\u633F\u5165",
+  "toolbar.moreMenu": "\u3082\u3063\u3068\u898B\u308B",
+  // Heading options
+  "heading.paragraph": "\u6BB5\u843D",
+  "heading.h1": "\u898B\u51FA\u3057 1",
+  "heading.h2": "\u898B\u51FA\u3057 2",
+  "heading.h3": "\u898B\u51FA\u3057 3",
+  "heading.h4": "\u898B\u51FA\u3057 4",
+  "heading.h5": "\u898B\u51FA\u3057 5",
+  "heading.h6": "\u898B\u51FA\u3057 6",
+  // Font families
+  "fontFamily.sansSerif": "\u30B4\u30B7\u30C3\u30AF\u4F53",
+  "fontFamily.serif": "\u660E\u671D\u4F53",
+  "fontFamily.monospace": "\u7B49\u5E45\u30D5\u30A9\u30F3\u30C8",
+  "fontFamily.cursive": "\u7B46\u8A18\u4F53",
+  // Insert dropdown
+  "insert.link": "\u30EA\u30F3\u30AF",
+  "insert.image": "\u753B\u50CF",
+  "insert.video": "\u52D5\u753B",
+  "insert.table": "\u8868",
+  "insert.emoji": "\u7D75\u6587\u5B57",
+  "insert.specialChars": "\u7279\u6B8A\u6587\u5B57",
+  // More menu
+  "menu.more.save": "\u4FDD\u5B58",
+  "menu.more.preview": "\u30D7\u30EC\u30D3\u30E5\u30FC",
+  "menu.more.download": "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9",
+  "menu.more.print": "\u5370\u5237",
+  "menu.more.autosave": "\u81EA\u52D5\u4FDD\u5B58",
+  "menu.more.clearAll": "\u3059\u3079\u3066\u6D88\u53BB",
+  "menu.more.changeTheme": "\u30C6\u30FC\u30DE\u3092\u5909\u66F4",
+  "menu.more.fullscreen": "\u5168\u753B\u9762\u8868\u793A",
+  "menu.more.help": "\u30D8\u30EB\u30D7",
+  // Modals — common actions
+  "modal.common.insert": "\u633F\u5165",
+  "modal.common.cancel": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+  "modal.common.apply": "\u9069\u7528",
+  "modal.common.close": "\u9589\u3058\u308B",
+  // Modals — Link
+  "modal.link.title": "\u30EA\u30F3\u30AF\u3092\u633F\u5165",
+  "modal.link.url": "URL",
+  "modal.link.text": "\u8868\u793A\u30C6\u30AD\u30B9\u30C8",
+  "modal.link.newTab": "\u65B0\u3057\u3044\u30BF\u30D6\u3067\u958B\u304F",
+  "modal.link.insert": "\u633F\u5165",
+  "modal.link.cancel": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+  // Modals — Image
+  "modal.image.title": "\u753B\u50CF\u3092\u633F\u5165",
+  "modal.image.urlTab": "URL",
+  "modal.image.uploadTab": "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9",
+  "modal.image.tabUrl": "URL",
+  "modal.image.tabUpload": "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9",
+  "modal.image.url": "\u753B\u50CF\u306EURL",
+  "modal.image.uploadLabel": "\u753B\u50CF\u3092\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9",
+  "modal.image.uploadHintHandler": "\u8A2D\u5B9A\u6E08\u307F\u306E\u30CF\u30F3\u30C9\u30E9\u30FC\u7D4C\u7531\u3067\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u3055\u308C\u307E\u3059",
+  "modal.image.uploadHintBase64": "base64\u306B\u5909\u63DB\u3055\u308C\u307E\u3059",
+  "modal.image.alt": "\u4EE3\u66FF\u30C6\u30AD\u30B9\u30C8",
+  "modal.image.altPlaceholder": "\u753B\u50CF\u306E\u8AAC\u660E\u3092\u5165\u529B",
+  "modal.image.width": "\u5E45\uFF08\u4EFB\u610F\uFF09",
+  "modal.image.widthPlaceholder": "\u4F8B\uFF1A300px \u3084 50%",
+  "modal.image.or": "\u307E\u305F\u306F",
+  "modal.image.invalidFile": "\u753B\u50CF\u30D5\u30A1\u30A4\u30EB\uFF08PNG\u3001JPEG\u3001GIF\u3001WebP\u3001AVIF\uFF09\u306E\u307F\u5229\u7528\u3067\u304D\u307E\u3059\u3002",
+  "modal.image.uploading": "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u4E2D\u2026",
+  "modal.image.upload": "\u30D5\u30A1\u30A4\u30EB\u3092\u9078\u629E\u307E\u305F\u306F\u30C9\u30E9\u30C3\u30B0\uFF06\u30C9\u30ED\u30C3\u30D7",
+  "modal.image.dropzone": "\u3053\u3053\u306B\u753B\u50CF\u3092\u30C9\u30ED\u30C3\u30D7\u3001\u307E\u305F\u306F\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u9078\u629E",
+  "modal.image.insert": "\u633F\u5165",
+  "modal.image.cancel": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+  // Modals — Video
+  "modal.video.title": "\u52D5\u753B\u3092\u633F\u5165",
+  "modal.video.urlTab": "URL",
+  "modal.video.uploadTab": "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9",
+  "modal.video.tabUrl": "URL",
+  "modal.video.tabUpload": "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9",
+  "modal.video.url": "\u52D5\u753B\u306EURL",
+  "modal.video.upload": "\u30D5\u30A1\u30A4\u30EB\u3092\u9078\u629E",
+  "modal.video.insert": "\u633F\u5165",
+  "modal.video.cancel": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+  // Modals — Table
+  "modal.table.title": "\u8868\u3092\u633F\u5165",
+  "modal.table.rows": "\u884C\u6570",
+  "modal.table.cols": "\u5217\u6570",
+  "modal.table.columns": "\u5217\u6570",
+  "modal.table.headerRow": "\u30D8\u30C3\u30C0\u30FC\u884C\u3092\u542B\u3081\u308B",
+  "modal.table.insert": "\u633F\u5165",
+  "modal.table.cancel": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+  // Modals — Emoji / Special chars
+  "modal.emoji.title": "\u7D75\u6587\u5B57\u3092\u633F\u5165",
+  "modal.specialChars.title": "\u7279\u6B8A\u6587\u5B57",
+  // Context menu — table
+  "contextMenu.table.insertRowAbove": "\u4E0A\u306B\u884C\u3092\u633F\u5165",
+  "contextMenu.table.insertRowBelow": "\u4E0B\u306B\u884C\u3092\u633F\u5165",
+  "contextMenu.table.insertColLeft": "\u5DE6\u306B\u5217\u3092\u633F\u5165",
+  "contextMenu.table.insertColRight": "\u53F3\u306B\u5217\u3092\u633F\u5165",
+  "contextMenu.table.deleteRow": "\u884C\u3092\u524A\u9664",
+  "contextMenu.table.deleteCol": "\u5217\u3092\u524A\u9664",
+  "contextMenu.table.deleteTable": "\u8868\u3092\u524A\u9664",
+  "contextMenu.table.mergeCells": "\u30BB\u30EB\u3092\u7D50\u5408",
+  "contextMenu.table.splitCell": "\u30BB\u30EB\u3092\u5206\u5272",
+  // Modals — Source View
+  "modal.source.title": "\u30BD\u30FC\u30B9\u3092\u8868\u793A",
+  "modal.source.html": "HTML",
+  "modal.source.css": "CSS",
+  "modal.source.apply": "\u9069\u7528",
+  "modal.source.cancel": "\u30AD\u30E3\u30F3\u30BB\u30EB",
+  // Modals — Find & Replace
+  "modal.findReplace.title": "\u691C\u7D22\u3068\u7F6E\u63DB",
+  "modal.findReplace.find": "\u691C\u7D22",
+  "modal.findReplace.replace": "\u7F6E\u63DB\u5F8C\u306E\u6587\u5B57\u5217",
+  "modal.findReplace.caseSensitive": "\u5927\u6587\u5B57\u3068\u5C0F\u6587\u5B57\u3092\u533A\u5225",
+  "modal.findReplace.useRegex": "\u6B63\u898F\u8868\u73FE",
+  "modal.findReplace.findNext": "\u6B21\u3092\u691C\u7D22",
+  "modal.findReplace.replaceOne": "\u7F6E\u63DB",
+  "modal.findReplace.replaceAll": "\u3059\u3079\u3066\u7F6E\u63DB",
+  "modal.findReplace.close": "\u9589\u3058\u308B",
+  // Color picker
+  "color.apply": "\u9069\u7528",
+  "color.reset": "\u30EA\u30BB\u30C3\u30C8",
+  "color.hex": "16\u9032\u6570",
+  // Status bar
+  "statusbar.words": "\u5358\u8A9E\u6570",
+  "statusbar.characters": "\u6587\u5B57\u6570",
+  "statusbar.block": "\u30D6\u30ED\u30C3\u30AF",
+  "statusbar.autosave": "\u81EA\u52D5\u4FDD\u5B58",
+  "statusbar.autosave.saved": "\u4FDD\u5B58\u6E08\u307F",
+  "statusbar.autosave.saving": "\u4FDD\u5B58\u4E2D\u2026",
+  "statusbar.autosave.off": "\u30AA\u30D5",
+  "statusbar.autosave.ago": "\u524D",
+  // Table context menu
+  "table.insertRowAbove": "\u4E0A\u306B\u884C\u3092\u633F\u5165",
+  "table.insertRowBelow": "\u4E0B\u306B\u884C\u3092\u633F\u5165",
+  "table.insertColLeft": "\u5DE6\u306B\u5217\u3092\u633F\u5165",
+  "table.insertColRight": "\u53F3\u306B\u5217\u3092\u633F\u5165",
+  "table.deleteRow": "\u884C\u3092\u524A\u9664",
+  "table.deleteColumn": "\u5217\u3092\u524A\u9664",
+  "table.deleteTable": "\u8868\u3092\u524A\u9664",
+  "table.mergeCells": "\u30BB\u30EB\u3092\u7D50\u5408",
+  "table.splitCell": "\u30BB\u30EB\u3092\u5206\u5272",
+  // Confirm messages
+  "confirm.clearAll": "\u3059\u3079\u3066\u306E\u5185\u5BB9\u3092\u6D88\u53BB\u3057\u3066\u3082\u3088\u308D\u3057\u3044\u3067\u3059\u304B\uFF1F",
+  // Error / status messages
+  "error.saveFailed": "\u4FDD\u5B58\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002\u5909\u66F4\u5185\u5BB9\u306F\u4FDD\u6301\u3055\u308C\u3066\u3044\u307E\u3059\u3002",
+  "error.loadFailed": "\u30B3\u30F3\u30C6\u30F3\u30C4\u306E\u8AAD\u307F\u8FBC\u307F\u306B\u5931\u6557\u3057\u307E\u3057\u305F\u3002",
+  "error.invalidUrl": "\u7121\u52B9\u306AURL\u3067\u3059\u3002",
+  "error.uploadFailed": "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u306B\u5931\u6557\u3057\u307E\u3057\u305F\uFF1A{file}",
+  "error.dataUrisDisabled": "\u30D5\u30A1\u30A4\u30EB\u306E\u57CB\u3081\u8FBC\u307F\u306F\u7121\u52B9\u306B\u306A\u3063\u3066\u3044\u307E\u3059\u3002URL\u3092\u6307\u5B9A\u3059\u308B\u304B\u3001\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u30CF\u30F3\u30C9\u30E9\u30FC\u3092\u8A2D\u5B9A\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+  "error.invalidStylesheetUrl": "\u30B9\u30BF\u30A4\u30EB\u30B7\u30FC\u30C8\u306EURL\u304C\u62D2\u5426\u3055\u308C\u307E\u3057\u305F\uFF1A{url}",
+  // Themes
+  "theme.light": "\u30E9\u30A4\u30C8",
+  "theme.dark": "\u30C0\u30FC\u30AF",
+  "theme.blue": "\u30D6\u30EB\u30FC",
+  "theme.darkBlue": "\u30C0\u30FC\u30AF\u30D6\u30EB\u30FC",
+  "theme.midnight": "\u30DF\u30C3\u30C9\u30CA\u30A4\u30C8",
+  "theme.void": "\u30F4\u30A9\u30A4\u30C9",
+  // Help
+  "help.title": "\u30D8\u30EB\u30D7",
+  "help.close": "\u9589\u3058\u308B",
+  "help.author": "\u4F5C\u8005",
+  "help.version": "\u30D0\u30FC\u30B8\u30E7\u30F3",
+  "help.github": "GitHub",
+  // Overlay — media resize / contextual toolbar
+  "overlay.media.toolbar": "\u30E1\u30C7\u30A3\u30A2\u30C4\u30FC\u30EB\u30D0\u30FC",
+  "overlay.media.drag": "\u30C9\u30E9\u30C3\u30B0\u3057\u3066\u4F4D\u7F6E\u3092\u5909\u66F4",
+  "overlay.media.replace": "\u7F6E\u304D\u63DB\u3048",
+  "overlay.media.delete": "\u524A\u9664",
+  // Floating toolbar
+  "floatingToolbar.label": "\u9078\u629E\u30C4\u30FC\u30EB\u30D0\u30FC",
+  "floatingToolbar.link": "\u30EA\u30F3\u30AF\u3092\u633F\u5165",
+  "floatingToolbar.moveBlockUp": "\u30D6\u30ED\u30C3\u30AF\u3092\u4E0A\u306B\u79FB\u52D5",
+  "floatingToolbar.moveBlockDown": "\u30D6\u30ED\u30C3\u30AF\u3092\u4E0B\u306B\u79FB\u52D5"
+};
+
 // src/i18n/i18n.js
 var _builtinMaps = /* @__PURE__ */ new Map([
   ["en", en],
-  ["cs", cs]
+  ["cs", cs],
+  ["es", es],
+  ["zh", zh],
+  ["de", de],
+  ["fr", fr],
+  ["ja", ja]
 ]);
 var _customMaps = /* @__PURE__ */ new Map();
 function addTranslation(lang, keys) {
@@ -7537,7 +8545,8 @@ var THEME_CLASS_MAP = {
   "dark": "npe-dark",
   "blue": "npe-theme-blue",
   "dark-blue": "npe-theme-dark-blue",
-  "midnight": "npe-theme-midnight"
+  "midnight": "npe-theme-midnight",
+  "void": "npe-theme-void"
 };
 var STORAGE_KEY = "npe-theme";
 var ThemeManager = class {
@@ -7896,6 +8905,9 @@ var AutosaveManager = class {
 // src/core/Editor.js
 var CHANGE_DEBOUNCE_MS = 300;
 var TOAST_DURATION_MS = 4e3;
+var NPE_VERSION = "0.2.0";
+var NPE_LOGO_URL = "https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg";
+var NPE_GITHUB_URL = "https://github.com/neikiri/neiki-page-editor";
 var Editor = class {
   /**
    * @param {Element} targetEl — resolved target element
@@ -8270,7 +9282,7 @@ ${bodyHtml}
     backdrop.setAttribute("aria-modal", "true");
     backdrop.setAttribute("aria-label", t("help.title"));
     const panel = document.createElement("div");
-    panel.className = "npe-modal npe-help-panel";
+    panel.className = "npe-modal npe-help-panel npe-help-about-panel";
     const header = document.createElement("div");
     header.className = "npe-modal-header";
     const title = document.createElement("h2");
@@ -8285,7 +9297,7 @@ ${bodyHtml}
     header.appendChild(title);
     header.appendChild(closeBtn);
     const body = document.createElement("div");
-    body.className = "npe-modal-body npe-help-body";
+    body.className = "npe-modal-body npe-help-body npe-help-about";
     body.innerHTML = this._buildHelpContent();
     panel.appendChild(header);
     panel.appendChild(body);
@@ -8302,25 +9314,12 @@ ${bodyHtml}
     closeBtn.focus();
   }
   /**
-   * Build the HTML content for the help panel.
+   * Build the HTML content for the Help/About modal: logo, version, GitHub link.
    * @returns {string}
    */
   _buildHelpContent() {
-    const shortcuts = [
-      { keys: "Ctrl+B", action: this._i18n.t("toolbar.bold") },
-      { keys: "Ctrl+I", action: this._i18n.t("toolbar.italic") },
-      { keys: "Ctrl+U", action: this._i18n.t("toolbar.underline") },
-      { keys: "Ctrl+K", action: this._i18n.t("insert.link") },
-      { keys: "Ctrl+S", action: this._i18n.t("menu.more.save") },
-      { keys: "Ctrl+Z", action: this._i18n.t("toolbar.undo") },
-      { keys: "Ctrl+Y / Ctrl+Shift+Z", action: this._i18n.t("toolbar.redo") },
-      { keys: "Tab", action: this._i18n.t("toolbar.indent") },
-      { keys: "Shift+Tab", action: this._i18n.t("toolbar.outdent") }
-    ];
-    const rows = shortcuts.map(
-      (s) => `<tr><td class="npe-help-key"><kbd>${this._escapeHtml(s.keys)}</kbd></td><td class="npe-help-action">${this._escapeHtml(s.action)}</td></tr>`
-    ).join("");
-    return `<table class="npe-help-table"><tbody>${rows}</tbody></table>`;
+    const t = (key) => this._i18n.t(key);
+    return `<img class="npe-help-logo" src="${this._escapeAttr(NPE_LOGO_URL)}" alt="Neiki Page Editor"><div class="npe-help-info"><div><strong>${this._escapeHtml(t("help.author"))}:</strong> neikiri (Jind\u0159ich Stoklasa)</div><div><strong>${this._escapeHtml(t("help.version"))}:</strong> ${this._escapeHtml(NPE_VERSION)}</div><div><strong>${this._escapeHtml(t("help.github"))}:</strong> <a href="${this._escapeAttr(NPE_GITHUB_URL)}" target="_blank" rel="noopener noreferrer">neikiri/neiki-page-editor</a></div></div>`;
   }
   _closeHelp() {
     if (this._helpPanel && this._helpPanel.parentNode) {
@@ -9614,6 +10613,44 @@ var EDITOR_CSS = `/**\r
   --npe-focus-ring: 0 0 0 2px #7070ff66;\r
 }\r
 \r
+/* Void Theme \u2014 dark purple cyberpunk */\r
+.npe-editor.npe-theme-void {\r
+  --npe-chrome-bg: #150f2b;\r
+  --npe-chrome-border: #3d2e6b;\r
+  --npe-chrome-text: #ece6ff;\r
+  --npe-chrome-text-muted: #8a7ab0;\r
+  --npe-toolbar-bg: #130c26;\r
+  --npe-toolbar-border: #3d2e6b;\r
+  --npe-toolbar-btn-hover-bg: #2a1f52;\r
+  --npe-toolbar-btn-active-bg: #362a66;\r
+  --npe-toolbar-btn-active-text: #e040fb;\r
+  --npe-toolbar-separator: #3d2e6b;\r
+  --npe-canvas-bg: #0a0614;\r
+  --npe-canvas-border: #3d2e6b;\r
+  --npe-statusbar-bg: #130c26;\r
+  --npe-statusbar-border: #3d2e6b;\r
+  --npe-statusbar-text: #8a7ab0;\r
+  --npe-focus-ring: 0 0 0 2px #b026ff66;\r
+}\r
+\r
+/* Void \u2014 neon glow accents for a cyberpunk feel */\r
+.npe-editor.npe-theme-void .npe-toolbar {\r
+  box-shadow: 0 1px 12px rgba(176, 38, 255, 0.15);\r
+}\r
+\r
+.npe-editor.npe-theme-void .npe-btn:hover {\r
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.5);\r
+}\r
+\r
+.npe-editor.npe-theme-void .npe-btn[aria-pressed="true"],\r
+.npe-editor.npe-theme-void .npe-btn.npe-active {\r
+  box-shadow: 0 0 8px rgba(176, 38, 255, 0.65);\r
+}\r
+\r
+.npe-editor.npe-theme-void .npe-canvas-wrapper {\r
+  box-shadow: inset 0 0 24px rgba(176, 38, 255, 0.08);\r
+}\r
+\r
 /* \u2500\u2500\u2500 Toolbar Group Responsive Wrapping \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */\r
 .npe-toolbar-group {\r
   display: inline-flex;\r
@@ -10501,49 +11538,34 @@ var EDITOR_CSS = `/**\r
 \r
 \r
 /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r
-   TASK 9 \u2014 Help Panel / Keyboard Shortcuts\r
+   TASK 9 \u2014 Help / About Panel\r
    \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\r
 \r
 .npe-help-panel {\r
-  min-width: 360px;\r
-  max-width: 520px;\r
+  min-width: 300px;\r
+  max-width: 380px;\r
 }\r
 \r
-.npe-help-body {\r
-  padding: 0;\r
+.npe-help-about {\r
+  padding: 24px 20px;\r
+  text-align: center;\r
 }\r
 \r
-.npe-help-table {\r
-  width: 100%;\r
-  border-collapse: collapse;\r
+.npe-help-logo {\r
+  width: 290px;\r
+  height: auto;\r
+  margin: 0 auto 16px;\r
+  display: block;\r
+}\r
+\r
+.npe-help-info {\r
   font-size: var(--npe-font-size);\r
-}\r
-\r
-.npe-help-table tr:not(:last-child) td {\r
-  border-bottom: 1px solid var(--npe-chrome-border);\r
-}\r
-\r
-.npe-help-key,\r
-.npe-help-action {\r
-  padding: 7px 8px;\r
+  line-height: 2;\r
   color: var(--npe-chrome-text);\r
 }\r
 \r
-.npe-help-key {\r
-  white-space: nowrap;\r
-  width: 1%;\r
-}\r
-\r
-.npe-help-key kbd {\r
-  display: inline-block;\r
-  background: var(--npe-chrome-bg);\r
-  border: 1px solid var(--npe-chrome-border);\r
-  border-radius: 3px;\r
-  padding: 1px 6px;\r
-  font-family: var(--npe-font);\r
-  font-size: 12px;\r
-  color: var(--npe-chrome-text);\r
-  box-shadow: 0 1px 0 var(--npe-chrome-border);\r
+.npe-help-info a {\r
+  color: var(--npe-toolbar-btn-active-text, #0057cc);\r
 }\r
 \r
 /* \u2500\u2500\u2500 Statusbar label/value spacing \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */\r

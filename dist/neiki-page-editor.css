@@ -636,6 +636,44 @@
   --npe-focus-ring: 0 0 0 2px #7070ff66;
 }
 
+/* Void Theme — dark purple cyberpunk */
+.npe-editor.npe-theme-void {
+  --npe-chrome-bg: #150f2b;
+  --npe-chrome-border: #3d2e6b;
+  --npe-chrome-text: #ece6ff;
+  --npe-chrome-text-muted: #8a7ab0;
+  --npe-toolbar-bg: #130c26;
+  --npe-toolbar-border: #3d2e6b;
+  --npe-toolbar-btn-hover-bg: #2a1f52;
+  --npe-toolbar-btn-active-bg: #362a66;
+  --npe-toolbar-btn-active-text: #e040fb;
+  --npe-toolbar-separator: #3d2e6b;
+  --npe-canvas-bg: #0a0614;
+  --npe-canvas-border: #3d2e6b;
+  --npe-statusbar-bg: #130c26;
+  --npe-statusbar-border: #3d2e6b;
+  --npe-statusbar-text: #8a7ab0;
+  --npe-focus-ring: 0 0 0 2px #b026ff66;
+}
+
+/* Void — neon glow accents for a cyberpunk feel */
+.npe-editor.npe-theme-void .npe-toolbar {
+  box-shadow: 0 1px 12px rgba(176, 38, 255, 0.15);
+}
+
+.npe-editor.npe-theme-void .npe-btn:hover {
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.5);
+}
+
+.npe-editor.npe-theme-void .npe-btn[aria-pressed="true"],
+.npe-editor.npe-theme-void .npe-btn.npe-active {
+  box-shadow: 0 0 8px rgba(176, 38, 255, 0.65);
+}
+
+.npe-editor.npe-theme-void .npe-canvas-wrapper {
+  box-shadow: inset 0 0 24px rgba(176, 38, 255, 0.08);
+}
+
 /* ─── Toolbar Group Responsive Wrapping ────────────────────────────────────── */
 .npe-toolbar-group {
   display: inline-flex;
@@ -1523,49 +1561,34 @@
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TASK 9 — Help Panel / Keyboard Shortcuts
+   TASK 9 — Help / About Panel
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .npe-help-panel {
-  min-width: 360px;
-  max-width: 520px;
+  min-width: 300px;
+  max-width: 380px;
 }
 
-.npe-help-body {
-  padding: 0;
+.npe-help-about {
+  padding: 24px 20px;
+  text-align: center;
 }
 
-.npe-help-table {
-  width: 100%;
-  border-collapse: collapse;
+.npe-help-logo {
+  width: 290px;
+  height: auto;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.npe-help-info {
   font-size: var(--npe-font-size);
-}
-
-.npe-help-table tr:not(:last-child) td {
-  border-bottom: 1px solid var(--npe-chrome-border);
-}
-
-.npe-help-key,
-.npe-help-action {
-  padding: 7px 8px;
+  line-height: 2;
   color: var(--npe-chrome-text);
 }
 
-.npe-help-key {
-  white-space: nowrap;
-  width: 1%;
-}
-
-.npe-help-key kbd {
-  display: inline-block;
-  background: var(--npe-chrome-bg);
-  border: 1px solid var(--npe-chrome-border);
-  border-radius: 3px;
-  padding: 1px 6px;
-  font-family: var(--npe-font);
-  font-size: 12px;
-  color: var(--npe-chrome-text);
-  box-shadow: 0 1px 0 var(--npe-chrome-border);
+.npe-help-info a {
+  color: var(--npe-toolbar-btn-active-text, #0057cc);
 }
 
 /* ─── Statusbar label/value spacing ────────────────────────────────────────── */

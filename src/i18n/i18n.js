@@ -14,11 +14,21 @@
 
 import { en } from './en.js';
 import { cs } from './cs.js';
+import { es } from './es.js';
+import { zh } from './zh.js';
+import { de } from './de.js';
+import { fr } from './fr.js';
+import { ja } from './ja.js';
 
 /** @type {Map<string, Record<string, string>>} */
 const _builtinMaps = new Map([
   ['en', en],
   ['cs', cs],
+  ['es', es],
+  ['zh', zh],
+  ['de', de],
+  ['fr', fr],
+  ['ja', ja],
 ]);
 
 /** @type {Map<string, Record<string, string>>} */

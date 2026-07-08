@@ -9,7 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.1]
+## [0.2.0]
+
+### Added
+
+- `void` theme — dark purple cyberpunk theme with neon glow accents on toolbar buttons and the canvas, ported from Neiki's Editor. Selectable via `theme: 'void'`, `editor.setTheme('void')`, and included in the `editor.toggleTheme()` cycle.
+- Help/About modal — clicking the toolbar's Help item now opens a modal with the project logo, author, version, and a link to the GitHub repository, replacing the previous keyboard-shortcuts table.
+- Five new built-in languages: Spanish (`es`), Simplified Chinese (`zh`), German (`de`), French (`fr`), and Japanese (`ja`) — full translation coverage matching the English key set. Use via `language: 'es'` (etc.) or `NeikiPageEditor.addTranslation()`.
+
+### Changed
+
+- Demo (`demo/index.html`): GitHub header button is now pushed to the far right of the header.
+
+[0.1.1]
 
 ### Added
 
@@ -62,5 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions workflows: CI checks, CodeQL security analysis, and npm + GitHub Packages publish on tag push.
 - `demo/index.html` (CDN-style demo) and `demo/esm.html` (ESM import demo).
 
-[Unreleased]: https://github.com/neikiri/neiki-page-editor/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/neikiri/neiki-page-editor/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/neikiri/neiki-page-editor/compare/0.1.1...0.2.0
+[0.1.1]: https://github.com/neikiri/neiki-page-editor/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/neikiri/neiki-page-editor/releases/tag/0.1.0

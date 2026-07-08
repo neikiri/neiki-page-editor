@@ -200,10 +200,14 @@ export const en = {
   'theme.blue': 'Blue',
   'theme.darkBlue': 'Dark Blue',
   'theme.midnight': 'Midnight',
+  'theme.void': 'Void',
 
   // Help
-  'help.title': 'Keyboard Shortcuts',
+  'help.title': 'Help',
   'help.close': 'Close',
+  'help.author': 'Author',
+  'help.version': 'Version',
+  'help.github': 'GitHub',
 
   // Overlay — media resize / contextual toolbar
   'overlay.media.toolbar':    'Media toolbar',

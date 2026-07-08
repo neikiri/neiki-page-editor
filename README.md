@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white" alt="CSS"><br>
   <img src="https://img.shields.io/badge/License-Source%20Available-2563EB?style=for-the-badge&logo=open-source-initiative&logoColor=white&labelColor=000F15&logoWidth=20" alt="License">
-  <img src="https://img.shields.io/badge/Version-0.1.1-2563EB?style=for-the-badge&logo=semantic-release&logoColor=white&labelColor=000F15&logoWidth=20" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.2.0-2563EB?style=for-the-badge&logo=semantic-release&logoColor=white&labelColor=000F15&logoWidth=20" alt="Version">
 </p>
 
 <p align="center">
@@ -113,8 +113,8 @@ If you want a page editor that renders real CSS, works from a single file, and i
 - **Familiar toolbar UX** — layout and controls match Neiki's Editor exactly.
 - **Full-page editing** — load a body fragment or an entire HTML document with `<style>` blocks and external stylesheets.
 - **Zero runtime dependencies** — vanilla JavaScript only.
-- **Five built-in themes** — light, dark, blue, dark-blue, midnight.
-- **English and Czech UI** — with an extensible i18n system.
+- **Six built-in themes** — light, dark, blue, dark-blue, midnight, void.
+- **Seven built-in languages** — English, Czech, Spanish, Simplified Chinese, German, French, Japanese — with an extensible i18n system.
 - **PHP sanitization helper** — optional server-side complement for database persistence.
 
 ---
@@ -135,7 +135,7 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 **Pin a specific version**
 
 ```html
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.1.1/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.2.0/neiki-page-editor.min.js"></script>
 ```
 
 **Load CSS and JS separately**
@@ -146,8 +146,8 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 <script src="https://cdn.neikiri.dev/neiki-page-editor/neiki-page-editor.js"></script>
 
 <!-- Or pinned -->
-<link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/0.1.1/neiki-page-editor.css">
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.1.1/neiki-page-editor.js"></script>
+<link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/0.2.0/neiki-page-editor.css">
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.2.0/neiki-page-editor.js"></script>
 ```
 
 **Alternative CDN — jsDelivr**
@@ -156,7 +156,7 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 <script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@latest/dist/neiki-page-editor.min.js"></script>
 
 <!-- Pinned -->
-<script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@0.1.1/dist/neiki-page-editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@0.2.0/dist/neiki-page-editor.min.js"></script>
 ```
 
 **Package manager**
@@ -228,7 +228,7 @@ The minified CDN build embeds all editor CSS and exposes `window.NeikiPageEditor
 When distributing over a CDN, pin to a specific version to avoid unexpected breaking changes:
 
 ```html
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.1.1/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.2.0/neiki-page-editor.min.js"></script>
 ```
 
 ---
@@ -437,7 +437,7 @@ Pass options as the second argument to `new NeikiPageEditor(selector, options)`.
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `theme` | `string` | `'light'` | Initial theme: `'light'`, `'dark'`, `'blue'`, `'dark-blue'`, `'midnight'` |
+| `theme` | `string` | `'light'` | Initial theme: `'light'`, `'dark'`, `'blue'`, `'dark-blue'`, `'midnight'`, `'void'` |
 | `persistTheme` | `boolean` | `false` | Persist theme choice in `localStorage` |
 | `language` | `string` | `'en'` | UI language code: `'en'`, `'cs'`, or custom |
 | `translations` | `object` | `{}` | Per-instance translation key overrides |
@@ -539,7 +539,7 @@ editor.destroy()            // remove all DOM, listeners, and iframe references 
 
 ```js
 editor.toggleFullscreen()   // toggle fullscreen mode on the editor shell
-editor.setTheme(name)       // set theme: 'light' | 'dark' | 'blue' | 'dark-blue' | 'midnight'
+editor.setTheme(name)       // set theme: 'light' | 'dark' | 'blue' | 'dark-blue' | 'midnight' | 'void'
 editor.toggleTheme()        // cycle to the next theme
 editor.getTheme()           // → string: current theme name
 ```
@@ -798,15 +798,15 @@ const editor = new NeikiPageEditor('#editor', {
 ### Adding a new language
 
 ```js
-NeikiPageEditor.addTranslation('de', {
-  'toolbar.bold': 'Fett',
-  'toolbar.italic': 'Kursiv',
-  'toolbar.underline': 'Unterstrichen',
-  'menu.more.save': 'Speichern',
+NeikiPageEditor.addTranslation('it', {
+  'toolbar.bold': 'Grassetto',
+  'toolbar.italic': 'Corsivo',
+  'toolbar.underline': 'Sottolineato',
+  'menu.more.save': 'Salva',
   // ... all required keys
 });
 
-const editor = new NeikiPageEditor('#editor', { language: 'de' });
+const editor = new NeikiPageEditor('#editor', { language: 'it' });
 ```
 
 Translation lookup chain: **custom per-instance overrides → registered language → English → key itself**.
@@ -831,7 +831,7 @@ error.saveFailed      error.loadFailed       error.uploadFailed
 
 ## Themes
 
-Five built-in themes affect the editor chrome (toolbar, status bar, modals, dropdowns) only. Page content inside the iframe is **never** forcibly re-themed.
+Six built-in themes affect the editor chrome (toolbar, status bar, modals, dropdowns) only. Page content inside the iframe is **never** forcibly re-themed.
 
 | Theme name | Description | CSS class on `.npe-editor` |
 |---|---|---|
@@ -840,12 +840,13 @@ Five built-in themes affect the editor chrome (toolbar, status bar, modals, drop
 | `blue` | Blue accent toolbar | `npe-theme-blue` |
 | `dark-blue` | Dark with blue accents | `npe-theme-dark-blue` |
 | `midnight` | Deep dark theme | `npe-theme-midnight` |
+| `void` | Dark purple cyberpunk theme with neon glow accents | `npe-theme-void` |
 
 ### Switching themes programmatically
 
 ```js
 editor.setTheme('dark');
-editor.toggleTheme();    // cycles: light → dark → blue → dark-blue → midnight → light
+editor.toggleTheme();    // cycles: light → dark → blue → dark-blue → midnight → void → light
 editor.getTheme();       // → 'dark'
 ```
 

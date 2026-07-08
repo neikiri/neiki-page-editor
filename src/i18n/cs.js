@@ -199,10 +199,14 @@ export const cs = {
   'theme.blue': 'Modré',
   'theme.darkBlue': 'Tmavě modré',
   'theme.midnight': 'Půlnoční',
+  'theme.void': 'Void',
 
   // Help
-  'help.title': 'Klávesové zkratky',
+  'help.title': 'Nápověda',
   'help.close': 'Zavřít',
+  'help.author': 'Autor',
+  'help.version': 'Verze',
+  'help.github': 'GitHub',
 
   // Overlay — media resize / contextual toolbar
   'overlay.media.toolbar':    'Panel médií',

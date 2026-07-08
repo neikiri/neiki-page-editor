@@ -28,6 +28,15 @@ const CHANGE_DEBOUNCE_MS = 300;
 /** Toast auto-dismiss duration (ms). */
 const TOAST_DURATION_MS = 4000;
 
+/** Package version, shown in the Help/About modal. Keep in sync with package.json. */
+const NPE_VERSION = '0.2.0';
+
+/** Logo shown in the Help/About modal. */
+const NPE_LOGO_URL = 'https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg';
+
+/** GitHub repository shown in the Help/About modal. */
+const NPE_GITHUB_URL = 'https://github.com/neikiri/neiki-page-editor';
+
 export class Editor {
   /**
    * @param {Element} targetEl — resolved target element
@@ -538,7 +547,7 @@ ${bodyHtml}
     backdrop.setAttribute('aria-label', t('help.title'));
 
     const panel = document.createElement('div');
-    panel.className = 'npe-modal npe-help-panel';
+    panel.className = 'npe-modal npe-help-panel npe-help-about-panel';
 
     const header = document.createElement('div');
     header.className = 'npe-modal-header';
@@ -558,7 +567,7 @@ ${bodyHtml}
     header.appendChild(closeBtn);
 
     const body = document.createElement('div');
-    body.className = 'npe-modal-body npe-help-body';
+    body.className = 'npe-modal-body npe-help-body npe-help-about';
     body.innerHTML = this._buildHelpContent();
 
     panel.appendChild(header);
@@ -584,28 +593,21 @@ ${bodyHtml}
   }
 
   /**
-   * Build the HTML content for the help panel.
+   * Build the HTML content for the Help/About modal: logo, version, GitHub link.
    * @returns {string}
    */
   _buildHelpContent() {
-    const shortcuts = [
-      { keys: 'Ctrl+B', action: this._i18n.t('toolbar.bold') },
-      { keys: 'Ctrl+I', action: this._i18n.t('toolbar.italic') },
-      { keys: 'Ctrl+U', action: this._i18n.t('toolbar.underline') },
-      { keys: 'Ctrl+K', action: this._i18n.t('insert.link') },
-      { keys: 'Ctrl+S', action: this._i18n.t('menu.more.save') },
-      { keys: 'Ctrl+Z', action: this._i18n.t('toolbar.undo') },
-      { keys: 'Ctrl+Y / Ctrl+Shift+Z', action: this._i18n.t('toolbar.redo') },
-      { keys: 'Tab', action: this._i18n.t('toolbar.indent') },
-      { keys: 'Shift+Tab', action: this._i18n.t('toolbar.outdent') },
-    ];
+    const t = (key) => this._i18n.t(key);
 
-    const rows = shortcuts.map(s =>
-      `<tr><td class="npe-help-key"><kbd>${this._escapeHtml(s.keys)}</kbd></td>` +
-      `<td class="npe-help-action">${this._escapeHtml(s.action)}</td></tr>`
-    ).join('');
-
-    return `<table class="npe-help-table"><tbody>${rows}</tbody></table>`;
+    return (
+      `<img class="npe-help-logo" src="${this._escapeAttr(NPE_LOGO_URL)}" alt="Neiki Page Editor">` +
+      `<div class="npe-help-info">` +
+      `<div><strong>${this._escapeHtml(t('help.author'))}:</strong> neikiri (Jindřich Stoklasa)</div>` +
+      `<div><strong>${this._escapeHtml(t('help.version'))}:</strong> ${this._escapeHtml(NPE_VERSION)}</div>` +
+      `<div><strong>${this._escapeHtml(t('help.github'))}:</strong> ` +
+      `<a href="${this._escapeAttr(NPE_GITHUB_URL)}" target="_blank" rel="noopener noreferrer">neikiri/neiki-page-editor</a></div>` +
+      `</div>`
+    );
   }
 
   _closeHelp() {
