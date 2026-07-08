@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0]
+
+### Added
+
+- `autumn` theme — warm retro theme with a gruvbox-inspired palette, ported from Neiki's Editor. Selectable via `theme: 'autumn'`, `editor.setTheme('autumn')`, and included in the `editor.toggleTheme()` cycle.
+
 ## [0.2.0]
 
 ### Added
@@ -74,7 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions workflows: CI checks, CodeQL security analysis, and npm + GitHub Packages publish on tag push.
 - `demo/index.html` (CDN-style demo) and `demo/esm.html` (ESM import demo).
 
-[Unreleased]: https://github.com/neikiri/neiki-page-editor/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/neikiri/neiki-page-editor/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/neikiri/neiki-page-editor/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/neikiri/neiki-page-editor/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/neikiri/neiki-page-editor/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/neikiri/neiki-page-editor/releases/tag/0.1.0

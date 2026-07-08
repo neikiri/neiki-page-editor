@@ -16,7 +16,7 @@ export const DEFAULT_TOOLBAR = [
 ];
 
 /** @type {string[]} */
-export const VALID_THEMES = ['light', 'dark', 'blue', 'dark-blue', 'midnight', 'void'];
+export const VALID_THEMES = ['light', 'dark', 'blue', 'dark-blue', 'midnight', 'void', 'autumn'];
 
 /** @type {string[]} */
 export const VALID_EDIT_MODES = ['body', 'regions'];

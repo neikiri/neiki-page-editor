@@ -91,7 +91,7 @@ describe('normalizeOptions', () => {
     expect(opts.translations).toEqual(trans);
   });
 
-  test('VALID_THEMES contains all 6 themes', () => {
-    expect(VALID_THEMES).toEqual(['light', 'dark', 'blue', 'dark-blue', 'midnight', 'void']);
+  test('VALID_THEMES contains all 7 themes', () => {
+    expect(VALID_THEMES).toEqual(['light', 'dark', 'blue', 'dark-blue', 'midnight', 'void', 'autumn']);
   });
 });

@@ -200,6 +200,7 @@ export const cs = {
   'theme.darkBlue': 'Tmavě modré',
   'theme.midnight': 'Půlnoční',
   'theme.void': 'Void',
+  'theme.autumn': 'Podzim',
 
   // Help
   'help.title': 'Nápověda',

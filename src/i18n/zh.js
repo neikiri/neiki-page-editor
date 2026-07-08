@@ -201,6 +201,7 @@ export const zh = {
   'theme.darkBlue': '深蓝色',
   'theme.midnight': '午夜',
   'theme.void': '虚空',
+  'theme.autumn': '秋天',
 
   // Help
   'help.title': '帮助',

@@ -11,6 +11,7 @@ const THEME_CLASS_MAP = {
   'dark-blue': 'npe-theme-dark-blue',
   'midnight': 'npe-theme-midnight',
   'void': 'npe-theme-void',
+  'autumn': 'npe-theme-autumn',
 };
 
 const STORAGE_KEY = 'npe-theme';

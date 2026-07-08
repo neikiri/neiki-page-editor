@@ -29,7 +29,7 @@ const CHANGE_DEBOUNCE_MS = 300;
 const TOAST_DURATION_MS = 4000;
 
 /** Package version, shown in the Help/About modal. Keep in sync with package.json. */
-const NPE_VERSION = '0.2.0';
+const NPE_VERSION = '0.3.0';
 
 /** Logo shown in the Help/About modal. */
 const NPE_LOGO_URL = 'https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg';

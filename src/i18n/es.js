@@ -201,6 +201,7 @@ export const es = {
   'theme.darkBlue': 'Azul oscuro',
   'theme.midnight': 'Medianoche',
   'theme.void': 'Vacío',
+  'theme.autumn': 'Otoño',
 
   // Help
   'help.title': 'Ayuda',

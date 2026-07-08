@@ -201,6 +201,7 @@ export const ja = {
   'theme.darkBlue': 'ダークブルー',
   'theme.midnight': 'ミッドナイト',
   'theme.void': 'ヴォイド',
+  'theme.autumn': 'オータム',
 
   // Help
   'help.title': 'ヘルプ',

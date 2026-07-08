@@ -674,6 +674,26 @@
   box-shadow: inset 0 0 24px rgba(176, 38, 255, 0.08);
 }
 
+/* Autumn Theme — warm retro palette */
+.npe-editor.npe-theme-autumn {
+  --npe-chrome-bg: #32302f;
+  --npe-chrome-border: #3c3836;
+  --npe-chrome-text: #ebdbb2;
+  --npe-chrome-text-muted: #a89984;
+  --npe-toolbar-bg: #32302f;
+  --npe-toolbar-border: #3c3836;
+  --npe-toolbar-btn-hover-bg: #504945;
+  --npe-toolbar-btn-active-bg: #665c54;
+  --npe-toolbar-btn-active-text: #d65d0e;
+  --npe-toolbar-separator: #3c3836;
+  --npe-canvas-bg: #282828;
+  --npe-canvas-border: #3c3836;
+  --npe-statusbar-bg: #32302f;
+  --npe-statusbar-border: #3c3836;
+  --npe-statusbar-text: #a89984;
+  --npe-focus-ring: 0 0 0 2px #fe801966;
+}
+
 /* ─── Toolbar Group Responsive Wrapping ────────────────────────────────────── */
 .npe-toolbar-group {
   display: inline-flex;

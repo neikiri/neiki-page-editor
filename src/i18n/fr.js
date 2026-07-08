@@ -201,6 +201,7 @@ export const fr = {
   'theme.darkBlue': 'Bleu foncé',
   'theme.midnight': 'Minuit',
   'theme.void': 'Vide',
+  'theme.autumn': 'Automne',
 
   // Help
   'help.title': 'Aide',

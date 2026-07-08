@@ -144,7 +144,7 @@ var DEFAULT_TOOLBAR = [
   "|",
   "moreMenu"
 ];
-var VALID_THEMES = ["light", "dark", "blue", "dark-blue", "midnight", "void"];
+var VALID_THEMES = ["light", "dark", "blue", "dark-blue", "midnight", "void", "autumn"];
 var VALID_EDIT_MODES = ["body", "regions"];
 var DEFAULTS = {
   initialContent: "",
@@ -418,6 +418,7 @@ var en = {
   "theme.darkBlue": "Dark Blue",
   "theme.midnight": "Midnight",
   "theme.void": "Void",
+  "theme.autumn": "Autumn",
   // Help
   "help.title": "Help",
   "help.close": "Close",
@@ -617,6 +618,7 @@ var cs = {
   "theme.darkBlue": "Tmav\u011B modr\xE9",
   "theme.midnight": "P\u016Flno\u010Dn\xED",
   "theme.void": "Void",
+  "theme.autumn": "Podzim",
   // Help
   "help.title": "N\xE1pov\u011Bda",
   "help.close": "Zav\u0159\xEDt",
@@ -816,6 +818,7 @@ var es = {
   "theme.darkBlue": "Azul oscuro",
   "theme.midnight": "Medianoche",
   "theme.void": "Vac\xEDo",
+  "theme.autumn": "Oto\xF1o",
   // Help
   "help.title": "Ayuda",
   "help.close": "Cerrar",
@@ -1015,6 +1018,7 @@ var zh = {
   "theme.darkBlue": "\u6DF1\u84DD\u8272",
   "theme.midnight": "\u5348\u591C",
   "theme.void": "\u865A\u7A7A",
+  "theme.autumn": "\u79CB\u5929",
   // Help
   "help.title": "\u5E2E\u52A9",
   "help.close": "\u5173\u95ED",
@@ -1214,6 +1218,7 @@ var de = {
   "theme.darkBlue": "Dunkelblau",
   "theme.midnight": "Mitternacht",
   "theme.void": "Void",
+  "theme.autumn": "Herbst",
   // Help
   "help.title": "Hilfe",
   "help.close": "Schlie\xDFen",
@@ -1413,6 +1418,7 @@ var fr = {
   "theme.darkBlue": "Bleu fonc\xE9",
   "theme.midnight": "Minuit",
   "theme.void": "Vide",
+  "theme.autumn": "Automne",
   // Help
   "help.title": "Aide",
   "help.close": "Fermer",
@@ -1612,6 +1618,7 @@ var ja = {
   "theme.darkBlue": "\u30C0\u30FC\u30AF\u30D6\u30EB\u30FC",
   "theme.midnight": "\u30DF\u30C3\u30C9\u30CA\u30A4\u30C8",
   "theme.void": "\u30F4\u30A9\u30A4\u30C9",
+  "theme.autumn": "\u30AA\u30FC\u30BF\u30E0",
   // Help
   "help.title": "\u30D8\u30EB\u30D7",
   "help.close": "\u9589\u3058\u308B",
@@ -8569,7 +8576,8 @@ var THEME_CLASS_MAP = {
   "blue": "npe-theme-blue",
   "dark-blue": "npe-theme-dark-blue",
   "midnight": "npe-theme-midnight",
-  "void": "npe-theme-void"
+  "void": "npe-theme-void",
+  "autumn": "npe-theme-autumn"
 };
 var STORAGE_KEY = "npe-theme";
 var ThemeManager = class {
@@ -8928,7 +8936,7 @@ var AutosaveManager = class {
 // src/core/Editor.js
 var CHANGE_DEBOUNCE_MS = 300;
 var TOAST_DURATION_MS = 4e3;
-var NPE_VERSION = "0.2.0";
+var NPE_VERSION = "0.3.0";
 var NPE_LOGO_URL = "https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg";
 var NPE_GITHUB_URL = "https://github.com/neikiri/neiki-page-editor";
 var Editor = class {
@@ -10672,6 +10680,26 @@ var EDITOR_CSS = `/**\r
 \r
 .npe-editor.npe-theme-void .npe-canvas-wrapper {\r
   box-shadow: inset 0 0 24px rgba(176, 38, 255, 0.08);\r
+}\r
+\r
+/* Autumn Theme \u2014 warm retro palette */\r
+.npe-editor.npe-theme-autumn {\r
+  --npe-chrome-bg: #32302f;\r
+  --npe-chrome-border: #3c3836;\r
+  --npe-chrome-text: #ebdbb2;\r
+  --npe-chrome-text-muted: #a89984;\r
+  --npe-toolbar-bg: #32302f;\r
+  --npe-toolbar-border: #3c3836;\r
+  --npe-toolbar-btn-hover-bg: #504945;\r
+  --npe-toolbar-btn-active-bg: #665c54;\r
+  --npe-toolbar-btn-active-text: #d65d0e;\r
+  --npe-toolbar-separator: #3c3836;\r
+  --npe-canvas-bg: #282828;\r
+  --npe-canvas-border: #3c3836;\r
+  --npe-statusbar-bg: #32302f;\r
+  --npe-statusbar-border: #3c3836;\r
+  --npe-statusbar-text: #a89984;\r
+  --npe-focus-ring: 0 0 0 2px #fe801966;\r
 }\r
 \r
 /* \u2500\u2500\u2500 Toolbar Group Responsive Wrapping \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */\r
