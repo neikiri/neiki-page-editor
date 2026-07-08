@@ -38,12 +38,12 @@
 </p>
 
 <p align="center">
-  <img src="assets/neiki-page-editor-blue.png" alt="Blue Theme" width="260">
-  <img src="assets/neiki-page-editor-dark.png" alt="Dark Theme" width="260">
-  <img src="assets/neiki-page-editor-dark-blue.png" alt="Dark Blue Theme" width="260">
-  <img src="assets/neiki-page-editor-midnight.png" alt="Midnight Theme" width="260">
-  <img src="assets/neiki-page-editor-void.png" alt="Void Theme" width="260">
-  <img src="assets/neiki-page-editor-autumn.png" alt="Autumn Theme" width="260">
+  <img src="assets/img/neiki-page-editor-blue.png" alt="Blue Theme" width="260">
+  <img src="assets/img/neiki-page-editor-dark.png" alt="Dark Theme" width="260">
+  <img src="assets/img/neiki-page-editor-dark-blue.png" alt="Dark Blue Theme" width="260">
+  <img src="assets/img/neiki-page-editor-midnight.png" alt="Midnight Theme" width="260">
+  <img src="assets/img/neiki-page-editor-void.png" alt="Void Theme" width="260">
+  <img src="assets/img/neiki-page-editor-autumn.png" alt="Autumn Theme" width="260">
 </p>
 
 ---
