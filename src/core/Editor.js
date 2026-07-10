@@ -29,7 +29,7 @@ const CHANGE_DEBOUNCE_MS = 300;
 const TOAST_DURATION_MS = 4000;
 
 /** Package version, shown in the Help/About modal. Keep in sync with package.json. */
-const NPE_VERSION = '0.4.0';
+const NPE_VERSION = '0.5.0';
 
 /** Logo shown in the Help/About modal. */
 const NPE_LOGO_URL = 'https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg';
@@ -45,6 +45,10 @@ export class Editor {
   constructor(targetEl, rawOptions) {
     /** @type {Element} */
     this._target = targetEl;
+
+    // Capture fallback content before the editor shell is appended to the
+    // target. Reading target.innerHTML later would include our own UI.
+    this._initialTargetContent = targetEl ? targetEl.innerHTML : '';
 
     /** @type {import('./Options').EditorOptions} */
     this._opts = normalizeOptions(rawOptions);
@@ -840,9 +844,10 @@ ${bodyHtml}
       this._applyLoadPayload(payload);
     } else {
       // Fall back to initialContent or current target innerHTML
-      const fallback = this._opts.initialContent ||
-        (this._target ? (this._target.innerHTML || '') : '');
-      if (fallback && this._serializer) {
+      const fallback = this._opts._initialContentProvided
+        ? this._opts.initialContent
+        : this._initialTargetContent;
+      if (this._serializer) {
         this._serializer.setContent(fallback);
       }
     }
@@ -850,7 +855,7 @@ ${bodyHtml}
     // Check for autosave draft to restore
     if (this._autosave) {
       const draft = this._autosave.restore();
-      if (draft && !payload && !this._opts.initialContent) {
+      if (draft && !payload && !this._opts._initialContentProvided && !this._initialTargetContent) {
         // Restore draft only when no explicit content was provided
         if (this._serializer) {
           this._serializer.setContent(draft);
@@ -884,6 +889,7 @@ ${bodyHtml}
     if (!payload || typeof payload !== 'object') return;
 
     let bodyHtml = '';
+    let bodyClass = '';
     let cssString = typeof payload.css === 'string' ? payload.css : '';
     let cssUrls = Array.isArray(payload.cssUrls) ? payload.cssUrls : [];
     const assetsBaseUrl = typeof payload.assetsBaseUrl === 'string'
@@ -896,9 +902,10 @@ ${bodyHtml}
         ? this._fullHtmlParser.parse(payload.fullHtml, {
             stylesheetUrlValidator: this._opts.stylesheetUrlValidator,
           })
-        : { bodyHtml: '', styleBlocks: [], cssUrls: [] };
+        : { bodyHtml: '', bodyClass: '', styleBlocks: [], cssUrls: [] };
 
       bodyHtml = parsed.bodyHtml || '';
+      bodyClass = parsed.bodyClass || '';
 
       // Extracted style blocks go into StyleManager
       if (this._styleManager && parsed.styleBlocks && parsed.styleBlocks.length) {
@@ -921,6 +928,7 @@ ${bodyHtml}
     // Write to canvas body
     const body = this._canvas ? this._canvas.getBody() : null;
     if (body) {
+      body.className = bodyClass;
       body.innerHTML = bodyHtml;
     }
 

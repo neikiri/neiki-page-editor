@@ -1,6 +1,6 @@
 {
   "name": "neiki-page-editor",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Lightweight, framework-agnostic visual page/CMS editor with iframe canvas rendering",
   "type": "module",
   "main": "dist/neiki-page-editor.js",

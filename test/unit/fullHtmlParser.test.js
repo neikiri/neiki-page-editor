@@ -19,9 +19,10 @@ describe('FullHtmlParser', () => {
   });
 
   describe('parse() — return shape', () => {
-    test('always returns bodyHtml, styleBlocks, cssUrls keys', () => {
+    test('always returns bodyHtml, bodyClass, styleBlocks, cssUrls keys', () => {
       const result = parser.parse('<html><body><p>Hi</p></body></html>');
       expect(result).toHaveProperty('bodyHtml');
+      expect(result).toHaveProperty('bodyClass');
       expect(result).toHaveProperty('styleBlocks');
       expect(result).toHaveProperty('cssUrls');
     });
@@ -38,12 +39,12 @@ describe('FullHtmlParser', () => {
 
     test('returns empty payload for null input', () => {
       const result = parser.parse(null);
-      expect(result).toEqual({ bodyHtml: '', styleBlocks: [], cssUrls: [] });
+      expect(result).toEqual({ bodyHtml: '', bodyClass: '', styleBlocks: [], cssUrls: [] });
     });
 
     test('returns empty payload for empty string', () => {
       const result = parser.parse('');
-      expect(result).toEqual({ bodyHtml: '', styleBlocks: [], cssUrls: [] });
+      expect(result).toEqual({ bodyHtml: '', bodyClass: '', styleBlocks: [], cssUrls: [] });
     });
   });
 
@@ -58,6 +59,11 @@ describe('FullHtmlParser', () => {
       const result = parser.parse(html);
       expect(result.bodyHtml).toContain('<h1>Title</h1>');
       expect(result.bodyHtml).toContain('<strong>bold</strong>');
+    });
+
+    test('extracts the body class attribute', () => {
+      const result = parser.parse('<html><body class="yzcl page"><p>Content</p></body></html>');
+      expect(result.bodyClass).toBe('yzcl page');
     });
 
     test('returns empty bodyHtml for document with no body content', () => {

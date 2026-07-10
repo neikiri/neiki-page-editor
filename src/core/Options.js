@@ -76,6 +76,12 @@ export const DEFAULTS = {
 export function normalizeOptions(raw = {}) {
   const opts = Object.assign({}, DEFAULTS);
 
+  // Keep track of whether initialContent was explicitly supplied.  The empty
+  // string is a valid value and must not be treated like an omitted option.
+  opts._initialContentProvided = typeof raw._initialContentProvided === 'boolean'
+    ? raw._initialContentProvided
+    : Object.prototype.hasOwnProperty.call(raw, 'initialContent');
+
   // String / content
   if (typeof raw.initialContent === 'string') opts.initialContent = raw.initialContent;
   if (typeof raw.pageStyles === 'string') opts.pageStyles = raw.pageStyles;

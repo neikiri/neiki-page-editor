@@ -70,6 +70,23 @@ describe('lifecycle: init → load → edit → save → destroy', () => {
     editor.destroy();
   });
 
+  test('empty initialContent does not load editor chrome into the canvas', async () => {
+    const editor = await createEditor(target, { initialContent: '' });
+    expect(editor.getContent()).toBe('');
+    expect(editor.getText()).toBe('');
+    editor.destroy();
+  });
+
+  test('fullHtml body classes are applied to the canvas body', async () => {
+    const fullHtml = '<!DOCTYPE html><html><body class="yzcl page"><h1>Page Title</h1></body></html>';
+    const editor = await createEditor(target, {
+      loadHandler: async () => ({ fullHtml }),
+    });
+    const iframe = target.querySelector('iframe.npe-canvas');
+    expect(iframe.contentDocument.body.className).toBe('yzcl page');
+    editor.destroy();
+  });
+
   test('loadHandler failure falls back to initialContent', async () => {
     const editor = await createEditor(target, {
       loadHandler: async () => { throw new Error('DB error'); },

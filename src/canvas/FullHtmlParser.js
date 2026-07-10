@@ -3,6 +3,7 @@
  *
  * Given a full HTML string (e.g. from a CMS), extracts:
  *  - bodyHtml: the innerHTML of <body>
+ *  - bodyClass: the class attribute of <body>
  *  - styleBlocks: array of text content from <style> elements in <head>
  *  - cssUrls: validated <link rel="stylesheet"> hrefs
  */
@@ -12,11 +13,11 @@ export class FullHtmlParser {
    *
    * @param {string} fullHtml
    * @param {{ stylesheetUrlValidator?: ((url: string) => boolean)|null }} [options]
-   * @returns {{ bodyHtml: string, styleBlocks: string[], cssUrls: string[] }}
+   * @returns {{ bodyHtml: string, bodyClass: string, styleBlocks: string[], cssUrls: string[] }}
    */
   parse(fullHtml, options = {}) {
     if (!fullHtml || typeof fullHtml !== 'string') {
-      return { bodyHtml: '', styleBlocks: [], cssUrls: [] };
+      return { bodyHtml: '', bodyClass: '', styleBlocks: [], cssUrls: [] };
     }
 
     const validator = (options && typeof options.stylesheetUrlValidator === 'function')
@@ -28,11 +29,12 @@ export class FullHtmlParser {
       const parser = new DOMParser();
       doc = parser.parseFromString(fullHtml, 'text/html');
     } catch {
-      return { bodyHtml: '', styleBlocks: [], cssUrls: [] };
+      return { bodyHtml: '', bodyClass: '', styleBlocks: [], cssUrls: [] };
     }
 
     // ── Body HTML ────────────────────────────────────────────────────────────
     const bodyHtml = doc.body ? doc.body.innerHTML : '';
+    const bodyClass = doc.body ? doc.body.className : '';
 
     // ── Style blocks from <head> <style> elements ────────────────────────────
     const styleBlocks = [];
@@ -68,7 +70,7 @@ export class FullHtmlParser {
       }
     }
 
-    return { bodyHtml, styleBlocks, cssUrls };
+    return { bodyHtml, bodyClass, styleBlocks, cssUrls };
   }
 }
 

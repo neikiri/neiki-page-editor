@@ -157,6 +157,7 @@ var DEFAULTS = {
 };
 function normalizeOptions(raw = {}) {
   const opts = Object.assign({}, DEFAULTS);
+  opts._initialContentProvided = typeof raw._initialContentProvided === "boolean" ? raw._initialContentProvided : Object.prototype.hasOwnProperty.call(raw, "initialContent");
   if (typeof raw.initialContent === "string") opts.initialContent = raw.initialContent;
   if (typeof raw.pageStyles === "string") opts.pageStyles = raw.pageStyles;
   if (typeof raw.assetsBaseUrl === "string") opts.assetsBaseUrl = raw.assetsBaseUrl;
@@ -8495,11 +8496,11 @@ var FullHtmlParser = class {
    *
    * @param {string} fullHtml
    * @param {{ stylesheetUrlValidator?: ((url: string) => boolean)|null }} [options]
-   * @returns {{ bodyHtml: string, styleBlocks: string[], cssUrls: string[] }}
+   * @returns {{ bodyHtml: string, bodyClass: string, styleBlocks: string[], cssUrls: string[] }}
    */
   parse(fullHtml, options = {}) {
     if (!fullHtml || typeof fullHtml !== "string") {
-      return { bodyHtml: "", styleBlocks: [], cssUrls: [] };
+      return { bodyHtml: "", bodyClass: "", styleBlocks: [], cssUrls: [] };
     }
     const validator = options && typeof options.stylesheetUrlValidator === "function" ? options.stylesheetUrlValidator : _defaultStylesheetUrlValidator2;
     let doc;
@@ -8507,9 +8508,10 @@ var FullHtmlParser = class {
       const parser = new DOMParser();
       doc = parser.parseFromString(fullHtml, "text/html");
     } catch (e) {
-      return { bodyHtml: "", styleBlocks: [], cssUrls: [] };
+      return { bodyHtml: "", bodyClass: "", styleBlocks: [], cssUrls: [] };
     }
     const bodyHtml = doc.body ? doc.body.innerHTML : "";
+    const bodyClass = doc.body ? doc.body.className : "";
     const styleBlocks = [];
     const headStyleEls = doc.head ? Array.from(doc.head.querySelectorAll("style")) : [];
     for (const styleEl of headStyleEls) {
@@ -8533,7 +8535,7 @@ var FullHtmlParser = class {
         cssUrls.push(href);
       }
     }
-    return { bodyHtml, styleBlocks, cssUrls };
+    return { bodyHtml, bodyClass, styleBlocks, cssUrls };
   }
 };
 function _defaultStylesheetUrlValidator2(url) {
@@ -8921,7 +8923,7 @@ var AutosaveManager = class {
 // src/core/Editor.js
 var CHANGE_DEBOUNCE_MS = 300;
 var TOAST_DURATION_MS = 4e3;
-var NPE_VERSION = "0.4.0";
+var NPE_VERSION = "0.5.0";
 var NPE_LOGO_URL = "https://raw.githubusercontent.com/neikiri/neiki-page-editor/main/assets/img/logo.svg";
 var NPE_GITHUB_URL = "https://github.com/neikiri/neiki-page-editor";
 var Editor = class {
@@ -8931,6 +8933,7 @@ var Editor = class {
    */
   constructor(targetEl, rawOptions) {
     this._target = targetEl;
+    this._initialTargetContent = targetEl ? targetEl.innerHTML : "";
     this._opts = normalizeOptions(rawOptions);
     this._bus = new EventBus();
     this._destroyed = false;
@@ -9542,14 +9545,14 @@ ${bodyHtml}
     if (payload) {
       this._applyLoadPayload(payload);
     } else {
-      const fallback = this._opts.initialContent || (this._target ? this._target.innerHTML || "" : "");
-      if (fallback && this._serializer) {
+      const fallback = this._opts._initialContentProvided ? this._opts.initialContent : this._initialTargetContent;
+      if (this._serializer) {
         this._serializer.setContent(fallback);
       }
     }
     if (this._autosave) {
       const draft = this._autosave.restore();
-      if (draft && !payload && !this._opts.initialContent) {
+      if (draft && !payload && !this._opts._initialContentProvided && !this._initialTargetContent) {
         if (this._serializer) {
           this._serializer.setContent(draft);
         }
@@ -9574,14 +9577,16 @@ ${bodyHtml}
   _applyLoadPayload(payload) {
     if (!payload || typeof payload !== "object") return;
     let bodyHtml = "";
+    let bodyClass = "";
     let cssString = typeof payload.css === "string" ? payload.css : "";
     let cssUrls = Array.isArray(payload.cssUrls) ? payload.cssUrls : [];
     const assetsBaseUrl = typeof payload.assetsBaseUrl === "string" ? payload.assetsBaseUrl : this._opts.assetsBaseUrl || "";
     if (typeof payload.fullHtml === "string" && payload.fullHtml.trim()) {
       const parsed = this._fullHtmlParser ? this._fullHtmlParser.parse(payload.fullHtml, {
         stylesheetUrlValidator: this._opts.stylesheetUrlValidator
-      }) : { bodyHtml: "", styleBlocks: [], cssUrls: [] };
+      }) : { bodyHtml: "", bodyClass: "", styleBlocks: [], cssUrls: [] };
       bodyHtml = parsed.bodyHtml || "";
+      bodyClass = parsed.bodyClass || "";
       if (this._styleManager && parsed.styleBlocks && parsed.styleBlocks.length) {
         this._styleManager.addExtractedStyleBlocks(parsed.styleBlocks);
       }
@@ -9596,6 +9601,7 @@ ${bodyHtml}
     }
     const body = this._canvas ? this._canvas.getBody() : null;
     if (body) {
+      body.className = bodyClass;
       body.innerHTML = bodyHtml;
     }
     if (assetsBaseUrl) {
@@ -10031,7 +10037,7 @@ var EDITOR_CSS = `/**\r
 \r
   /* Z-index layers */\r
   --npe-z-overlay: 10;\r
-  --npe-z-toolbar: 20;\r
+  --npe-z-toolbar: 100;
   --npe-z-modal: 1000;\r
   --npe-z-toast: 1100;\r
 }\r
@@ -10047,7 +10053,7 @@ var EDITOR_CSS = `/**\r
   border: 1px solid var(--npe-chrome-border);\r
   border-radius: 4px;\r
   box-sizing: border-box;\r
-  position: relative;\r
+  position: relative;
   width: 100%;\r
   height: 100%;\r
 }\r
@@ -10059,7 +10065,7 @@ var EDITOR_CSS = `/**\r
 }\r
 \r
 /* \u2500\u2500\u2500 Toolbar \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */\r
-.npe-toolbar {\r
+.npe-toolbar {
   display: flex;\r
   flex-wrap: wrap;\r
   align-items: center;\r
@@ -10067,7 +10073,8 @@ var EDITOR_CSS = `/**\r
   padding: 3px 6px;\r
   background: var(--npe-toolbar-bg);\r
   border-bottom: 1px solid var(--npe-toolbar-border);\r
-  position: relative;\r
+  position: sticky;
+  top: 0;
   z-index: var(--npe-z-toolbar);\r
   min-height: 40px;\r
 }\r

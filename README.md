@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/web%20components-29ABE2.svg?style=for-the-badge&logo=webcomponentsdotorg&logoColor=white" alt="Web Components">
   <br>
   <img src="https://img.shields.io/badge/License-Source%20Available-2563EB?style=for-the-badge&logo=open-source-initiative&logoColor=white&labelColor=000F15&logoWidth=20" alt="License">
-  <img src="https://img.shields.io/badge/Version-0.4.0-2563EB?style=for-the-badge&logo=semantic-release&logoColor=white&labelColor=000F15&logoWidth=20" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.5.0-2563EB?style=for-the-badge&logo=semantic-release&logoColor=white&labelColor=000F15&logoWidth=20" alt="Version">
 </p>
 
 <p align="center">
@@ -147,7 +147,7 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 **Pin a specific version**
 
 ```html
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.5.0/neiki-page-editor.min.js"></script>
 ```
 
 **Load CSS and JS separately**
@@ -158,8 +158,8 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 <script src="https://cdn.neikiri.dev/neiki-page-editor/neiki-page-editor.js"></script>
 
 <!-- Or pinned -->
-<link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.css">
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.js"></script>
+<link rel="stylesheet" href="https://cdn.neikiri.dev/neiki-page-editor/0.5.0/neiki-page-editor.css">
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.5.0/neiki-page-editor.js"></script>
 ```
 
 **Alternative CDN — jsDelivr**
@@ -168,7 +168,7 @@ The recommended install is the single bundled script from the CDN. CSS is includ
 <script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@latest/dist/neiki-page-editor.min.js"></script>
 
 <!-- Pinned -->
-<script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@0.4.0/dist/neiki-page-editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/neikiri/neiki-page-editor@0.5.0/dist/neiki-page-editor.min.js"></script>
 ```
 
 **Package manager**
@@ -240,7 +240,7 @@ The minified CDN build embeds all editor CSS and exposes `window.NeikiPageEditor
 When distributing over a CDN, pin to a specific version to avoid unexpected breaking changes:
 
 ```html
-<script src="https://cdn.neikiri.dev/neiki-page-editor/0.4.0/neiki-page-editor.min.js"></script>
+<script src="https://cdn.neikiri.dev/neiki-page-editor/0.5.0/neiki-page-editor.min.js"></script>
 ```
 
 ---

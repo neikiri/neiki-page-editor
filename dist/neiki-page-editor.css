@@ -38,7 +38,7 @@
 
   /* Z-index layers */
   --npe-z-overlay: 10;
-  --npe-z-toolbar: 20;
+  --npe-z-toolbar: 100;
   --npe-z-modal: 1000;
   --npe-z-toast: 1100;
 }
@@ -74,7 +74,8 @@
   padding: 3px 6px;
   background: var(--npe-toolbar-bg);
   border-bottom: 1px solid var(--npe-toolbar-border);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: var(--npe-z-toolbar);
   min-height: 40px;
 }
